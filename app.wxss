@@ -1,0 +1,21 @@
+/**app.wxss**/
+
+
+/*窗口*/
+
+page {
+  background-color: #efeff4;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.wapper {
+	width: 100%;
+}
