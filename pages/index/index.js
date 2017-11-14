@@ -1,14 +1,30 @@
 //index.js
 //获取应用实例
 const app = getApp();
-const getAddress = require('getAddress.js');
+import { chooseAddress, getAddress } from './address';
+import listDatas from './listData';
+
+let tagNavTop = 0; //标签导航距离顶部的距离
+
+let allLoadMore = true, //允许加载更多
+  currentPageNum = 1, //当前加载的次数
+  countPageNum = 5; //共可以加载的次数
+
 Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
+
     windowWidth: 750, //视口宽度
+    windowHeight: 500,
     swiperHeight: 150, //swiper 高度
     address: '',
+
+    tagNavFixed: false, //标签导航是否吸顶
+
+    isLastPage: false, //是否加载完所有的次数
+    listData: [],
+
     carousel: {
       imagesUrl: ['../../images/banner-1.png', '../../images/banner-2.png'],
       indicatorDots: true, //是否显示焦点
@@ -17,42 +33,38 @@ Page({
       autoplay: true, //自动播放
       interval: 4000, //自动播放间隔市场
       circular: true //无缝衔接
-    },
-    listData: [{
-      productName: '一乐拉面一乐拉面一乐拉面一乐拉面一乐拉面一乐拉面一乐拉面一乐拉面',
-      shopName: '一乐拉面（东大街店）ssssssssssssssssssssss',
-      sale: 120,
-      score: 4.8,
-      price: 9.9,
-      thumbnail: '../../images/pro01.png',
-      shopDesc: '一乐拉面是木叶村最负盛名的拉面，木叶历经数次大战，依然存在，可见一乐的实力见一乐的实力深不可测'
-    }, {
-      productName: '一乐拉面',
-      shopName: '一乐拉面（东大街店）',
-      sale: 120,
-      score: 4.8,
-      price: 9.9,
-      thumbnail: '../../images/pro01.png',
-      shopDesc: '一乐拉面是木叶村最负盛名的拉面，木叶历经数次大战，依然存在，可见一乐的实力深不可测'
-    }]
+    }
   },
+
   onShow() {
-    console.log('index show')
+
   },
+
   onLoad() {
-    let self = this;
     //获取地址
     getAddress(this, app);
+
+    //初始化标签导航
+    this.initTagNavTop();
+
+    //更改列表信息
+    let tempList = this.data.listData;
+    tempList.push(...listDatas);
+    this.setData({
+      listData: tempList
+    });
 
     //获取系统信息
     wx.getSystemInfo({
       success: res => {
         this.setData({
-          windowWidth: res.windowWidth
-        })
+          windowWidth: res.windowWidth,
+          windowHeight: res.windowHeight
+        });
       }
     });
   },
+
   imageLoad(e) {
     //获取图片真实宽度  
     let imgwidth = e.detail.width,
@@ -62,40 +74,69 @@ Page({
       swiperHeight: swiperHeight
     })
   },
-  handleChoiceAddress() {
+
+  //地址选取事件
+  handleChooseAddress() {
     let self = this;
     // 点击选择按钮之后打开地图选择地址
     wx.getLocation({
       type: 'wgs84',
       // 如果成功 直接选择地址
       success: res => {
-        wx.chooseLocation({
-          //获取地址成功 保存地址
-          success: res => {
-            wx.setStorage({
-              key: 'address',
-              data: res.name
-            });
-            app.globalData.address = res.name;
-            self.setData({
-              address: res.name
-            });
-          },
-          //获取地址失败
-          fail: res => {
-            console.log(res)
-          },
-          //获取地址完成
-          complete: function() {
-
-          }
-        })
+        chooseAddress(self, app);
       },
       // 如果选择失败 打开设置 重新授权
       fail: res => {
         wx.openSetting();
       }
     })
+  },
 
+  //页面滚动事件
+  handleScroll(e) {
+    if (!this.data.tagNavTop && e.detail.scrollTop > tagNavTop) {
+      this.setData({
+        tagNavTop: true
+      })
+    } else if (this.data.tagNavTop && e.detail.scrollTop < tagNavTop) {
+      this.setData({
+        tagNavTop: false
+      })
+    }
+  },
+
+  // 初始化标签导航
+  initTagNavTop() {
+    let self = this;
+    let query = wx.createSelectorQuery();
+    query.select('.tag-nav').boundingClientRect();
+    query.exec(res => {
+      tagNavTop = res[0].top;
+    });
+  },
+
+  //下拉加载更多
+  handleSscrollToLower() {
+    let self = this;
+    //如果当前页面不是最后一页
+    if (currentPageNum != countPageNum) {
+      if (allLoadMore) {
+        allLoadMore = false;
+        currentPageNum++;
+        setTimeout(function() {
+          //更改列表信息
+          let tempList = self.data.listData;
+          tempList.push(...listDatas);
+          self.setData({
+            listData: tempList
+          });
+          allLoadMore = true;
+        }, 2000);
+      }
+    } else {
+      this.setData({
+        isLastPage: true
+      })
+    }
   }
 })

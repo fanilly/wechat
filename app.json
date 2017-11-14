@@ -1,34 +1,38 @@
 {
   "pages":[
-    "pages/index/index",
+    "pages/about/about",
     "pages/order/order",
-    "pages/about/about"
+    "pages/index/index"
   ],
-  "tabBar":{
-    "list":[{
-      "pagePath":"pages/index/index",
-      "text":"首页",
-      "iconPath":"images/home.png",
-      "selectedIconPath":"images/home-active.png"
-    },{
-      "pagePath":"pages/order/order",
-      "text":"订单",
-      "iconPath":"images/order.png",
-      "selectedIconPath":"images/order-active.png"
-    },{
-      "pagePath":"pages/about/about",
-      "text":"个人中心",
-      "iconPath":"images/about.png",
-      "selectedIconPath":"images/about-active.png"
-    }],
-    "color":"#7f8389",
-    "backgroundColor":"#f7f7fa",
-    "selectedColor":"#02c1c9",
-    "position":"bottom",
-    "borderStyle":"#bfbfc3"
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home-active.png"
+      },
+      {
+        "pagePath": "pages/order/order",
+        "text": "订单",
+        "iconPath": "images/order.png",
+        "selectedIconPath": "images/order-active.png"
+      },
+      {
+        "pagePath": "pages/about/about",
+        "text": "个人中心",
+        "iconPath": "images/about.png",
+        "selectedIconPath": "images/about-active.png"
+      }
+    ],
+    "color": "#7f8389",
+    "backgroundColor": "#f7f7fa",
+    "selectedColor": "#02c1c9",
+    "position": "bottom",
+    "borderStyle": "#bfbfc3"
   },
   "window":{
-    "backgroundTextStyle":"light",
+    "backgroundTextStyle":"dark",
     "navigationBarBackgroundColor": "#02c1c9",
     "navigationBarTitleText": "淅峡生活平台",
     "navigationBarTextStyle":"#ffffff",

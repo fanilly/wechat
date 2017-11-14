@@ -1,8 +1,155 @@
-.log-list {
-  display: flex;
-  flex-direction: column;
-  padding: 40rpx;
+.header {
+  height: 530rpx;
+  width: 100%;
 }
-.log-item {
-  margin: 10rpx;
+
+.header .top {
+  height: 350rpx;
+  display: flex;
+  box-sizing: border-box;
+  background-image: radial-gradient(#02c9b9, #02c1c9);
+}
+
+.header .top .lside {
+  width: 150rpx;
+  padding: 25rpx 18rpx 0 26rpx;
+}
+
+.header .top .lside image {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 75rpx;
+}
+
+.header .top .center {
+  flex: 1;
+  padding-top: 52rpx;
+}
+
+.header .top .center text {
+  display: block;
+  color: #fff;
+}
+
+.header .top .center text:nth-child(1) {
+  height: 36rpx;
+  margin-bottom: 22rpx;
+  font-size: 36rpx;
+}
+
+.header .top .center text:nth-child(2) {
+  font-size: 30rpx;
+}
+
+.header .top .rside {
+  width: 64rpx;
+  padding: 68rpx 26rpx 0;
+}
+
+.header .top .rside image {
+  width: 64rpx;
+  height: 64rpx;
+}
+
+.header .bottom {
+  height: 180rpx;
+  background-color: #efeff4;
+}
+
+.header .bottom .info-card {
+  width: 700rpx;
+  height: 300rpx;
+  background-color: #fff;
+  box-shadow: 0 0 16rpx rgba(145, 145, 145, 0.28);
+  position: relative;
+  top: -150rpx;
+  left: 25rpx;
+  display: flex;
+  box-sizing: border-box;
+  padding: 20rpx 24rpx;
+}
+
+.header .bottom .info-card .lside {
+  flex: 1;
+  color: #353535;
+}
+
+.header .bottom .info-card text {
+  display: block;
+  font-size: 28rpx;
+  height: 28rpx;
+  margin-bottom: 19rpx;
+}
+
+.header .bottom .info-card text.commission {
+  font-size: 66rpx;
+  color: #ff1800;
+  height: 68rpx;
+}
+
+.header .bottom .info-card .rside {
+  width: 220rpx;
+}
+
+.header .bottom .info-card .rside text {
+  text-align: right;
+}
+
+.header .bottom .info-card text.commission-withdrawals {
+  width: 158rpx;
+  height: 58rpx;
+  border: 1rpx solid #02c1c9;
+  text-align: center;
+  line-height: 58rpx;
+  color: #02c1c9;
+  border-radius: 30rpx;
+  float: right;
+  margin: 44rpx 0 0;
+}
+.about-list{
+  width: 100%;
+  box-sizing: border-box;
+  
+}
+.about-list-item {
+  display: flex;
+  height: 87rpx;
+  border-bottom: 1px solid #e5e5e5;
+  background: #fff;
+  padding: 0 15rpx;
+}
+.about-list-item view:nth-child(1){
+  width: 54rpx;
+  position: relative;
+}
+.about-list-item view:nth-child(1) image {
+  width: 48rpx;
+  height: 48rpx;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  margin:auto;
+}
+.about-list-item view:nth-child(2){
+  flex:1;
+}
+.about-list-item view:nth-child(2) text {
+  display: inline-block;
+  height: 87rpx;
+  line-height: 87rpx;
+  font-size: 30rpx;
+  color:#353535;
+  padding-left: 10rpx;
+}
+.about-list-item view:nth-child(3){
+  width:16rpx;
+  position: relative;
+}
+.about-list-item view:nth-child(3) image{
+  width: 16rpx;
+  height: 25rpx;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  margin:auto;
 }

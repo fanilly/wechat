@@ -1,6 +1,60 @@
 <!--logs.wxml-->
-<view class="container log-list">
-  <block wx:for="{{logs}}" wx:for-item="log">
-    <text class="log-item">{{index + 1}}. {{log}}</text>
-  </block>
+<view class="container">
+  <!-- header -->
+  <view class="header">
+    <!-- userinfo -->
+    <view class="top">
+      <view class="lside">
+        <image src="{{userInfo.avatarUrl}}"></image>
+      </view>
+      <view class="center">
+        <text>{{userInfo.nickName?userInfo.nickName:'请登录'}}</text>
+        <text>18739037057</text>
+      </view>
+      <view class="rside">
+        <image src="../../images/code.png"></image>
+      </view>
+    </view>
+    <!-- card -->
+    <view class="bottom">
+      <view class="info-card">
+        <view class="lside">
+          <text>我的团长：</text>
+          <text>我的团员：</text>
+          <text>我的排名：</text>
+          <text class="commission">￥ 99.99</text>
+          <text>当前佣金</text>
+        </view>
+        <view class="rside">
+          <text>大简木·羽衣</text>
+          <text>999</text>
+          <text>999</text>
+          <text class="commission-withdrawals">佣金提现</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- list -->
+  <view class="about-list">
+    <view class="about-list-item">
+      <view><image src="../../images/icon01.png"></image></view>
+      <view><text>我的收藏</text></view>
+      <view><image src="../../images/icons01.png"></image></view>
+    </view>
+    <view class="about-list-item">
+      <view><image src="../../images/icon02.png"></image></view>
+      <view><text>我的优惠券</text></view>
+      <view><image src="../../images/icons01.png"></image></view>
+    </view>
+    <view class="about-list-item">
+      <view><image src="../../images/icon03.png"></image></view>
+      <view><text>绑定手机号</text></view>
+      <view><image src="../../images/icons01.png"></image></view>
+    </view>
+    <view class="about-list-item">
+      <view><image src="../../images/icon04.png"></image></view>
+      <view><text>关于我们</text></view>
+      <view><image src="../../images/icons01.png"></image></view>
+    </view>
+  </view>
 </view>

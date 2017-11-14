@@ -17,5 +17,19 @@ page {
 }
 
 .wapper {
-	width: 100%;
+  width: 100%;
+}
+
+
+/*加载更多*/
+
+.load-more-pro {
+  font-size: 26rpx;
+  text-align: center;
+  color: #666;
+}
+
+.load-more-pro text {
+  height: 62rpx;
+  line-height: 62rpx;
 }

@@ -1,6 +1,43 @@
-<!--logs.wxml-->
-<view class="container log-list">
-  <block wx:for="{{logs}}" wx:for-item="log">
-    <text class="log-item">{{index + 1}}. {{log}}</text>
-  </block>
+<!--order.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="{{showUsed ? '' : 'active'}}" bindtap="checkoutToUse">待使用订单</text>
+    <text class="{{showUsed ? 'active' : ''}}" bindtap="checkoutToUsed">已使用订单</text>
+  </view>
+  <view class="order-list">
+    <block wx:for="{{listData}}">
+      <block wx:if="{{item.used == showUsed}}">
+        <view class="order-list-item">
+          <view class="item-header">
+            <text>{{item.shopName}}</text>
+            <text style="color:{{item.used ? '#888888' : '#ff5400'}};">{{item.used ? '交易完成' : '待使用'}}</text>
+          </view>
+          <view class="item-main">
+            <view class="lside">
+              <image src="{{item.thumbnail}}"></image>
+            </view>
+            <view class="rside">
+              <view class="pro-title">
+                <text>{{item.productName}}</text>
+                <text>￥ {{item.price}}</text>
+              </view>
+              <view class="address-box">
+                <view class="address">
+                  <text>{{item.shopAddress}}</text>
+                </view>
+                <view class="amound">
+                  <text>x{{item.total}}</text>
+                  <text>合计：￥{{item.price*item.total}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="item-footer">
+            <text>{{item.used ? '立即评价' : '立即使用'}}</text>
+            <text>{{item.used ? '删除' : '申请退款'}}</text>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
 </view>

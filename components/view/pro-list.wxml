@@ -1,0 +1,28 @@
+<template name="pro-list">
+  <view class="pro-list">
+    <block wx:for="{{listData}}">
+      <view class="list-item">
+        <view class="lside">
+          <image src="{{item.thumbnail}}"></image>
+        </view>
+        <view class="rside">
+          <view class="pro-title">
+            <text>{{item.productName}}</text>
+            <text> 综合评分 {{item.score}}</text>
+            <text>月销 {{item.sale}} </text>
+          </view>
+          <view class="shop-title">
+            <text>{{item.shopName}}</text>
+            <text>250 m</text>
+          </view>
+          <view class="pro-price">
+            <text>￥ {{item.price}}</text>
+          </view>
+          <view class="shop-desc">
+            <text>{{item.shopDesc}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</template>

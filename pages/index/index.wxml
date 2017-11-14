@@ -1,84 +1,65 @@
+<import src="../../components/view/pro-list.wxml" />
 <!--index.wxml-->
 <view class="container">
-  <!-- 头部位置信息及搜索框 -->
-  <view class="header">
-    <view class="address" bindtap="handleChoiceAddress">
-      <image src="../../images/address.png" style="width:17rpx;height: 22rpx"></image>
-      <text>{{!address?'请选择地址':address}}</text>
+  <scroll-view scroll-y style="height: {{windowHeight}}px;" bindscroll="handleScroll" bindscrolltolower="handleSscrollToLower">
+    <!-- 头部位置信息及搜索框 -->
+    <view class="header">
+      <view class="address" bindtap="handleChooseAddress">
+        <image src="../../images/address.png" style="width:17rpx;height: 22rpx"></image>
+        <text>{{!address?'请选择地址':address}}</text>
+      </view>
+      <view class="search-box">
+        <icon type="search" size="12" color="#a6a6a6" />
+        <input placeholder="拉面" />
+      </view>
     </view>
-    <view class="search-box">
-      <icon type="search" size="12" color="#a6a6a6" />
-      <input placeholder="拉面" />
-    </view>
-  </view>
-  <!-- banner -->
-  <swiper class="carousel" style="height:{{swiperHeight}}px" indicator-dots="{{carousel.indicatorDots}}" indicator-color="{{carousel.indicatorColor}}" indicator-active-color="{{carousel.indicatorActiveColor}}" autoplay="carousel.autoplay" interval="{{carousel.interval}}" circular="carousel.circular">
-    <block wx:for="{{carousel.imagesUrl}}">
-      <swiper-item>
-        <image src="{{item}}" bindload="imageLoad" mode="widthFix"></image>
-      </swiper-item>
-    </block>
-  </swiper>
-  <!-- nav -->
-  <view class="nav">
-    <view class="nav-item">
-      <image src="../../images/nav01.png"></image>
-      <text>餐饮美食</text>
-    </view>
-    <view class="nav-item">
-      <image src="../../images/nav02.png"></image>
-      <text>酒店住宿</text>
-    </view>
-    <view class="nav-item">
-      <image src="../../images/nav03.png"></image>
-      <text>拼车出行</text>
-    </view>
-    <view class="nav-item">
-      <image src="../../images/nav04.png"></image>
-      <text>更多服务</text>
-    </view>
-  </view>
-  <!-- 附近商家 -->
-  <view class="shops">
-    <!-- 区域标题 -->
-    <view class="area-title">
-      <view class="line"></view>
-      <text>附近商家</text>
-      <view class="line"></view>
-    </view>
-    <!-- 标签的导航 -->
-    <view class="tag-nav">
-      <text>综合排序</text>
-      <text>销量最高</text>
-      <text>距离最近</text>
-      <text>价格最低</text>
-    </view>
-    <!-- 商品列表 -->
-    <view class="pro-list">
-      <block wx:for="{{listData}}">
-        <view class="list-item">
-          <view class="lside">
-            <image src="{{item.thumbnail}}"></image>
-          </view>
-          <view class="rside">
-            <view class="pro-title">
-              <text>{{item.productName}}</text>
-              <text> 综合评分 {{item.score}}</text>
-              <text>月销 {{item.sale}}  </text>
-            </view>
-            <view class="shop-title">
-              <text>{{item.shopName}}</text>
-              <text>250 m</text>
-            </view>
-            <view class="pro-price">
-              <text>￥ {{item.price}}</text>
-            </view>
-            <view class="shop-desc">
-              <text>{{item.shopDesc}}</text>
-            </view>
-          </view>
-        </view>
+    <!-- banner -->
+    <swiper class="carousel" style="height:{{swiperHeight}}px" indicator-dots="{{carousel.indicatorDots}}" indicator-color="{{carousel.indicatorColor}}" indicator-active-color="{{carousel.indicatorActiveColor}}" autoplay="carousel.autoplay" interval="{{carousel.interval}}" circular="carousel.circular">
+      <block wx:for="{{carousel.imagesUrl}}">
+        <swiper-item>
+          <image src="{{item}}" bindload="imageLoad" mode="widthFix"></image>
+        </swiper-item>
       </block>
+    </swiper>
+    <!-- nav -->
+    <view class="nav">
+      <view class="nav-item">
+        <image src="../../images/nav01.png"></image>
+        <text>餐饮美食</text>
+      </view>
+      <view class="nav-item">
+        <image src="../../images/nav02.png"></image>
+        <text>酒店住宿</text>
+      </view>
+      <view class="nav-item">
+        <image src="../../images/nav03.png"></image>
+        <text>拼车出行</text>
+      </view>
+      <view class="nav-item">
+        <image src="../../images/nav04.png"></image>
+        <text>更多服务</text>
+      </view>
     </view>
-  </view>
+    <!-- 附近商家 -->
+    <view class="shops">
+      <!-- 区域标题 -->
+      <view class="area-title" wx:if="true" style="margin-bottom: {{tagNavTop ? '80rpx':0}}">
+        <view class="line"></view>
+        <text>附近商家</text>
+        <view class="line"></view>
+      </view>
+      <!-- 标签的导航 -->
+      <view class="tag-nav" style="position:{{tagNavTop ? 'fixed' : 'static'}};background-color: {{tagNavTop ? '#f7f7fa' : '#fff'}};">
+        <text>综合排序</text>
+        <text>销量最高</text>
+        <text>距离最近</text>
+        <text>价格最低</text>
+      </view>
+      <!-- 商品列表 -->
+      <template is="pro-list" data="{{listData}}"></template>
+    </view>
+    <view class="load-more-pro">
+      <text>{{isLastPage?'已经没有等多内容了':'正在加载更多...'}}</text>
+    </view>
+  </scroll-view>
 </view>

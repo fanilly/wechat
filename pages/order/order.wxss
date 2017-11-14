@@ -1,8 +1,139 @@
-.log-list {
+.header {
+  height: 100rpx;
+  padding: 0 15rpx;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  padding: 40rpx;
+  background-color: #fff;
+  box-sizing: border-box;
 }
-.log-item {
-  margin: 10rpx;
+
+.header text {
+  display: block;
+  flex: 1;
+  text-align: center;
+  height: 98rpx;
+  line-height: 98rpx;
+  font-size: 30rpx;
+  color: #353535;
+  border-bottom: 2rpx solid transparent;
+}
+
+.header text.active {
+  color: #ff5400;
+  border-color: #ff5400;
+}
+
+.order-list-item {
+  background: #fff;
+  margin-top: 20rpx;
+  color: #353535;
+}
+
+.order-list-item .item-header {
+  height: 80rpx;
+  padding: 0 15rpx;
+}
+
+.order-list-item .item-header text {
+  display: inline-block;
+  line-height: 80rpx;
+  font-size: 24rpx;
+}
+.order-list-item .item-header text:first-child{
+  width:420rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.order-list-item .item-header text:last-child {
+  float: right;
+}
+
+.order-list-item .item-main {
+  background: #fafafa;
+  padding: 15rpx;
+  display: flex;
+  height: 140rpx;
+}
+
+.order-list-item .item-main .lside {
+  width: 180rpx;
+}
+
+.order-list-item .item-main .lside image {
+  width: 180rpx;
+  height: 140rpx;
+}
+
+.order-list-item .item-main .rside {
+  padding-left: 15rpx;
+  flex: 1;
+}
+
+.order-list-item .item-main .pro-title {
+  color: #353535;
+  font-size: 24rpx;
+  margin-bottom: 10rpx;
+}
+.order-list-item .item-main .pro-title text:first-child {
+  width: 300rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.order-list-item .item-main .pro-title text {
+  display: inline-block;
+}
+
+.order-list-item .item-main .pro-title text:last-child {
+  float: right;
+}
+
+.order-list-item .item-main .address-box {
+  display: flex;
+}
+
+.address-box .address {
+  color: #888;
+  font-size: 24rpx;
+  flex: 1;
+}
+
+.address-box .address text {
+  line-height: 40rpx;
+}
+
+.address-box .amound {
+  width: 160rpx;
+  text-align: right;
+}
+
+.address-box .amound text {
+  display: block;
+  font-size: 24rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+}
+
+.order-list-item .item-footer {
+  height: 60rpx;
+  padding: 25rpx 15rpx;
+}
+
+.order-list-item .item-footer text {
+  display: block;
+  width: 148rpx;
+  height: 58rpx;
+  text-align: center;
+  font-size: 24rpx;
+  float: right;
+  line-height: 58rpx;
+  border: 1rpx solid #888;
+  border-radius: 30rpx;
+  margin-left: 24rpx;
+}
+
+.order-list-item .item-footer text:first-child {
+  color: #ff5400;
+  border-color: #ff5400;
 }

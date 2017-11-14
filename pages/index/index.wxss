@@ -1,4 +1,5 @@
 /**index.wxss**/
+@import '../../components/view/pro-list.wxss';
 
 .header {
   display: flex;
@@ -102,7 +103,6 @@
 
 .shops {
   margin-top: 20rpx;
-  background-color: #fff;
   width: 100%;
 }
 
@@ -115,6 +115,7 @@
   height: 90rpx;
   line-height: 90rpx;
   border-bottom: 1rpx solid #cccccc;
+  background-color: #fff;
 }
 
 .area-title text {
@@ -134,6 +135,8 @@
   text-align: center;
   display: flex;
   height: 80rpx;
+  top:0;
+  z-index: 1000;
 }
 
 .tag-nav text {
@@ -142,99 +145,4 @@
   flex: 1;
   font-size: 26rpx;
   color: #666666;
-}
-
-.pro-list {
-  width: 100%;
-}
-
-.list-item {
-  border-top: 1rpx solid #cccccc;
-  width: 100%;
-  padding: 20rpx 15rpx;
-  box-sizing: border-box;
-  display: flex;
-}
-
-.list-item .lside {
-  width: 180rpx;
-  padding-right: 15rpx;
-}
-
-.list-item .lside image {
-  width: 180rpx;
-  height: 140rpx;
-}
-
-.list-item .rside {
-  flex: 1;
-}
-
-.list-item .pro-title {
-  height: 42rpx;
-}
-
-.list-item .pro-title text {
-  height: 42rpx;
-  line-height: 42rpx;
-  display: inline-block;
-  vertical-align: top;
-}
-
-.list-item .pro-title text:first-child {
-  font-size: 30rpx;
-  color: #000;
-  font-weight: 600;
-  width:180rpx;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.list-item .pro-title text:nth-child(2){
-  padding-left: 18rpx;
-}
-.list-item .pro-title text:nth-child(2),
-.list-item .pro-title text:nth-child(3) {
-  font-size: 24rpx;
-  color: #666;
-  float: right;
-}
-
-.list-item .shop-title {
-  height: 42rpx;
-  line-height: 42rpx;
-}
-.list-item .shop-title text {
-  font-size: 24rpx;
-  color:#666;
-  display: inline-block;
-}
-.list-item .shop-title text:first-child{
-  float: left;
-  width:320rpx;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.list-item .shop-title text:last-child{
-  float:right;
-}
-
-.list-item .pro-price {
-  font-size: 32rpx;
-  color:#fd5c5c;
-  height: 42rpx;
-  line-height: 42rpx;
-  font-weight: 600;
-}
-
-.list-item .shop-desc {
-  font-size: 24rpx;
-  color:#666;
-  border-top: 1rpx solid #ccc;
-  margin-top: 8rpx;
-  padding-top: 8rpx;
-}
-.list-item .shop-desc text {
-  line-height: 30rpx;
 }

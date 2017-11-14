@@ -1,6 +1,16 @@
+const app = getApp();
 Page({
-	data:{
-		logs:'test logs'
-	}
+  data: {
+    userInfo: {}
+  },
+  onLoad() {
 
+  },
+  onShow() {
+    if (this.data.userInfo != app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo
+      });
+    }
+  }
 })
