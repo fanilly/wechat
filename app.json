@@ -1,8 +1,11 @@
 {
   "pages":[
+    "pages/bindphone/bindphone",
+    "pages/index/index",
     "pages/about/about",
     "pages/order/order",
-    "pages/index/index"
+    "pages/collection/collection",
+    "pages/commission/commission"
   ],
   "tabBar": {
     "list": [

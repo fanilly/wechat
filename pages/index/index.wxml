@@ -1,4 +1,4 @@
-<import src="../../components/view/pro-list.wxml" />
+<import src="../../template/view/pro-list.wxml" />
 <!--index.wxml-->
 <view class="container">
   <scroll-view scroll-y style="height: {{windowHeight}}px;" bindscroll="handleScroll" bindscrolltolower="handleSscrollToLower">

@@ -1,0 +1,125 @@
+/* pages/.wxss */
+
+.header {
+  background-color: #02c1c9;
+  width: 100%;
+  height: 160rpx;
+  padding: 60rpx 0;
+}
+
+.header text {
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+}
+
+.header text:first-child {
+  font-size: 86rpx;
+  height: 86rpx;
+  margin-bottom: 40rpx;
+}
+
+.header text:last-child {
+  height: 30rpx;
+  font-size: 30rpx;
+  color: #7efff9;
+}
+
+.info {
+  display: flex;
+  height: 120rpx;
+  background-color: #1cc7cf;
+  width: 100%;
+}
+
+.info view {
+  flex: 1;
+}
+
+.card-wrap {
+  width: 100%;
+  padding: 0 15rpx;
+  box-sizing: border-box;
+}
+
+.card {
+	margin-top: 30rpx;
+  width: 100%;
+  border-radius: 5rpx;
+  height: 540rpx;
+  background-color: #fff;
+  box-shadow: 0 2rpx 10rpx #999;
+}
+
+.card .title {
+  height: 80rpx;
+  font-size: 26rpx;
+  color: #333;
+  display: flex;
+  align-items: center;
+  padding-left: 20rpx;
+  border-bottom: 1rpx solid #e5e5e5;
+}
+
+.card .content text:first-child {
+  color: #333;
+}
+
+.card .content text {
+  line-height: 44rpx;
+  font-size: 24rpx;
+  display: block;
+  padding: 0 20rpx;
+  color: #999999;
+}
+
+.info view text {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 26rpx;
+  height: 26rpx;
+}
+
+.info view text:first-child {
+  color: #7efff9;
+  padding: 22rpx 0;
+}
+
+.info view text:last-child {
+  color: #fff;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+}
+
+.footer input {
+  flex: 1;
+  height: 100rpx;
+  background: #fff;
+  font-size: 26rpx;
+  color: #999999;
+  padding: 0 20rpx;
+}
+
+.footer view {
+  height: 100rpx;
+  width: 210rpx;
+}
+
+.footer view text {
+  display: block;
+  width: 210rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-size: 30rpx;
+  background-color: #02c1c9;
+  color: #fff;
+}

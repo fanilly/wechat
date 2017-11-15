@@ -1,0 +1,4 @@
+<import src="../../template/view/pro-list.wxml" />
+<view class="container">
+  <template is="pro-list" data="{{listData}}"></template>
+</view>

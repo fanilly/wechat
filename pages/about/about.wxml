@@ -9,7 +9,7 @@
       </view>
       <view class="center">
         <text>{{userInfo.nickName?userInfo.nickName:'请登录'}}</text>
-        <text>18739037057</text>
+        <text>LV: 4</text>
       </view>
       <view class="rside">
         <image src="../../images/code.png"></image>
@@ -29,32 +29,60 @@
           <text>大简木·羽衣</text>
           <text>999</text>
           <text>999</text>
-          <text class="commission-withdrawals">佣金提现</text>
+          <navigator url="../commission/commission?title='测试'">
+            <text class="commission-withdrawals">佣金提现</text>
+          </navigator>
         </view>
       </view>
     </view>
   </view>
   <!-- list -->
   <view class="about-list">
+    <navigator url="../collection/collection">
+      <view class="about-list-item">
+        <view>
+          <image src="../../images/icon01.png"></image>
+        </view>
+        <view>
+          <text>我的收藏</text>
+        </view>
+        <view>
+          <image src="../../images/icons01.png"></image>
+        </view>
+      </view>
+    </navigator>
     <view class="about-list-item">
-      <view><image src="../../images/icon01.png"></image></view>
-      <view><text>我的收藏</text></view>
-      <view><image src="../../images/icons01.png"></image></view>
+      <view>
+        <image src="../../images/icon02.png"></image>
+      </view>
+      <view>
+        <text>我的优惠券</text>
+      </view>
+      <view>
+        <image src="../../images/icons01.png"></image>
+      </view>
     </view>
     <view class="about-list-item">
-      <view><image src="../../images/icon02.png"></image></view>
-      <view><text>我的优惠券</text></view>
-      <view><image src="../../images/icons01.png"></image></view>
+      <view>
+        <image src="../../images/icon03.png"></image>
+      </view>
+      <view>
+        <text>绑定手机号</text>
+      </view>
+      <view>
+        <image src="../../images/icons01.png"></image>
+      </view>
     </view>
     <view class="about-list-item">
-      <view><image src="../../images/icon03.png"></image></view>
-      <view><text>绑定手机号</text></view>
-      <view><image src="../../images/icons01.png"></image></view>
-    </view>
-    <view class="about-list-item">
-      <view><image src="../../images/icon04.png"></image></view>
-      <view><text>关于我们</text></view>
-      <view><image src="../../images/icons01.png"></image></view>
+      <view>
+        <image src="../../images/icon04.png"></image>
+      </view>
+      <view>
+        <text>关于我们</text>
+      </view>
+      <view>
+        <image src="../../images/icons01.png"></image>
+      </view>
     </view>
   </view>
 </view>

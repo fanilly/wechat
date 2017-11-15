@@ -44,6 +44,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 30rpx;
 }
 .order-list-item .item-header text:last-child {
   float: right;

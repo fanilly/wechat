@@ -1,5 +1,5 @@
 /**index.wxss**/
-@import '../../components/view/pro-list.wxss';
+@import '../../template/view/pro-list.wxss';
 
 .header {
   display: flex;
