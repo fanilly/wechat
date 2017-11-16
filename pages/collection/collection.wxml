@@ -1,4 +1,11 @@
 <import src="../../template/view/pro-list.wxml" />
 <view class="container">
-  <template is="pro-list" data="{{listData}}"></template>
+  <!-- 商品列表 -->
+  <view class="pro-list">
+    <block wx:for="{{listData}}">
+      <navigator url="/">
+        <template is="pro-list" data="{{item}}"></template>
+      </navigator>
+    </block>
+  </view>
 </view>

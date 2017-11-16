@@ -1,0 +1,26 @@
+<template name="coupon">
+  <view class="coupon">
+    <view class="lside">
+      <text>优惠券</text>
+    </view>
+    <view class="center">
+      <view class="title">
+        <text>满减（{{item.activityname}}）</text>
+      </view>
+      <view class="content">
+        <text>截止：{{item.invaliddate}}</text>
+        <text>消费满{{item.fullcut}}元可用</text>
+        <text>{{item.shopname}}</text>
+      </view>
+    </view>
+    <view class="rside">
+      <text>
+        <text>￥</text>{{item.denomination}}</text>
+      <view class="arc"></view>
+      <view class="arc"></view>
+      <view class="arc"></view>
+      <view class="arc"></view>
+      <view class="arc"></view>
+    </view>
+  </view>
+</template>

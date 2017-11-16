@@ -1,0 +1,40 @@
+<import src="../../template/view/pro-list.wxml" />
+<!--index.wxml-->
+<view class="container">
+  <scroll-view scroll-y style="height: {{windowHeight}}px;" bindscroll="handleScroll" bindscrolltolower="handleSscrollToLower">
+    <!-- 头部位置信息及搜索框 -->
+    <form>
+      <view class="header">
+        <view class="search-box">
+          <icon type="search" size="12" color="#a6a6a6" />
+          <input placeholder="拉面" />
+        </view>
+        <view class="search-btn" bindtap="handleChooseAddress">
+          <button formType="submit">搜索</button>
+        </view>
+      </view>
+    </form>
+    <!-- 附近商家 -->
+    <view class="shops">
+
+      <!-- 标签的导航 -->
+      <view class="tag-nav" style="position:{{tagNavTop ? 'fixed' : 'static'}};background-color: {{tagNavTop ? '#f7f7fa' : '#fff'}};">
+        <text>综合排序</text>
+        <text>销量最高</text>
+        <text>距离最近</text>
+        <text>价格最低</text>
+      </view>
+      <!-- 商品列表 -->
+      <view class="pro-list">
+        <block wx:for="{{listData}}">
+          <navigator url="/">
+            <template is="pro-list" data="{{item}}"></template>
+          </navigator>
+        </block>
+      </view>
+    </view>
+    <view class="load-more-pro">
+      <text>{{isLastPage?'已经没有等多内容了':'正在加载更多...'}}</text>
+    </view>
+  </scroll-view>
+</view>

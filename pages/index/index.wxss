@@ -1,6 +1,6 @@
 /**index.wxss**/
-@import '../../template/view/pro-list.wxss';
 
+@import '../../template/view/pro-list.wxss';
 .header {
   display: flex;
   width: 100%;
@@ -135,7 +135,7 @@
   text-align: center;
   display: flex;
   height: 80rpx;
-  top:0;
+  top: 0;
   z-index: 1000;
 }
 
@@ -145,4 +145,8 @@
   flex: 1;
   font-size: 26rpx;
   color: #666666;
+}
+
+.pro-list {
+  width: 100%;
 }

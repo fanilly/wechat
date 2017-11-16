@@ -56,7 +56,13 @@
         <text>价格最低</text>
       </view>
       <!-- 商品列表 -->
-      <template is="pro-list" data="{{listData}}"></template>
+      <view class="pro-list">
+        <block wx:for="{{listData}}">
+          <navigator url="/">
+            <template is="pro-list" data="{{item}}"></template>
+          </navigator>
+        </block>
+      </view>
     </view>
     <view class="load-more-pro">
       <text>{{isLastPage?'已经没有等多内容了':'正在加载更多...'}}</text>

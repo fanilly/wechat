@@ -1,0 +1,10 @@
+<import src="../../template/view/coupon.wxml" />
+<view class="container">
+  <view class="coupon-warp">
+    <block wx:for="{{listData}}">
+      <navigator url="/">
+        <template is="coupon" data="{{item}}"></template>
+      </navigator>
+    </block>
+  </view>
+</view>

@@ -9,14 +9,19 @@
 .content input {
   height: 120rpx;
   width: 100%;
-  border-bottom: 1rpx solid #999;
-  color: #999;
+  border-bottom: 1rpx solid #f0f0f0;
+  color: #666;
   padding-left: 10rpx;
   font-size: 30rpx;
 }
 
+.placeholder {
+  color: #ccc;
+}
+
 .content button {
   height: 100rpx;
+  line-height: 100rpx;
   width: 100%;
   border-radius: 6rpx;
   font-size: 36rpx;
@@ -28,8 +33,8 @@
 .verf-code {
   display: flex;
   height: 120rpx;
-  border-bottom: 1rpx solid #999;
-  position:relative;
+  border-bottom: 1rpx solid #f0f0f0;
+  position: relative;
 }
 
 .verf-code input {

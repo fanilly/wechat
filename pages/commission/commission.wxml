@@ -31,7 +31,7 @@
     </view>
   </view>
   <view class="footer">
-    <input placeholder="请输入提现金额" />
+    <input type="number" placeholder="请输入提现金额" />
     <view>
       <text>立即提现</text>
     </view>

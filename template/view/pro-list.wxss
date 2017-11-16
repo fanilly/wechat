@@ -1,7 +1,3 @@
-.pro-list {
-  width: 100%;
-}
-
 .list-item {
   margin-top: 20rpx;
   width: 100%;

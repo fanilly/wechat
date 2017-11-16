@@ -1,1 +1,4 @@
 @import "../../template/view/pro-list.wxss";
+.pro-list {
+	width: 100%;
+}
