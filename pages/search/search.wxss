@@ -1,27 +1,59 @@
 /**index.wxss**/
 
 @import '../../template/view/pro-list.wxss';
-
 .header {
   display: flex;
   width: 100%;
-  background-color: #fff;
-  height: 100rpx;
+  height: 56rpx;
+  padding: 22rpx 0;
   align-items: center;
-  background-color: #f0f0f0;
+  background-color: #fff;
 }
 
 .header .search-box {
   flex: 1;
+  padding: 0 15rpx;
+  position: relative;
+}
+
+.header .search-box icon {
+  position: absolute;
+  left: 30rpx;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 12px;
+  width: 12px;
 }
 
 .header .search-box input {
   width: 100%;
-  background-color: #fff;
+  background-color: #eeeeee;
+  color: #a6a6a6;
+  border-radius: 30rpx;
+  height: 56rpx;
+  padding-left: 50rpx;
+  padding-right: 20rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
 }
 
 .header .search-btn {
   width: 150rpx;
+  border: none;
+  padding-right: 15rpx;
+}
+
+.header .search-btn text {
+  display: block;
+  text-align: center;
+  height: 56rpx;
+  border: none;
+  font-size: 24rpx;
+  line-height: 56rpx;
+  background-color: #02c1c9;
+  border-radius: 28rpx;
+  color: #fff;
 }
 
 
@@ -31,6 +63,7 @@
 
 .shops {
   width: 100%;
+  margin-top: 2px;
 }
 
 .tag-nav {

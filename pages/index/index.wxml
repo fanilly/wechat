@@ -8,14 +8,15 @@
         <image src="../../images/address.png" style="width:17rpx;height: 22rpx"></image>
         <text>{{!address?'请选择地址':address}}</text>
       </view>
-      <view class="search-box">
+      <view class="search-box" bindtap="goToSearch">
         <icon type="search" size="12" color="#a6a6a6" />
-        <input placeholder="拉面" />
+        <text>拉面</text>
+        <!-- <input placeholder="拉面" disabled="true" /> -->
       </view>
     </view>
     <!-- banner -->
     <swiper class="carousel" style="height:{{swiperHeight}}px" indicator-dots="{{carousel.indicatorDots}}" indicator-color="{{carousel.indicatorColor}}" indicator-active-color="{{carousel.indicatorActiveColor}}" autoplay="carousel.autoplay" interval="{{carousel.interval}}" circular="carousel.circular">
-      <block wx:for="{{carousel.imagesUrl}}">
+      <block wx:for="{{carousel.imagesUrl}}" wx:key="key">
         <swiper-item>
           <image src="{{item}}" bindload="imageLoad" mode="widthFix"></image>
         </swiper-item>
@@ -43,13 +44,13 @@
     <!-- 附近商家 -->
     <view class="shops">
       <!-- 区域标题 -->
-      <view class="area-title" wx:if="true" style="margin-bottom: {{tagNavTop ? '80rpx':0}}">
+      <view class="area-title" wx:if="true" style="margin-bottom: {{tagNavFixed ? '80rpx':0}}">
         <view class="line"></view>
         <text>附近商家</text>
         <view class="line"></view>
       </view>
       <!-- 标签的导航 -->
-      <view class="tag-nav" style="position:{{tagNavTop ? 'fixed' : 'static'}};background-color: {{tagNavTop ? '#f7f7fa' : '#fff'}};">
+      <view class="tag-nav" style="position:{{tagNavFixed ? 'fixed' : 'static'}};background-color: {{tagNavFixed ? '#f7f7fa' : '#fff'}};">
         <text>综合排序</text>
         <text>销量最高</text>
         <text>距离最近</text>
@@ -57,7 +58,7 @@
       </view>
       <!-- 商品列表 -->
       <view class="pro-list">
-        <block wx:for="{{listData}}">
+        <block wx:for="{{listData}}" wx:key="key">
           <navigator url="/">
             <template is="pro-list" data="{{item}}"></template>
           </navigator>

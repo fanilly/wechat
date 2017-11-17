@@ -65,6 +65,12 @@ Page({
     });
   },
 
+  goToSearch() {
+    wx.navigateTo({
+      url: '../search/search'
+    })
+  },
+
   imageLoad(e) {
     //获取图片真实宽度  
     let imgwidth = e.detail.width,
@@ -94,13 +100,13 @@ Page({
 
   //页面滚动事件
   handleScroll(e) {
-    if (!this.data.tagNavTop && e.detail.scrollTop > tagNavTop) {
+    if (e.detail.scrollTop > tagNavTop) {
       this.setData({
-        tagNavTop: true
+        tagNavFixed: true
       })
-    } else if (this.data.tagNavTop && e.detail.scrollTop < tagNavTop) {
+    } else {
       this.setData({
-        tagNavTop: false
+        tagNavFixed: false
       })
     }
   },

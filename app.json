@@ -1,6 +1,6 @@
 {
   "pages":[
-    "pages/search/search",
+    "pages/prodetails/prodetails",
     "pages/index/index",
     "pages/order/order",
     "pages/about/about",
@@ -8,6 +8,8 @@
     "pages/collection/collection",
     "pages/bindphone/bindphone",
     "pages/coupon/coupon",
+    "pages/search/search",
+    "pages/shopdetails/shopdetails",
     "pages/commission/commission"
   ],
   "tabBar": {

@@ -36,23 +36,30 @@
 
 .search-box {
   flex: 1;
-  display: flex;
   background-color: #eeeeee;
   height: 56rpx;
   border-radius: 28rpx;
   margin-right: 15rpx;
   align-items: center;
+  line-height: 56rpx;
+  position: relative;
+  padding-left: 50rpx;
+  box-sizing: border-box;
 }
 
 .search-box icon {
-  margin: 0 10rpx 0 18rpx;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 18rpx;
+  height: 12px;
+  margin:auto;
 }
 
-.search-box input {
+.search-box text {
   font-size: 28rpx;
   color: #a6a6a6;
-  flex: 1;
-  height: 28rpx;
+  vertical-align: middle;
 }
 
 
