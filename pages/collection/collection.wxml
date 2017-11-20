@@ -2,7 +2,7 @@
 <view class="container">
   <!-- 商品列表 -->
   <view class="pro-list">
-    <block wx:for="{{listData}}">
+    <block wx:for="{{listData}}" wx:key="key">
       <navigator url="/">
         <template is="pro-list" data="{{item}}"></template>
       </navigator>

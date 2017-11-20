@@ -1,0 +1,27 @@
+<import src="../../template/view/shop-list.wxml" />
+<!--index.wxml-->
+<view class="container">
+  <scroll-view scroll-y style="height: {{windowHeight}}px;" bindscroll="handleScroll" bindscrolltolower="handleSscrollToLower">
+    <!-- 附近商家 -->
+    <view class="shops" style="padding-top:80rpx">
+      <!-- 标签的导航 -->
+      <view class="tag-nav">
+        <text>综合排序</text>
+        <text>销量最高</text>
+        <text>距离最近</text>
+        <text>价格最低</text>
+      </view>
+      <!-- 商铺列表 -->
+      <view class="shop-list">
+        <block wx:for="{{listData}}" wx:key="key">
+          <navigator url="../shopdetails/shopdetails?shopuniquekey={{item.shopuniquekey}}">
+            <template is="shop-list" data="{{item}}"></template>
+          </navigator>
+        </block>
+      </view>
+    </view>
+    <view class="load-more-pro">
+      <text>{{isLastPage?'已经没有更多内容了':'正在加载更多...'}}</text>
+    </view>
+  </scroll-view>
+</view>

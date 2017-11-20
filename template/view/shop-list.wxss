@@ -1,0 +1,86 @@
+.list-item {
+  margin-top: 20rpx;
+  width: 100%;
+  padding: 20rpx 15rpx;
+  box-sizing: border-box;
+  display: flex;
+  background-color: #fff;
+}
+
+.list-item .lside {
+  width: 180rpx;
+  padding-right: 15rpx;
+}
+
+.list-item .lside image {
+  width: 180rpx;
+  height: 140rpx;
+}
+
+.list-item .rside {
+  flex: 1;
+}
+
+.list-item .shop-title {
+  height: 42rpx;
+  display: flex;
+}
+
+.list-item .shop-title text {
+  flex: 1;
+  height: 42rpx;
+  line-height: 42rpx;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 30rpx;
+  color: #000;
+  font-weight: 600;
+  width: 180rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list-item .shop-address {
+  height: 42rpx;
+  line-height: 42rpx;
+  display: flex;
+}
+
+.list-item .shop-address text {
+  display: block;
+  flex: 1;
+  font-size: 20rpx;
+  color: #666;
+  width: 120rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list-item .shop-info {
+  display: flex;
+  font-size: 20rpx;
+  color: #666;
+  height: 42rpx;
+  line-height: 42rpx;
+}
+.list-item .shop-info text {
+  display: block;
+  flex: 1;
+}
+.list-item .shop-info text:last-child{
+  text-align: right;
+}
+
+.list-item .shop-desc {
+  font-size: 20rpx;
+  color: #666;
+  border-top: 1rpx solid #ccc;
+  margin-top: 8rpx;
+  padding-top: 8rpx;
+}
+
+.list-item .shop-desc text {
+  line-height: 30rpx;
+}

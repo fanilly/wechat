@@ -82,7 +82,7 @@
         <image src="../../images/icon09.png"></image>
         <text>收藏</text>
       </view>
-      <view>
+      <view catchtap="handlePopBuyLayer">
         <text>立即购买</text>
       </view>
     </view>
@@ -108,7 +108,7 @@
     </block>
     <!-- 立即购买 -->
     <block wx:if="{{isShowBuyLayer}}">
-      <view class="buy-layer-warp" catchtap="handleHideCoupon">
+      <view class="buy-layer-warp" catchtap="handleHideBuyLayer">
         <scroll-view scroll-y class="buy-layer" catchtap="handleStopPropergation" animation="{{slideInDown}}">
           <view class="buy-layer-padding">
             <!-- 头部 -->
@@ -150,8 +150,8 @@
               <text>使用优惠券</text>
               <scroll-view scroll-x>
                 <view class="use-coupon-box">
-                  <view class="use-coupon-item active">满9.9减1</view>
-                  <view class="use-coupon-item">满9.9减1</view>
+                  <view class="use-coupon-item active" id="aa">满9.9减1</view>
+                  <view class="use-coupon-item" bindtap="test" id="bb">满9.9减1</view>
                   <view class="use-coupon-item">满9.9减1</view>
                   <view class="use-coupon-item">满9.9减1</view>
                   <view class="use-coupon-item">满9.9减1</view>
@@ -159,8 +159,8 @@
               </scroll-view>
             </view>
           </view>
-          <view class="buy-layer-placeholder"></view>
-          <view class="buy-submit" catchtap="handleHideCoupon">
+          <!-- <view class="buy-layer-placeholder"></view> -->
+          <view class="buy-submit" catchtap="handleHideBuyLayer">
             <view>总计
               <text>￥ 9.9</text>
             </view>

@@ -4,8 +4,9 @@
     <text class="{{showUsed ? '' : 'active'}}" bindtap="checkoutToUse">待使用订单</text>
     <text class="{{showUsed ? 'active' : ''}}" bindtap="checkoutToUsed">已使用订单</text>
   </view>
+  <!-- 订单项 -->
   <view class="order-list">
-    <block wx:for="{{listData}}">
+    <block wx:for="{{listData}}" wx:key="key">
       <block wx:if="{{item.used == showUsed}}">
         <view class="order-list-item">
           <view class="item-header">
@@ -33,11 +34,32 @@
             </view>
           </view>
           <view class="item-footer">
-            <text>{{item.used ? '立即评价' : '立即使用'}}</text>
-            <text>{{item.used ? '删除' : '申请退款'}}</text>
+            <text catchtap="evaluateOrUse" id="{{index}}">{{item.used ? '立即评价' : '立即使用'}}</text>
+            <text style="display: {{item.used?'block':'none'}}">{{item.used ? '删除' : '申请退款'}}</text>
           </view>
         </view>
       </block>
     </block>
   </view>
+  <!-- 选择使用数量 -->
+  <block wx:if="{{isShowChoose}}">
+    <view class="pop" catchtap="handleClosePop">
+      <view class="content" catchtap="isStopPropergation">
+        <view class="choose-num">
+          <view>
+            <text>使用数量</text>
+          </view>
+          <view>
+            <text catchtap="handleReduceProductNumber">-</text>
+            <text>{{productNumber}}</text>
+            <text catchtap="handleAddProductNumber">+</text>
+          </view>
+        </view>
+        <view class="pop-footer">
+          <text catchtap="handleClosePop">取消</text>
+          <text catchtap="handleUseOrder">确定</text>
+        </view>
+      </view>
+    </view>
+  </block>
 </view>

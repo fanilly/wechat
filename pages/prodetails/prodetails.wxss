@@ -303,6 +303,8 @@
   bottom: 0;
   padding: 0;
   background-color: #efeff4;
+  height: 720rpx;
+  bottom: -720rpx;
 }
 
 .buy-layer-padding {
@@ -489,6 +491,7 @@
   width: 250rpx;
   font-size: 28rpx;
   background-color: #ef9200;
+  color:#fff;
 }
 
 .buy-layer-placeholder {

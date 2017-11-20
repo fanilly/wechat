@@ -1,1 +1,187 @@
 /* pages/components/shopdetail/shopdetails.wxss */
+
+@import "../../template/view/pro-list.wxss";
+@import "../../template/view/coupon.wxss";
+.header {
+  width: 100%;
+}
+
+.header image {
+  width: 100%;
+  display: block;
+}
+
+
+/*===============================================================
+ =                             info                             =
+ ==============================================================*/
+
+.info-header {
+  border-bottom: 1px solid #e5e5e5;
+  height: 110rpx;
+}
+
+.info-header .bottom,
+.info-header .top {
+  display: flex;
+}
+
+.info-header .top {
+  height: 60rpx;
+}
+
+.info-header .bottom text,
+.info-header .top text {
+  display: block;
+}
+
+.info-header .top text {
+  height: 56rpx;
+  line-height: 56rpx;
+}
+
+.info-header .bottom text {
+  height: 40rpx;
+  line-height: 40rpx;
+}
+
+.info-header .top text:first-child {
+  flex: 1;
+  color: #353535;
+  font-size: 24rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-left: 10rpx;
+}
+
+.info-header .top text:last-child {
+  width: 120rpx;
+  font-size: 20rpx;
+  color: #999999;
+  text-align: right;
+}
+
+.info-header .bottom text{
+  flex: 1;
+  font-size: 20rpx;
+  color: #999999;
+}
+
+.info-header .bottom text:nth-child(2) {
+  text-align: center;
+}
+
+.info-header .bottom text:nth-child(3) {
+  text-align: right;
+}
+
+.info {
+  width: 100%;
+  padding: 0 15rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.info-list {
+  display: flex;
+  height: 96rpx;
+  border-bottom: 1px solid #e5e5e5;
+  background: #fff;
+  padding: 0 10rpx;
+}
+
+.info-list view:nth-child(1) {
+  width: 54rpx;
+  position: relative;
+}
+
+.info-list view:nth-child(1) image {
+  width: 48rpx;
+  height: 48rpx;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.info-list view:nth-child(2) {
+  flex: 1;
+}
+
+.info-list view:nth-child(2) text {
+  display: inline-block;
+  height: 96rpx;
+  width: 420rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 96rpx;
+  font-size: 30rpx;
+  color: #353535;
+  padding-left: 15rpx;
+}
+
+.info-list view:nth-child(3) {
+  width: 16rpx;
+  position: relative;
+}
+
+.info-list view:nth-child(3) image {
+  width: 16rpx;
+  height: 25rpx;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.info .info-list:last-child {
+  border-bottom: 0;
+}
+
+.bottom-placeholder {
+  height: 50rpx;
+  font-size: 24rpx;
+  text-align: center;
+  display: block;
+  color: #666;
+}
+
+
+/*===============================================================
+ =                           特色商品                           =
+ ==============================================================*/
+
+.products {
+  width: 100%;
+}
+
+.products .list-item {
+  margin-top: 0;
+  margin-bottom: 20rpx;
+}
+
+.area-title {
+  font-size: 32rpx;
+  color: #333;
+  font-family: '黑体';
+  font-weight: 600;
+  text-align: center;
+  height: 90rpx;
+  line-height: 90rpx;
+}
+
+.area-title text {
+  padding: 0 20rpx;
+  position: relative;
+  top: 5rpx;
+}
+
+.area-title .line {
+  display: inline-block;
+  width: 60rpx;
+  height: 2rpx;
+  background-color: #999999;
+  vertical-align: middle;
+}

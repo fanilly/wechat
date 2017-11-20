@@ -1,0 +1,35 @@
+/**index.wxss**/
+
+@import '../../template/view/shop-list.wxss';
+
+/*===============================================================
+ =                              shops                           =
+ ==============================================================*/
+
+.shops {
+  width: 100%;
+  margin-top: 2px;
+}
+
+.tag-nav {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  height: 80rpx;
+  top: 0;
+  z-index: 1000;
+  position: fixed;
+  background-color: #fff;
+}
+
+.tag-nav text {
+  line-height: 80rpx;
+  height: 80rpx;
+  flex: 1;
+  font-size: 26rpx;
+  color: #666666;
+}
+
+.shop-list {
+  width: 100%;
+}

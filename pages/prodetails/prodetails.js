@@ -20,7 +20,7 @@ Page({
 
     slideInDown: {},
     isShowGetCoupon: false, //显示领取优惠券层
-    isShowBuyLayer: true, //显示购买层
+    isShowBuyLayer: false, //显示购买层
 
     listData: [],
     coupons: [{
@@ -50,6 +50,9 @@ Page({
 
   // 生命周期函数--监听页面加载
   onLoad: function(options) {
+
+    console.log(options)
+
     let curDate = new Date();
     this.setData({
       date: formatDate(curDate),
@@ -75,23 +78,11 @@ Page({
 
   },
 
-  //弹出选取优惠券层
-  handlePopCoupon() {
-    //创建动画
-    slideInDown = wx.createAnimation({
+  //创建动画对象
+  handleCreateAnimate(){
+    this.slideInDown = wx.createAnimation({
       duration: 520,
       timingFunction: 'ease'
-    });
-
-    //显示遮罩层
-    this.setData({
-      isShowGetCoupon: true
-    });
-
-    //弹出内容
-    slideInDown.bottom(0).step();
-    this.setData({
-      slideInDown: slideInDown
     });
   },
 
@@ -100,18 +91,32 @@ Page({
     console.log('stop propergation');
   },
 
+  //弹出选取优惠券层
+  handlePopCoupon() {
+    //创建动画
+    this.handleCreateAnimate();
+
+    //显示遮罩层
+    this.setData({
+      isShowGetCoupon: true
+    });
+
+    //弹出内容
+    this.slideInDown.bottom(0).step();
+    this.setData({
+      slideInDown: this.slideInDown
+    });
+  },
+
   //隐藏选取优惠券层
   handleHideCoupon() {
     //创建动画
-    slideInDown = wx.createAnimation({
-      duration: 520,
-      timingFunction: 'ease'
-    });
+    this.handleCreateAnimate();
 
     //收起内容
-    slideInDown.bottom(-1000).step();
+    this.slideInDown.bottom(-1000).step();
     this.setData({
-      slideInDown: slideInDown
+      slideInDown: this.slideInDown
     });
 
     //隐藏
@@ -121,6 +126,42 @@ Page({
       })
     }, 300);
 
+  },
+
+  //弹出立即购买
+  handlePopBuyLayer() {
+    //创建动画
+    this.handleCreateAnimate();
+
+    //显示遮罩层
+    this.setData({
+      isShowBuyLayer: true
+    });
+
+    //弹出内容
+    this.slideInDown.bottom(0).step();
+    this.setData({
+      slideInDown: this.slideInDown
+    });
+  },
+
+  //隐藏立即购买
+  handleHideBuyLayer(){
+    //创建动画
+    this.handleCreateAnimate();
+
+    //收起内容
+    this.slideInDown.bottom(-720).step();
+    this.setData({
+      slideInDown: this.slideInDown
+    });
+
+    //隐藏
+    setTimeout(() => {
+      this.setData({
+        isShowBuyLayer: false
+      })
+    }, 300);
   },
 
   //添加商品件数
@@ -144,6 +185,10 @@ Page({
     this.setData({
       date: e.detail.value
     })
+  },
+
+  test(e){
+    console.log(e)
   },
 
   // 页面相关事件处理函数--监听用户下拉动作

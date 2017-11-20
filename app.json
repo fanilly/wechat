@@ -1,16 +1,23 @@
 {
   "pages":[
-    "pages/prodetails/prodetails",
     "pages/index/index",
     "pages/order/order",
     "pages/about/about",
+
+    "pages/evaluate/evaluate",
+    "pages/usesuccess/usesuccess",
     
     "pages/collection/collection",
     "pages/bindphone/bindphone",
     "pages/coupon/coupon",
+    "pages/commission/commission",
+
     "pages/search/search",
-    "pages/shopdetails/shopdetails",
-    "pages/commission/commission"
+    "pages/shoplist/shoplist",
+
+    "pages/prodetails/prodetails",
+    "pages/shopdetails/shopdetails"
+    
   ],
   "tabBar": {
     "list": [

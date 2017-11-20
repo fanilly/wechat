@@ -1,0 +1,119 @@
+<!--pages/evaluate/evaluate.wxml-->
+<view class="contaier">
+  <view class="header">
+    <view>
+      <image src="../../images/icon08.png"></image>
+    </view>
+    <view>店铺评价</view>
+  </view>
+  <view class="main">
+    <view id="5" catchtap="evaluate">
+      <view>
+        <image src="{{score == 5 ? '../../images/icon10-active.png' : '../../images/icon10.png'}}"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11.png"></image>
+      </view>
+      <view>非常满意</view>
+    </view>
+    <view id="4" catchtap="evaluate">
+      <view>
+        <image src="{{score == 4 ? '../../images/icon10-active.png' : '../../images/icon10.png'}}"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11-active.png"></image>
+      </view>
+      <view>满意</view>
+    </view>
+    <view id="3" catchtap="evaluate">
+      <view>
+        <image src="{{score == 3 ? '../../images/icon10-active.png' : '../../images/icon10.png'}}"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11-active.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11-active.png"></image>
+      </view>
+      <view>一般</view>
+    </view>
+    <view id="2" catchtap="evaluate">
+      <view>
+        <image src="{{score == 2 ? '../../images/icon10-active.png' : '../../images/icon10.png'}}"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11-active.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11-active.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11-active.png"></image>
+      </view>
+      <view>不满意</view>
+    </view>
+    <view id="1" catchtap="evaluate">
+      <view>
+        <image src="{{score == 1 ? '../../images/icon10-active.png' : '../../images/icon10.png'}}"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11-active.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11-active.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11-active.png"></image>
+      </view>
+      <view>
+        <image src="../../images/icon11-active.png"></image>
+      </view>
+      <view>非常不满意</view>
+    </view>
+  </view>
+  <view class="footer">
+    <text>提交</text>
+  </view>
+</view>

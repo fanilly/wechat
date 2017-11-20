@@ -1,7 +1,7 @@
 <import src="../../template/view/coupon.wxml" />
 <view class="container">
   <view class="coupon-warp">
-    <block wx:for="{{listData}}">
+    <block wx:for="{{listData}}" wx:key="key">
       <navigator url="/">
         <template is="coupon" data="{{item}}"></template>
       </navigator>

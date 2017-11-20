@@ -1,2 +1,63 @@
 <!--pages/components/shopdetail/shopdetails.wxml-->
-<text>pages/components/shopdetail/shopdetails.wxml</text>
+<import src="../../template/view/pro-list.wxml" />
+<import src="../../template/view/coupon.wxml" />
+<view class="container">
+  <!-- 海报图 -->
+  <view class="header">
+    <image src="../../images/pro-poster.png" mode="widthFix"></image>
+  </view>
+  <!-- 列表信息 -->
+  <view class="info">
+    <view class="info-header">
+      <view class="top">
+        <text>一乐拉面(叉烧+卤蛋+牛肉)ddddddddddddddddddddddddddddddddddddddddddddddddddddd</text>
+        <text>250m</text>
+      </view>
+      <view class="bottom">
+        <text>月销99</text>
+        <text>综合评分4.8</text>
+        <text>260m</text>
+      </view>
+    </view>
+    <view class="info-list">
+      <view>
+        <image src="../../images/icon05.png"></image>
+      </view>
+      <view>
+        <text>火之国东大街与南大街交叉口向北20米路西一乐拉面店</text>
+      </view>
+      <view>
+        <image src="../../images/icons01.png"></image>
+      </view>
+    </view>
+    <view class="info-list">
+      <view>
+        <image src="../../images/icon06.png"></image>
+      </view>
+      <view>
+        <text>18739037057</text>
+      </view>
+      <view>
+        <image src="../../images/icons01.png"></image>
+      </view>
+    </view>
+  </view>
+  <!-- 本店特色商品 -->
+  <view class="products">
+    <!-- 区域标题 -->
+    <view class="area-title" wx:if="true">
+      <view class="line"></view>
+      <text>本店特色商品</text>
+      <view class="line"></view>
+    </view>
+    <!-- 商品列表 -->
+    <view class="pro-list">
+      <block wx:for="{{listData}}" wx:key="key">
+        <navigator url="/">
+          <template is="pro-list" data="{{item}}"></template>
+        </navigator>
+      </block>
+    </view>
+    <text class="bottom-placeholder">没有更多商品啦</text>
+  </view>
+</view>

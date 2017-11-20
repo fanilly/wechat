@@ -39,13 +39,15 @@
   line-height: 80rpx;
   font-size: 24rpx;
 }
-.order-list-item .item-header text:first-child{
-  width:420rpx;
+
+.order-list-item .item-header text:first-child {
+  width: 420rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 30rpx;
 }
+
 .order-list-item .item-header text:last-child {
   float: right;
 }
@@ -76,12 +78,14 @@
   font-size: 24rpx;
   margin-bottom: 10rpx;
 }
+
 .order-list-item .item-main .pro-title text:first-child {
   width: 300rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .order-list-item .item-main .pro-title text {
   display: inline-block;
 }
@@ -137,4 +141,109 @@
 .order-list-item .item-footer text:first-child {
   color: #ff5400;
   border-color: #ff5400;
+}
+
+.pop {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .6);
+  z-index: 50;
+}
+
+.pop .content {
+  width: 90%;
+  height: 200rpx;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 4rpx;
+  box-shadow: 0 0 6rpx #333;
+  padding-top: 30rpx;
+  overflow: hidden;
+}
+
+.choose-num {
+  height: 90rpx;
+  display: flex;
+  padding: 0 10rpx;
+}
+
+.choose-num view:first-child {
+  width: 180rpx;
+}
+
+.choose-num view:first-child text {
+  display: block;
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 28rpx;
+  color: #353535;
+}
+
+.choose-num view:last-child {
+  flex: 1;
+  text-align: right;
+  height: 60rpx;
+  padding: 15rpx 0;
+}
+
+.choose-num view:last-child text {
+  display: inline-block;
+  width: 63rpx;
+  height: 60rpx;
+  background-color: #efeff4;
+  color: #666;
+  text-align: center;
+  line-height: 60rpx;
+  font-size: 40rpx;
+  vertical-align: top;
+}
+
+.choose-num view:last-child text:first-child {
+  border-top-left-radius: 4rpx;
+  border-bottom-left-radius: 4rpx;
+}
+
+.choose-num view:last-child text:nth-child(2) {
+  width: 82rpx;
+  background-color: rgba(0, 0, 0, 0);
+  font-size: 26rpx;
+}
+
+.choose-num view:last-child text:last-child {
+  border-top-right-radius: 4rpx;
+  border-bottom-right-radius: 4rpx;
+}
+
+.pop-footer {
+  display: flex;
+  height: 80rpx;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.pop-footer text {
+  display: block;
+  flex: 1;
+  text-align: center;
+  font-size: 24rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.pop-footer text:first-child {
+  background-color: #efeff4;
+}
+
+.pop-footer text:last-child {
+  background-color: #02c1c9;
+  color: #fff;
 }
