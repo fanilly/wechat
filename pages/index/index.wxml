@@ -23,30 +23,62 @@
       </block>
     </swiper>
     <!-- nav -->
-    <view class="nav">
-      <view class="nav-item">
-        <image src="../../images/nav01.png"></image>
-        <text>餐饮美食</text>
+    <view class="nav-box">
+      <view class="nav">
+        <view class="nav-item">
+          <navigator url="../building/building?title=服饰专区">
+            <image src="../../images/inav01.png"></image>
+          </navigator>
+        </view>
+        <view class="nav-item">
+          <image src="../../images/inav02.png"></image>
+        </view>
+        <view class="nav-item">
+          <image src="../../images/inav03.png"></image>
+        </view>
+        <view class="nav-item">
+          <image src="../../images/inav04.png"></image>
+        </view>
+        <view class="nav-item">
+          <navigator url="../building/building?title=美容美甲">
+            <image src="../../images/inav05.png"></image>
+          </navigator>
+        </view>
       </view>
-      <view class="nav-item">
-        <image src="../../images/nav02.png"></image>
-        <text>酒店住宿</text>
-      </view>
-      <view class="nav-item">
-        <image src="../../images/nav03.png"></image>
-        <text>拼车出行</text>
-      </view>
-      <view class="nav-item">
-        <image src="../../images/nav04.png"></image>
-        <text>更多服务</text>
+      <view class="nav">
+        <view class="nav-item">
+          <navigator url="../building/building?title=安">
+            <image src="../../images/inav06.png"></image>
+          </navigator>
+        </view>
+        <view class="nav-item">
+          <navigator url="../building/building?title=居">
+            <image src="../../images/inav07.png"></image>
+          </navigator>
+        </view>
+        <view class="nav-item">
+          <navigator url="../building/building?title=乐">
+            <image src="../../images/inav08.png"></image>
+          </navigator>
+        </view>
+        <view class="nav-item">
+          <navigator url="../building/building?title=业">
+            <image src="../../images/inav09.png"></image>
+          </navigator>
+        </view>
+        <view class="nav-item">
+          <navigator url="../building/building?title=特">
+            <image src="../../images/inav10.png"></image>
+          </navigator>
+        </view>
       </view>
     </view>
-    <!-- 附近商家 -->
+    <!-- 热门推荐 -->
     <view class="shops">
       <!-- 区域标题 -->
       <view class="area-title" wx:if="true" style="margin-bottom: {{tagNavFixed ? '80rpx':0}}">
         <view class="line"></view>
-        <text>附近商家</text>
+        <text>热门推荐</text>
         <view class="line"></view>
       </view>
       <!-- 标签的导航 -->

@@ -91,6 +91,10 @@ Page({
         this.setData({
           isShowChoose: true
         });
+      } else {
+        wx.navigateTo({
+          url: '../usesuccess/usesuccess?uniquekey=' + curOrder.uniquekey + '&num=' + 1
+        })
       }
     }
 

@@ -4,8 +4,10 @@
     "pages/order/order",
     "pages/about/about",
 
+    "pages/building/building",
     "pages/evaluate/evaluate",
     "pages/usesuccess/usesuccess",
+    "pages/buysuccess/buysuccess",
     
     "pages/collection/collection",
     "pages/bindphone/bindphone",

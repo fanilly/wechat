@@ -1,0 +1,2 @@
+<!--pages/building/building.wxml-->
+<view>{{name}}功能正在开发中...</view>

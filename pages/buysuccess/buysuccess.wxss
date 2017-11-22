@@ -1,0 +1,95 @@
+/* pages/usesuccess/usesuccess.wxss */
+
+.header {
+  text-align: center;
+  width: 100%;
+  background-color: #fff;
+}
+
+.header text {
+  display: block;
+}
+
+.header text:first-child {
+  font-size: 30rpx;
+  color: #353535;
+  padding: 40rpx 120rpx 30rpx;
+  line-height: 40rpx;
+}
+
+.header text:last-child {
+  color: #999;
+  font-size: 30rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  padding: 30rpx 0;
+}
+
+.main {
+  background-color: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.message-list {
+  display: flex;
+  height: 80rpx;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0 15rpx;
+}
+
+.message-list view:nth-child(1) {
+  width: 106rpx;
+  font-size: 24rpx;
+  color: #353535;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.message-list view:nth-child(2) {
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 24rpx;
+  flex: 1;
+  color: #666;
+  text-align: right;
+  padding-right: 16rpx;
+}
+
+.message-list view:nth-child(3) {
+  width: 20rpx;
+  position: relative;
+}
+
+.message-list view:nth-child(3) image {
+  width: 16rpx;
+  height: 25rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.main .message-list:last-child {
+  border-bottom: none;
+}
+
+.footer {
+  background-color: #fff;
+  width: 100%;
+  padding: 20rpx 15rpx 30rpx;
+  box-sizing: border-box;
+}
+
+.footer text {
+  display: block;
+  width: 100%;
+  background-color: #02c1c9;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #fff;
+  text-align: center;
+  font-size: 24rpx;
+  border-radius: 4rpx;
+}

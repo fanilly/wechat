@@ -1,0 +1,8 @@
+/* pages/building/building.wxss */
+view {
+  width: 100%;
+  font-size: 24rpx;
+  text-align: center;
+  padding: 20rpx 0;
+  color: #666;
+}
