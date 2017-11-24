@@ -9,7 +9,7 @@ module.exports = [{
   thumbnail: '../../images/pro01.png'
 },{
   uniquekey:'xx21255',
-	used:false,
+	used:true,
   productName: '2222222222222',
   shopName: '一乐拉面（东大街店）ssssssssssssssssssssss',
   shopAddress:'淅川县东大街与南大街交叉口向北100米路西',
@@ -27,7 +27,7 @@ module.exports = [{
   thumbnail: '../../images/pro01.png'
 },{
   uniquekey:'xx21255',
-	used:true,
+	used:false,
   productName: '4444444444444444',
   shopName: '一乐拉面（东大街店）ssssssssssssssssssssss',
   shopAddress:'淅川县东大街与南大街交叉口向北100米路西',

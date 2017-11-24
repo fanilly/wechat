@@ -23,7 +23,12 @@ Page({
 
   },
 
-  onLoad() {
+  onLoad(options) {
+    
+    wx.setNavigationBarTitle({
+      title: options.title
+    });
+
     //初始化标签导航
     this.initTagNavTop();
 

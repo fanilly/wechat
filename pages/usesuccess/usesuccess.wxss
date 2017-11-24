@@ -90,6 +90,6 @@
   line-height: 80rpx;
   color: #fff;
   text-align: center;
-  font-size: 24rpx;
+  font-size: 32rpx;
   border-radius: 4rpx;
 }

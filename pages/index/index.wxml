@@ -26,48 +26,54 @@
     <view class="nav-box">
       <view class="nav">
         <view class="nav-item">
-          <navigator url="../building/building?title=服饰专区">
+          <navigator url="../building/building?title=服饰专区" hover-class="none">
             <image src="../../images/inav01.png"></image>
           </navigator>
         </view>
         <view class="nav-item">
-          <image src="../../images/inav02.png"></image>
+          <navigator url="../shoplist/shoplist?title=餐饮美食" hover-class="none">
+            <image src="../../images/inav02.png"></image>
+          </navigator>
         </view>
         <view class="nav-item">
-          <image src="../../images/inav03.png"></image>
+          <navigator url="../shoplist/shoplist?title=酒店住宿" hover-class="none">
+            <image src="../../images/inav03.png"></image>
+          </navigator>
         </view>
         <view class="nav-item">
-          <image src="../../images/inav04.png"></image>
+          <navigator url="../shoplist/shoplist?title=拼车出行" hover-class="none">
+            <image src="../../images/inav04.png"></image>
+          </navigator>
         </view>
         <view class="nav-item">
-          <navigator url="../building/building?title=美容美甲">
+          <navigator url="../building/building?title=美容美甲" hover-class="none">
             <image src="../../images/inav05.png"></image>
           </navigator>
         </view>
       </view>
       <view class="nav">
         <view class="nav-item">
-          <navigator url="../building/building?title=安">
+          <navigator url="../building/building?title=安" hover-class="none">
             <image src="../../images/inav06.png"></image>
           </navigator>
         </view>
         <view class="nav-item">
-          <navigator url="../building/building?title=居">
+          <navigator url="../building/building?title=居" hover-class="none">
             <image src="../../images/inav07.png"></image>
           </navigator>
         </view>
         <view class="nav-item">
-          <navigator url="../building/building?title=乐">
+          <navigator url="../building/building?title=乐" hover-class="none">
             <image src="../../images/inav08.png"></image>
           </navigator>
         </view>
         <view class="nav-item">
-          <navigator url="../building/building?title=业">
+          <navigator url="../building/building?title=业" hover-class="none">
             <image src="../../images/inav09.png"></image>
           </navigator>
         </view>
         <view class="nav-item">
-          <navigator url="../building/building?title=特">
+          <navigator url="../building/building?title=特" hover-class="none">
             <image src="../../images/inav10.png"></image>
           </navigator>
         </view>
@@ -98,7 +104,7 @@
       </view>
     </view>
     <view class="load-more-pro">
-      <text>{{isLastPage?'已经没有等多内容了':'正在加载更多...'}}</text>
+      <text>{{isLastPage?'已经没有更多内容了':'正在加载更多...'}}</text>
     </view>
   </scroll-view>
 </view>

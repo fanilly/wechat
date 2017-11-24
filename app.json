@@ -16,6 +16,7 @@
 
     "pages/search/search",
     "pages/shoplist/shoplist",
+    "pages/apitest/apitest",
 
     "pages/prodetails/prodetails",
     "pages/shopdetails/shopdetails"
@@ -51,7 +52,7 @@
   "window":{
     "backgroundTextStyle":"dark",
     "navigationBarBackgroundColor": "#02c1c9",
-    "navigationBarTitleText": "淅峡生活平台",
+    "navigationBarTitleText": "西峡派",
     "navigationBarTextStyle":"#ffffff"
   }
 }

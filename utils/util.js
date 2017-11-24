@@ -1,3 +1,4 @@
+//时间格式转化 2017-11-11 18:20:36
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -9,6 +10,7 @@ const formatTime = date => {
   return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
+//日期格式转换 2017-11-11
 const formatDate = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1

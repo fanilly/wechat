@@ -172,7 +172,7 @@
 .choose-num {
   height: 90rpx;
   display: flex;
-  padding: 0 10rpx;
+  padding: 0 15rpx;
 }
 
 .choose-num view:first-child {
@@ -246,4 +246,18 @@
 .pop-footer text:last-child {
   background-color: #02c1c9;
   color: #fff;
+}
+
+.useStatus {
+  font-size: 24rpx;
+  color: #888;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top:0;
+  margin: auto;
+  height: 24rpx;
+  width: 240rpx;
+  text-align: center;
 }

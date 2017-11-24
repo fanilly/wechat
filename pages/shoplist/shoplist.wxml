@@ -9,7 +9,7 @@
         <text>综合排序</text>
         <text>销量最高</text>
         <text>距离最近</text>
-        <text>价格最低</text>
+        <text>人均消费</text>
       </view>
       <!-- 商铺列表 -->
       <view class="shop-list">

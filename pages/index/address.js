@@ -3,9 +3,10 @@ let chooseAddress = (self, app) => {
   //获取地址
   wx.chooseLocation({
     success: res => {
+      console.log(res)
       wx.setStorage({
         key: 'address',
-        data: res.name
+        data: res.name != '' ? res.name : res.address
       });
       app.globalData.address = res.name;
       self.setData({

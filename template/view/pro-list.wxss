@@ -89,7 +89,7 @@
   color: #666;
   border-top: 1rpx solid #ccc;
   margin-top: 8rpx;
-  padding-top: 8rpx;
+  padding-top: 20rpx;
 }
 
 .list-item .shop-desc text {

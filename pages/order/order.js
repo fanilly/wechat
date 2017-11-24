@@ -6,15 +6,33 @@ Page({
     productNumber: 1, //使用订单个数
     showUsed: false,
     isShowChoose: false,
-    listData: []
+    listData: [],
+    useOrderStatus:1, //1表示正在加载中 2表示暂无 3表示加载完毕
+    usedOrderStatus:1
   },
 
   onLoad() {
     let tempListData = this.data.listData;
     tempListData.push(...listDatas);
-    this.setData({
-      listData: tempListData
-    })
+
+    //假设暂无已使用订单和待使用订单
+    let tempUseOrderStatus = 2 ,
+      tempUsedOrderStatus = 2;
+    listDatas.forEach((item,index)=>{
+      if(item.used){
+        tempUsedOrderStatus = 3;
+      }else{
+        tempUseOrderStatus = 3;
+      }
+    });
+    setTimeout(()=>{
+      this.setData({
+        useOrderStatus: tempUseOrderStatus,
+        usedOrderStatus: tempUsedOrderStatus,
+        listData: tempListData
+      });
+    },3000);
+    
   },
 
   checkoutToUse() {

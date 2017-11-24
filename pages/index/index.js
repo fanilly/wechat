@@ -12,9 +12,6 @@ let allLoadMore = true, //允许加载更多
 
 Page({
   data: {
-    userInfo: {},
-    hasUserInfo: false,
-
     windowWidth: 750, //视口宽度
     windowHeight: 500,
     swiperHeight: 150, //swiper 高度
@@ -40,9 +37,18 @@ Page({
 
   },
 
-  onLoad() {
+  onLoad(options) {
+    console.log(options);
+    if(options.scene){
+      console.log(options.scene)
+    }
     //获取地址
     getAddress(this, app);
+
+    //显示转发按钮
+    // wx.showShareMenu({
+    //   withShareTicket: true
+    // });
 
     //初始化标签导航
     this.initTagNavTop();
@@ -65,6 +71,7 @@ Page({
     });
   },
 
+  //跳转到搜索页面
   goToSearch() {
     wx.navigateTo({
       url: '../search/search'
@@ -125,11 +132,11 @@ Page({
   handleSscrollToLower() {
     let self = this;
     //如果当前页面不是最后一页
-    if (currentPageNum != countPageNum) {
+    if (currentPageNum < countPageNum) {
       if (allLoadMore) {
         allLoadMore = false;
         currentPageNum++;
-        setTimeout(function() {
+        setTimeout(function () {
           //更改列表信息
           let tempList = self.data.listData;
           tempList.push(...listDatas);
@@ -143,6 +150,27 @@ Page({
       this.setData({
         isLastPage: true
       })
+    }
+  },
+
+  // //分享
+  onShareAppMessage(res) {
+    console.log(res);
+    console.log(app.globalData.appDescription);
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    // +app.globalData.appDescription
+    return {
+      title: '西峡派 -- ' + app.globalData.appDescription,
+      path: '/pages/index/index',
+      success() {
+        console.log('success');
+      },
+      fail() {
+        console.log('fail');
+      }
     }
   }
 })
