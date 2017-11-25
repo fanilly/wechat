@@ -1,9 +1,21 @@
+const app = getApp();
+
+const saveAddress = (latitude, longitude) => {
+  console.log('---------------------------------');
+  console.log(latitude, longitude)
+  wx.request({
+    url: `${app.globalData.api}common/ext_distance?start=${latitude},${longitude}`,
+    success: res => {
+      console.log(res);
+    }
+  })
+}
+
 //选取地址
 let chooseAddress = (self, app) => {
   //获取地址
   wx.chooseLocation({
     success: res => {
-      console.log(res)
       wx.setStorage({
         key: 'address',
         data: res.name != '' ? res.name : res.address
@@ -12,6 +24,7 @@ let chooseAddress = (self, app) => {
       self.setData({
         address: res.name
       });
+      saveAddress(res.latitude, res.longitude);
     }
   })
 };
@@ -26,6 +39,10 @@ let getAddress = (self, app) => {
        * 如果可以获取到地址 将获取到的地址保存入storage中
        * 否则打开地址选取页面
        */
+      console.log('++++++++++++++++++++++++++++++++++')
+      saveAddress(res.latitude, res.longitude);
+
+      console.log(res);
       wx.getStorage({
         key: 'address',
         success: res => {

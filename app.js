@@ -1,10 +1,16 @@
 //app.js
+import updateUserInfo from './utils/updateuserinfo';
 App({
   onLaunch: function() {
-    const self = this,
-      api = this.globalData.api;
+    const api = this.globalData.api;
+    this.login(); //登陆
+    this.getUserInfo();
 
-    // 登录
+  },
+
+  // 登录
+  login() {
+    const api = this.globalData.api;
     wx.login({
       success: res => {
         //向后台发送res.code 换取openid
@@ -15,33 +21,40 @@ App({
             code: res.code
           },
           header: {
-            'content-type': 'application/json' // 默认值
+            'content-type': 'application/json'
           },
-          success: function(res) {
-            console.log(res.data)
+          success: res => {
+            this.globalData.userID = res.data;
+            this.getUserInfo();
           }
         });
       }
-    })
-
-    wx.getUserInfo({
-      withCredentials: true,
-      success: res => {
-        // console.log(res);
-        // 可以将 res 发送给后台解码出 unionId
-        this.globalData.userInfo = res.userInfo
-        // console.log(res)
-        // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-        // 所以此处加入 callback 以防止这种情况
-        // if (this.userInfoReadyCallback) {
-        //   this.userInfoReadyCallback(res);
-        // }
-      }
-    })
-
+    });
   },
+
+  getUserInfo() {
+    wx.getUserInfo({
+      // withCredentials: true,
+      success: res => {
+        let userInfo = res.userInfo,
+          api = this.globalData.api,
+          userID = this.globalData.userID;
+        //保存用户信息
+        this.globalData.userInfo = userInfo;
+        if(userID){
+          updateUserInfo(userInfo,api,userID);
+        }
+      },
+      fail() {
+        console.log('getUserInco fail');
+      }
+    });
+  },
+
   globalData: {
-    api: 'https://www.91tuoguan.cn/index.php/api/',
+    userID:'',
+    api: '*****/index.php/api/',
+    imgUrl: '*****/',
     userInfo: null,
     address: '',
     appDescription: '西峡生活第一平台'

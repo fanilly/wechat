@@ -1,6 +1,8 @@
 //index.js
 //获取应用实例
-const app = getApp();
+const app = getApp(),
+  api = app.globalData.api,
+  imgUrl = app.globalData.imgUrl;
 import { chooseAddress, getAddress } from './address';
 import listDatas from './listData';
 
@@ -37,28 +39,42 @@ Page({
 
   },
 
-  onLoad(options) {
-    console.log(options);
-    if(options.scene){
-      console.log(options.scene)
-    }
-    //获取地址
-    getAddress(this, app);
-
-    //显示转发按钮
-    // wx.showShareMenu({
-    //   withShareTicket: true
-    // });
-
-    //初始化标签导航
-    this.initTagNavTop();
-
+  //获取热门推荐数据
+  getGoodsList() {
+    wx.request({
+      url: `${api}goods/goodslist?recom=1&$listtype=1&p=1`,
+      data:{
+        recom:1,
+        listtype:1,
+        p:currentPageNum
+      },
+      success: res => {
+        //保存最大加载次数
+        countPageNum = res.data.page_sum;
+        // console.log(res)
+      }
+    })
     //更改列表信息
     let tempList = this.data.listData;
     tempList.push(...listDatas);
     this.setData({
       listData: tempList
     });
+  },
+
+  onLoad(options) {
+
+    if (options.scene) {
+      console.log(options.scene)
+    }
+    //获取地址
+    getAddress(this, app);
+
+    //初始化标签导航
+    this.initTagNavTop();
+
+    //获取热门推荐数据
+    this.getGoodsList();
 
     //获取系统信息
     wx.getSystemInfo({
@@ -136,13 +152,15 @@ Page({
       if (allLoadMore) {
         allLoadMore = false;
         currentPageNum++;
-        setTimeout(function () {
+        setTimeout(function() {
+
           //更改列表信息
           let tempList = self.data.listData;
           tempList.push(...listDatas);
           self.setData({
             listData: tempList
           });
+
           allLoadMore = true;
         }, 2000);
       }
@@ -153,15 +171,12 @@ Page({
     }
   },
 
-  // //分享
+  //分享
   onShareAppMessage(res) {
-    console.log(res);
-    console.log(app.globalData.appDescription);
     if (res.from === 'button') {
       // 来自页面内转发按钮
       console.log(res.target)
     }
-    // +app.globalData.appDescription
     return {
       title: '西峡派 -- ' + app.globalData.appDescription,
       path: '/pages/index/index',
