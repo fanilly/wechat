@@ -65,6 +65,10 @@ Page({
   onShow() {
     if (!app.globalData.userInfo) {
       this.login();
+    } else {
+      this.setData({
+        showPage: true
+      });
     }
     //设置用户信息
     if (app.globalData.userInfo && this.data.userInfo != app.globalData.userInfo) {

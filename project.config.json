@@ -8,7 +8,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.6.4",
+	"libVersion": "1.6.6",
 	"appid": "wx97c80a21a7ad2948",
 	"projectname": "demo",
 	"condition": {
