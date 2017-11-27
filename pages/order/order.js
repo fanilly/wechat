@@ -1,4 +1,4 @@
-import listDatas from './listData';
+// import listDatas from './listData';
 const app = getApp(),
   api = app.globalData.api;
 let maxProductNumber = 1, //最大使用订单个数
@@ -14,57 +14,68 @@ Page({
   },
 
   onLoad() {
-    // wx.request({
-    //   url: `${api}order/orderlist`,
-    //   data: {
-    //     user_id: 16
-    //   },
-    //   success: res => {
-    //     console.log(res)
-    //   }
-    // });
+    this.checkoutToUse();
+  },
+
+  //切换至待使用订单
+  checkoutToUse() {
+    this.setData({
+      listData:[],
+      showUsed: false,
+      useOrderStatus: 1,
+    });
+    wx.request({
+      url: `${api}order/orderlist`,
+      data: {
+        user_id: 16
+      },
+      success: res => {
+        /**
+         *
+         * 这里的数据需要图片链接和商品id及商铺id
+         *
+         */
+        
+        console.log(res);
+        if (res.data.length != 0) {
+          this.setData({
+            listData: res.data,
+            useOrderStatus: 3
+          })
+        } else {
+          this.setData({
+            useOrderStatus: 2
+          })
+        }
+      }
+    });
+  },
+
+  //切换至已使用订单
+  checkoutToUsed() {
+    this.setData({
+      listData:[],
+      showUsed: true,
+      usedOrderStatus: 1
+    });
     wx.request({
       url: `${api}order/orderlist_old`,
       data: {
         user_id: 16
       },
       success: res => {
-        console.log(res)
+        if (res.data.length != 0) {
+          this.setData({
+            listData: res.data,
+            usedOrderStatus: 3
+          })
+        } else {
+          this.setData({
+            usedOrderStatus: 2
+          })
+        }
       }
     });
-    let tempListData = this.data.listData;
-    tempListData.push(...listDatas);
-
-    //假设暂无已使用订单和待使用订单
-    let tempUseOrderStatus = 2,
-      tempUsedOrderStatus = 2;
-    listDatas.forEach((item, index) => {
-      if (item.used) {
-        tempUsedOrderStatus = 3;
-      } else {
-        tempUseOrderStatus = 3;
-      }
-    });
-    setTimeout(() => {
-      this.setData({
-        useOrderStatus: tempUseOrderStatus,
-        usedOrderStatus: tempUsedOrderStatus,
-        listData: tempListData
-      });
-    }, 3000);
-
-  },
-
-  checkoutToUse() {
-    this.setData({
-      showUsed: false
-    })
-  },
-
-  checkoutToUsed() {
-    this.setData({
-      showUsed: true
-    })
   },
 
   //添加商品件数

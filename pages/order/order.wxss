@@ -23,6 +23,10 @@
   border-color: #ff5400;
 }
 
+.order-list {
+  width: 100%;
+}
+
 .order-list-item {
   background: #fff;
   margin-top: 20rpx;
@@ -255,7 +259,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  top:0;
+  top: 0;
   margin: auto;
   height: 24rpx;
   width: 240rpx;

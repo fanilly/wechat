@@ -7,45 +7,43 @@
   <!-- 订单项 -->
   <view class="order-list">
     <block wx:for="{{listData}}" wx:key="key">
-      <block wx:if="{{item.used == showUsed}}">
-        <view class="order-list-item">
-          <view class="item-header">
-            <text>{{item.shopName}}</text>
-            <text style="color:{{item.used ? '#888888' : '#ff5400'}};">{{item.used ? '交易完成' : '待使用'}}</text>
+      <view class="order-list-item">
+        <view class="item-header">
+          <text>{{item.shopname}}</text>
+          <text style="color:{{showUsed ? '#888888' : '#ff5400'}};">{{showUsed ? '交易完成' : '待使用'}}</text>
+        </view>
+        <view class="item-main">
+          <view class="lside">
+            <image src="{{item.thumbnail}}"></image>
           </view>
-          <view class="item-main">
-            <view class="lside">
-              <image src="{{item.thumbnail}}"></image>
+          <view class="rside">
+            <view class="pro-title">
+              <text>{{item.goodsname}}</text>
+              <text>￥ {{item.shopprice}}</text>
             </view>
-            <view class="rside">
-              <view class="pro-title">
-                <text>{{item.productName}}</text>
-                <text>￥ {{item.price}}</text>
+            <view class="address-box">
+              <view class="address">
+                <text>{{item.shopaddress}}</text>
               </view>
-              <view class="address-box">
-                <view class="address">
-                  <text>{{item.shopAddress}}</text>
-                </view>
-                <view class="amound">
-                  <text>x{{item.total}}</text>
-                  <text>合计：￥{{item.price*item.total}}</text>
-                </view>
+              <view class="amound">
+                <text>x{{item.goodsnums}}</text>
+                <text>合计：￥{{item.shopprice*1*item.goodsnums}}</text>
               </view>
             </view>
-          </view>
-          <view class="item-footer">
-            <text catchtap="evaluateOrUse" id="{{index}}">{{item.used ? '立即评价' : '立即使用'}}</text>
-            <text style="display: {{item.used?'block':'none'}}">{{item.used ? '删除' : '申请退款'}}</text>
           </view>
         </view>
-      </block>
+        <view class="item-footer">
+          <text catchtap="evaluateOrUse" id="{{index}}">{{showUsed ? '立即评价' : '立即使用'}}</text>
+          <text style="display: {{showUsed?'block':'none'}}">{{showUsed ? '删除' : '申请退款'}}</text>
+        </view>
+      </view>
     </block>
   </view>
   <view class="useStatus" wx:if="{{showUsed&&usedOrderStatus!=3}}">
-  {{usedOrderStatus == 2 ? '暂无已使用订单!' : '正在加载中...'}}
+    {{usedOrderStatus == 2 ? '暂无已使用订单!' : '正在加载中...'}}
   </view>
   <view class="useStatus" wx:if="{{!showUsed&&useOrderStatus!=3}}">
-  {{useOrderStatus == 2 ? '暂无待使用订单!' : '正在加载中...'}}
+    {{useOrderStatus == 2 ? '暂无待使用订单!' : '正在加载中...'}}
   </view>
   <!-- 选择使用数量 -->
   <block wx:if="{{isShowChoose}}">

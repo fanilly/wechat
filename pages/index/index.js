@@ -4,12 +4,13 @@ const app = getApp(),
   api = app.globalData.api,
   imgUrl = app.globalData.imgUrl;
 
-let Distances = []; //缓存中的距离问题
-let tagNavTop = 0; //标签导航距离顶部的距离
-let allLoadMore = true, //允许加载更多
+let Distances = [], //缓存中的距离问题
+  tagNavTop = 0, //标签导航距离顶部的距离
+  allLoadMore = true, //允许加载更多
   currentPageNum = 1, //当前加载的次数
   countPageNum = 5, //共可以加载的次数
-  listtype = 1; //当前显示内容的排序方式
+  listtype = 1, //当前显示内容的排序方式
+  listDatas = []; //保存距离排序时的列表信息
 
 Page({
   data: {
@@ -34,20 +35,17 @@ Page({
     }
   },
 
-  onShow() {
-
-  },
-
   //获取热门推荐数据
   getGoodsList() {
     wx.request({
       url: `${api}goods/goodslist`,
       data: {
         recom: 1,
-        listtype: listtype,
+        listtype: 1,
         p: currentPageNum
       },
       success: res => {
+        console.log(res);
         //保存最大加载次数
         countPageNum = res.data.page_sum;
 
@@ -187,7 +185,11 @@ Page({
       if (allLoadMore) {
         allLoadMore = false;
         currentPageNum++;
-        this.getGoodsList();
+        //如果listtype等于3 代表当前为距离排序
+        if (listtype == 3)
+          this.getDistanceList();
+        else
+          this.getGoodsList();
       }
     } else {
       this.setData({
@@ -245,7 +247,7 @@ Page({
               address: res.data
             })
           },
-          fail: function() {
+          fail: () => {
             this.chooseAddress();
           }
         })
@@ -312,21 +314,33 @@ Page({
     this.sortGoodsList(2);
   },
 
+  //距离排序时每次加载执行
+  getDistanceList() {
+
+    let tempList = this.data.listData;
+    for (let i = (currentPageNum - 1) * 8; i < currentPageNum * 8; i++) tempList.push(listDatas[i]);
+
+    //更改列表信息
+    this.setData({
+      listData: tempList
+    });
+    setTimeout(() => {
+      allLoadMore = true; //修改加载状态
+    }, 350);
+  },
+
   // 距离排序
   handleDistanceSort() {
-    // this.setData({
-    //   isDistanceSort: true
-    // });
+    allLoadMore = true;
+    currentPageNum = 1;
+    listtype = 3;
     wx.request({
       url: `${api}goods/goodslist`,
       data: {
         recom: 1,
-        listtype: 3
+        listtype: listtype
       },
       success: res => {
-        console.log('-------------------------------')
-        console.log(res)
-        console.log('-------------------------------')
         let data = res.data;
         if (data.length != 0) {
           //为商品列表的每一个列表项添加距离属性
@@ -352,7 +366,11 @@ Page({
               }
             }
           }
-          console.log(data);
+          //保存列表信息
+          listDatas = data;
+          countPageNum = Math.ceil(data.length / 8);
+          console.log(countPageNum);
+          this.getDistanceList();
         }
       }
     });
