@@ -1,12 +1,47 @@
 const app = getApp();
+const testDistance = [{ shopid: "4", distance: 9025.84 },
+  { shopid: "5", distance: 10705.4 },
+  { shopid: "6", distance: 9278.22 },
+  { shopid: "7", distance: 9618.69 },
+  { shopid: "8", distance: 9618.69 },
+  { shopid: "9", distance: 9618.69 },
+  { shopid: "10", distance: 9618.69 },
+  { shopid: "11", distance: 9618.69 },
+  { shopid: "12", distance: 10668.76 },
+  { shopid: "13", distance: 10705.4 },
+  { shopid: "14", distance: 10705.4 },
+  { shopid: "15", distance: 10705.4 },
+  { shopid: "16", distance: 10705.4 },
+  { shopid: "17", distance: 9114.62 },
+  { shopid: "18", distance: 9114.62 },
+  { shopid: "19", distance: 9114.62 },
+  { shopid: "20", distance: 9114.62 },
+  { shopid: "21", distance: 8921.08 },
+  { shopid: "22", distance: 9025.84 },
+  { shopid: "23", distance: 9025.84 },
+  { shopid: "24", distance: 9025.84 },
+  { shopid: "25", distance: 9025.84 },
+  { shopid: "26", distance: 9025.84 },
+  { shopid: "27", distance: 10034.92 },
+  { shopid: "28", distance: 10668.76 },
+  { shopid: "29", distance: 10668.76 },
+  { shopid: "30", distance: 10668.76 },
+  { shopid: "31", distance: 10668.76 },
+  { shopid: "32", distance: 10668.76 },
+  { shopid: "33", distance: 10668.76 },
+  { shopid: "34", distance: 10668.76 }];
 
 const saveAddress = (latitude, longitude) => {
-  console.log('---------------------------------');
-  console.log(latitude, longitude)
+  // console.log('---------------------------------');
+  // console.log(latitude, longitude)
   wx.request({
     url: `${app.globalData.api}common/ext_distance?start=${latitude},${longitude}`,
     success: res => {
-      console.log(res);
+      //获取位置成功 保存入本地存储
+      wx.setStorage({
+        key: 'distances',
+        data: testDistance
+      });
     }
   })
 }
@@ -24,7 +59,7 @@ let chooseAddress = (self, app) => {
       self.setData({
         address: res.name
       });
-      saveAddress(res.latitude, res.longitude);
+      // saveAddress(res.latitude, res.longitude);
     }
   })
 };
@@ -39,10 +74,8 @@ let getAddress = (self, app) => {
        * 如果可以获取到地址 将获取到的地址保存入storage中
        * 否则打开地址选取页面
        */
-      console.log('++++++++++++++++++++++++++++++++++')
-      saveAddress(res.latitude, res.longitude);
+      // saveAddress(res.latitude, res.longitude);
 
-      console.log(res);
       wx.getStorage({
         key: 'address',
         success: res => {

@@ -1,23 +1,23 @@
 <template name="pro-list">
   <view class="list-item">
     <view class="lside">
-      <image src="{{item.thumbnail}}"></image>
+      <image id="{{index}}" src="https://www.91tuoguan.cn/{{item.goodsimg}}" binderror="listImgError"></image>
     </view>
     <view class="rside">
       <view class="pro-title">
-        <text>{{item.productName}}</text>
-        <text> 综合评分 {{item.score}}</text>
-        <text>月销 {{item.sale}} </text>
+        <text>{{item.goodsname}}</text>
+        <text>综合评分 {{item.score}}</text>
+        <text>月销 {{item.month_sum}} </text>
       </view>
       <view class="shop-title">
-        <text>{{item.shopName}}</text>
-        <text>250 m</text>
+        <text>{{item.shopname}}({{item.shopaddress}})</text>
+        <text>{{item.distances}}</text>
       </view>
       <view class="pro-price">
-        <text>￥ {{item.price}}</text>
+        <text>￥ {{item.shopprice}}</text>
       </view>
       <view class="shop-desc">
-        <text>{{item.shopDesc}}</text>
+        <text>{{item.goodsDesc}}</text>
       </view>
     </view>
   </view>

@@ -1,12 +1,14 @@
 //获取应用实例
-const app = getApp();
+const app = getApp(),
+  api = app.globalData.api;
 import listDatas from './listData';
 
 let tagNavTop = 0; //标签导航距离顶部的距离
 
 let allLoadMore = true, //允许加载更多
   currentPageNum = 1, //当前加载的次数
-  countPageNum = 5; //共可以加载的次数
+  countPageNum = 5, //共可以加载的次数
+  searchKeyword; //输入的关键词
 
 
 Page({
@@ -50,7 +52,7 @@ Page({
 
   //页面滚动事件
   handleScroll(e) {
-  	//实现导航吸顶
+    //实现导航吸顶
     if (e.detail.scrollTop > tagNavTop) {
       this.setData({
         tagNavFixed: true
@@ -94,5 +96,21 @@ Page({
         isLastPage: true
       })
     }
+  },
+
+  recordSearchKeyword(e) {
+    searchKeyword = e.detail.value;
+  },
+
+  handleSearch() {
+    wx.request({
+      url: `${api}goods/goodslist`,
+      data: {
+        goodsname: searchKeyword
+      },
+      success: res => {
+        console.log(res)
+      }
+    })
   }
 })

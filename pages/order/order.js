@@ -1,4 +1,6 @@
 import listDatas from './listData';
+const app = getApp(),
+  api = app.globalData.api;
 let maxProductNumber = 1, //最大使用订单个数
   index; //当前点击使用的订单
 Page({
@@ -7,32 +9,50 @@ Page({
     showUsed: false,
     isShowChoose: false,
     listData: [],
-    useOrderStatus:1, //1表示正在加载中 2表示暂无 3表示加载完毕
-    usedOrderStatus:1
+    useOrderStatus: 1, //1表示正在加载中 2表示暂无 3表示加载完毕
+    usedOrderStatus: 1
   },
 
   onLoad() {
+    // wx.request({
+    //   url: `${api}order/orderlist`,
+    //   data: {
+    //     user_id: 16
+    //   },
+    //   success: res => {
+    //     console.log(res)
+    //   }
+    // });
+    wx.request({
+      url: `${api}order/orderlist_old`,
+      data: {
+        user_id: 16
+      },
+      success: res => {
+        console.log(res)
+      }
+    });
     let tempListData = this.data.listData;
     tempListData.push(...listDatas);
 
     //假设暂无已使用订单和待使用订单
-    let tempUseOrderStatus = 2 ,
+    let tempUseOrderStatus = 2,
       tempUsedOrderStatus = 2;
-    listDatas.forEach((item,index)=>{
-      if(item.used){
+    listDatas.forEach((item, index) => {
+      if (item.used) {
         tempUsedOrderStatus = 3;
-      }else{
+      } else {
         tempUseOrderStatus = 3;
       }
     });
-    setTimeout(()=>{
+    setTimeout(() => {
       this.setData({
         useOrderStatus: tempUseOrderStatus,
         usedOrderStatus: tempUsedOrderStatus,
         listData: tempListData
       });
-    },3000);
-    
+    }, 3000);
+
   },
 
   checkoutToUse() {

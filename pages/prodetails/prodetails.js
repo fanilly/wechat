@@ -1,8 +1,13 @@
 // pages/components/prodetail/prodetails.js
-import ListDatas from './listData';
 import { formatDate } from '../../utils/util';
 
-let slideInDown;
+const app = getApp(),
+  api = app.globalData.api;
+
+let slideInDown, //动画实例
+  latitude, //店铺所在位置的纬度
+  longitude, //店铺所在位置的经度
+  Distances;
 
 Page({
 
@@ -17,6 +22,16 @@ Page({
     date: '2016-09-01', //当前选择时间
     startDate: '', //开始时间
     endDate: '',
+    shopid: 1,
+
+    distance: '', //距离
+    address: '', //位置
+    phone: '', //联系方式
+    shopName: '', //店铺名称
+    goodsName: '', //商品名称
+    price: '', //价格
+    monthSum: '', //月销
+    score: '', //评分
 
     slideInDown: {},
     isShowGetCoupon: false, //显示领取优惠券层
@@ -47,24 +62,88 @@ Page({
     }]
   },
 
-
   // 生命周期函数--监听页面加载
   onLoad: function(options) {
+    //获取本地存储中的店铺位置
+    wx.getStorage({
+      key: 'distances',
+      success: res => {
+        Distances = res.data;
+        wx.request({
+          url: `${api}goods/shop_goods`,
+          data: {
+            shopid: options.shopid
+          },
+          success: res => {
+            let data = res.data;
+            //将距离信息添加至每个商品中
+            for (let i = 0; i < data.length; i++) {
+              for (let j = 0; j < Distances.length; j++) {
+                if (Distances[j].shopid == data[i].shopid) {
+                  data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`
+                  break;
+                } else {
+                  data[i].distances = '...';
+                }
+              }
+            }
+            //将商品渲染至页面
+            this.setData({
+              listData: data,
+              distance: data[0].distances
+            });
+          }
+        });
+      },
+      fail: function() {
+        Distances = [];
+      }
+    });
 
-    console.log(options)
+    //获取店铺名称 商品名称 价格 月销 及 评分
+    wx.request({
+      url: `${api}goods/goods_info`,
+      data: {
+        goodsid: options.goodsid
+      },
+      success: res => {
+        this.setData({
+          shopName: res.data.shopname,
+          goodsName: res.data.goodsname,
+          price: res.data.shopprice,
+          monthSum: res.data.month_sum,
+          score: res.data.score
+        })
+      }
+    });
+    //获取店铺坐标、地址、联系方式
+    wx.request({
+      url: `${api}shop/shop_info`,
+      data: {
+        shopid: options.shopid
+      },
+      success: res => {
+        this.setData({
+          address: res.data.shopaddress,
+          phone: res.data.shoptel
+        });
+        latitude = parseFloat(res.data.latitude);
+        longitude = parseFloat(res.data.longitude);
+      }
+    });
 
+
+    //保存商铺id
+    this.setData({
+      shopid: options.shopid
+    });
+
+    //获取当前时间 设置日期范围
     let curDate = new Date();
     this.setData({
       date: formatDate(curDate),
       startDate: formatDate(curDate),
       endDate: formatDate(new Date(curDate.getTime() + 7 * 3600 * 24 * 1000))
-    });
-
-    //获取列表信息
-    let tempListData = this.data.listData;
-    tempListData.push(...ListDatas);
-    this.setData({
-      listData: tempListData
     });
 
     //获取系统信息
@@ -79,7 +158,7 @@ Page({
   },
 
   //创建动画对象
-  handleCreateAnimate(){
+  handleCreateAnimate() {
     this.slideInDown = wx.createAnimation({
       duration: 520,
       timingFunction: 'ease'
@@ -146,7 +225,7 @@ Page({
   },
 
   //隐藏立即购买
-  handleHideBuyLayer(){
+  handleHideBuyLayer() {
     //创建动画
     this.handleCreateAnimate();
 
@@ -187,13 +266,40 @@ Page({
     })
   },
 
-  test(e){
+  test(e) {
     console.log(e)
   },
 
-  // 页面相关事件处理函数--监听用户下拉动作
-  onPullDownRefresh: function() {
+  //跳转到店铺首页
+  handleGoToShop() {
+    wx.redirectTo({
+      url: `../shopdetails/shopdetails?shopid=${this.data.shopid}`
+    })
+  },
 
+  //列表图片发生错误
+  listImgError(e) {
+    let tempList = this.data.listData;
+    tempList[e.currentTarget.id].goodsimg = 'Upload/goods/2017-11/5a17b5f3d2f69.jpg';
+    this.setData({
+      listData: tempList
+    })
+  },
+
+  //定位
+  handleLocation() {
+    wx.openLocation({
+      latitude: latitude,
+      longitude: longitude,
+      scale: 18
+    })
+  },
+
+  //拨打电话
+  handleMakePhone() {
+    wx.makePhoneCall({
+      phoneNumber: this.data.phone //仅为示例，并非真实的电话号码
+    })
   }
 
 })

@@ -3,14 +3,13 @@
 const app = getApp(),
   api = app.globalData.api,
   imgUrl = app.globalData.imgUrl;
-import { chooseAddress, getAddress } from './address';
-import listDatas from './listData';
 
+let Distances = []; //缓存中的距离问题
 let tagNavTop = 0; //标签导航距离顶部的距离
-
 let allLoadMore = true, //允许加载更多
   currentPageNum = 1, //当前加载的次数
-  countPageNum = 5; //共可以加载的次数
+  countPageNum = 5, //共可以加载的次数
+  listtype = 1; //当前显示内容的排序方式
 
 Page({
   data: {
@@ -18,11 +17,11 @@ Page({
     windowHeight: 500,
     swiperHeight: 150, //swiper 高度
     address: '',
-
     tagNavFixed: false, //标签导航是否吸顶
 
     isLastPage: false, //是否加载完所有的次数
     listData: [],
+    isDistanceSort: false, //当前是否是以距离排序
 
     carousel: {
       imagesUrl: ['../../images/banner-1.png', '../../images/banner-2.png'],
@@ -42,24 +41,43 @@ Page({
   //获取热门推荐数据
   getGoodsList() {
     wx.request({
-      url: `${api}goods/goodslist?recom=1&$listtype=1&p=1`,
-      data:{
-        recom:1,
-        listtype:1,
-        p:currentPageNum
+      url: `${api}goods/goodslist`,
+      data: {
+        recom: 1,
+        listtype: listtype,
+        p: currentPageNum
       },
       success: res => {
         //保存最大加载次数
         countPageNum = res.data.page_sum;
-        // console.log(res)
+
+        let tempList = this.data.listData,
+          goodslist = res.data.goodslist;
+
+        //如果已经获取到距离信息 将距离信息添加至每个商品中
+        if (Distances.length != 0) {
+          for (let i = 0; i < goodslist.length; i++) {
+            for (let j = 0; j < Distances.length; j++) {
+              if (Distances[j].shopid == goodslist[i].shopid) {
+                goodslist[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
+                break;
+              } else {
+                goodslist[i].distances = '...';
+              }
+            }
+          }
+        }
+
+        //更改列表信息
+        tempList.push(...goodslist);
+        this.setData({
+          listData: tempList
+        });
+
+        //修改加载状态
+        allLoadMore = true;
       }
     })
-    //更改列表信息
-    let tempList = this.data.listData;
-    tempList.push(...listDatas);
-    this.setData({
-      listData: tempList
-    });
   },
 
   onLoad(options) {
@@ -67,14 +85,21 @@ Page({
     if (options.scene) {
       console.log(options.scene)
     }
-    //获取地址
-    getAddress(this, app);
 
-    //初始化标签导航
-    this.initTagNavTop();
+    //获取缓存中的距离
+    wx.getStorage({
+      key: 'distances',
+      success: res => {
+        Distances = res.data;
+      },
+      fail: function() {
+        Distances = [];
+      }
+    })
 
-    //获取热门推荐数据
-    this.getGoodsList();
+    this.getAddress(); //获取地址
+    this.initTagNavTop(); //初始化标签导航
+    this.getGoodsList(); //获取热门推荐数据
 
     //获取系统信息
     wx.getSystemInfo({
@@ -94,6 +119,7 @@ Page({
     })
   },
 
+  //banner图片加载
   imageLoad(e) {
     //获取图片真实宽度  
     let imgwidth = e.detail.width,
@@ -101,6 +127,15 @@ Page({
       swiperHeight = this.data.windowWidth / imgwidth * imgheight;
     this.setData({
       swiperHeight: swiperHeight
+    })
+  },
+
+  //列表图片发生错误
+  listImgError(e) {
+    let tempList = this.data.listData;
+    tempList[e.currentTarget.id].goodsimg = 'Upload/goods/2017-11/5a17b5f3d2f69.jpg';
+    this.setData({
+      listData: tempList
     })
   },
 
@@ -112,7 +147,7 @@ Page({
       type: 'wgs84',
       // 如果成功 直接选择地址
       success: res => {
-        chooseAddress(self, app);
+        self.chooseAddress();
       },
       // 如果选择失败 打开设置 重新授权
       fail: res => {
@@ -152,17 +187,7 @@ Page({
       if (allLoadMore) {
         allLoadMore = false;
         currentPageNum++;
-        setTimeout(function() {
-
-          //更改列表信息
-          let tempList = self.data.listData;
-          tempList.push(...listDatas);
-          self.setData({
-            listData: tempList
-          });
-
-          allLoadMore = true;
-        }, 2000);
+        this.getGoodsList();
       }
     } else {
       this.setData({
@@ -173,10 +198,6 @@ Page({
 
   //分享
   onShareAppMessage(res) {
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(res.target)
-    }
     return {
       title: '西峡派 -- ' + app.globalData.appDescription,
       path: '/pages/index/index',
@@ -187,5 +208,159 @@ Page({
         console.log('fail');
       }
     }
+  },
+
+  //选取地址
+  chooseAddress() {
+    wx.chooseLocation({
+      success: res => {
+        wx.setStorage({
+          key: 'address',
+          data: res.name != '' ? res.name : res.address
+        });
+        app.globalData.address = res.name;
+        this.setData({
+          address: res.name
+        });
+        this.saveDistance(res.latitude, res.longitude);
+      }
+    })
+  },
+
+  //获取定位
+  getAddress() {
+    wx.getLocation({
+      type: 'wgs84',
+      success: res => { //成功获取位置
+        /**
+         * 如果可以获取到地址 将获取到的地址保存入storage中
+         * 否则打开地址选取页面
+         */
+        this.saveDistance(res.latitude, res.longitude);
+        wx.getStorage({
+          key: 'address',
+          success: res => {
+            app.globalData.address = res.data;
+            this.setData({
+              address: res.data
+            })
+          },
+          fail: function() {
+            this.chooseAddress();
+          }
+        })
+      }
+    });
+  },
+
+  //保存距离
+  saveDistance(latitude, longitude) {
+    wx.request({
+      url: `${app.globalData.api}common/ext_distance?start=${latitude},${longitude}`,
+      success: res => {
+        Distances = res.data;
+        this.addDistancesToGoodslist();
+        //获取位置成功 保存入本地存储
+        wx.setStorage({
+          key: 'distances',
+          data: res.data
+        });
+      }
+    })
+  },
+
+  //给商品列表添加距离属性
+  addDistancesToGoodslist() {
+    let tempList = this.data.listData;
+    //如果已经获取到距离信息 将距离信息添加至每个商品中
+    if (Distances.length != 0) {
+      for (let i = 0; i < tempList.length; i++) {
+        for (let j = 0; j < Distances.length; j++) {
+          if (Distances[j].shopid == tempList[i].shopid) {
+            tempList[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`
+            break;
+          } else {
+            tempList[i].distances = '...';
+          }
+        }
+      }
+    }
+    //更改列表信息
+    this.setData({
+      listData: tempList
+    });
+  },
+
+  //商品列表排序排序
+  sortGoodsList(num) {
+    this.setData({
+      listData: []
+    })
+    allLoadMore = true;
+    listtype = num;
+    currentPageNum = 1;
+    this.getGoodsList();
+  },
+
+  //综合排序
+  handleComprehensiveSort() {
+    this.sortGoodsList(1);
+  },
+
+  //销量排序
+  handleSalesSort() {
+    this.sortGoodsList(2);
+  },
+
+  // 距离排序
+  handleDistanceSort() {
+    // this.setData({
+    //   isDistanceSort: true
+    // });
+    wx.request({
+      url: `${api}goods/goodslist`,
+      data: {
+        recom: 1,
+        listtype: 3
+      },
+      success: res => {
+        console.log('-------------------------------')
+        console.log(res)
+        console.log('-------------------------------')
+        let data = res.data;
+        if (data.length != 0) {
+          //为商品列表的每一个列表项添加距离属性
+          for (let i = 0; i < data.length; i++) {
+            for (let j = 0; j < Distances.length; j++) {
+              if (Distances[j].shopid == data[i].shopid) {
+                data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`
+                data[i].sortFlag = Distances[j].distance;
+                break;
+              } else {
+                data[i].distances = '...';
+                data[i].sortFlag = 50000;
+              }
+            }
+          }
+          //查找排序法
+          for (let i = 0; i < data.length; i++) {
+            for (let j = i + 1; j < data.length; j++) {
+              if (data[i]['sortFlag'] > data[j]['sortFlag']) {
+                let tempItem = data[i];
+                data[i] = data[j];
+                data[j] = tempItem;
+              }
+            }
+          }
+          console.log(data);
+        }
+      }
+    });
+  },
+
+  //价格排序
+  handlePriceSort() {
+    this.sortGoodsList(3);
   }
-})
+
+});

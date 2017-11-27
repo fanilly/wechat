@@ -6,9 +6,9 @@
     <view class="header">
       <view class="search-box">
         <icon type="search" size="12" color="#a6a6a6" />
-        <input placeholder="拉面" placeholder-style="height:56rpx;" focus="true" />
+        <input bindinput="recordSearchKeyword" placeholder="拉面" placeholder-style="height:56rpx;" focus="true" />
       </view>
-      <view class="search-btn" bindtap="handleChooseAddress">
+      <view class="search-btn" bindtap="handleSearch">
         <text>搜索</text>
       </view>
     </view>

@@ -53,8 +53,8 @@ App({
 
   globalData: {
     userID:'',
-    api: '*****/index.php/api/',
-    imgUrl: '*****/',
+    api: '/index.php/api/',
+    imgUrl: '/',
     userInfo: null,
     address: '',
     appDescription: '西峡生活第一平台'
