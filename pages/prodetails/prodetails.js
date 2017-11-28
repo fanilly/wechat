@@ -7,7 +7,8 @@ const app = getApp(),
 let slideInDown, //动画实例
   latitude, //店铺所在位置的纬度
   longitude, //店铺所在位置的经度
-  Distances;
+  Distances,
+  allowCollection = true;
 
 Page({
 
@@ -22,8 +23,10 @@ Page({
     date: '2016-09-01', //当前选择时间
     startDate: '', //开始时间
     endDate: '',
-    shopid: 1,
+    isCollectioned: false, //是否已经被收藏
 
+    shopid: 1,
+    goodsid: 1,
     distance: '', //距离
     address: '', //位置
     phone: '', //联系方式
@@ -45,25 +48,34 @@ Page({
       activityname: '店铺名称',
       invaliddate: '2017-11-12',
       fullcut: 100
-    }, {
-      shopuniquekey: 'xx21255',
-      shopname: '一乐拉面',
-      denomination: 10,
-      activityname: '店铺名称',
-      invaliddate: '2017-11-12',
-      fullcut: 100
-    }, {
-      shopuniquekey: 'xx21255',
-      shopname: '一乐拉面',
-      denomination: 10,
-      activityname: '店铺名称',
-      invaliddate: '2017-11-12',
-      fullcut: 100
     }]
+  },
+
+  checkIsCollection(goodsid) {
+    // https://www.91tuoguan.cn/index.php/api/user/check_fav?userid=8&goodsid=175
+    wx.request({
+      url: `${api}user/check_fav`,
+      data: {
+        userid: app.globalData.userID,
+        goodsid: goodsid
+      },
+      success: res => {
+        if (res.data * 1 == 1) {
+          this.setData({
+            isCollectioned: true
+          })
+        } else {
+          this.setData({
+            isCollectioned: false
+          })
+        }
+      }
+    });
   },
 
   // 生命周期函数--监听页面加载
   onLoad: function(options) {
+    this.checkIsCollection(options.goodsid);
     //获取本地存储中的店铺位置
     wx.getStorage({
       key: 'distances',
@@ -135,7 +147,8 @@ Page({
 
     //保存商铺id
     this.setData({
-      shopid: options.shopid
+      shopid: options.shopid,
+      goodsid: options.goodsid
     });
 
     //获取当前时间 设置日期范围
@@ -154,7 +167,6 @@ Page({
         });
       }
     });
-
   },
 
   //创建动画对象
@@ -204,7 +216,6 @@ Page({
         isShowGetCoupon: false
       })
     }, 300);
-
   },
 
   //弹出立即购买
@@ -300,6 +311,36 @@ Page({
     wx.makePhoneCall({
       phoneNumber: this.data.phone //仅为示例，并非真实的电话号码
     })
-  }
+  },
 
+  //收藏
+  handleCollection() {
+    if (allowCollection) {
+      allowCollection = false;
+      let interfaceUrl = this.data.isCollectioned ? 'user/fav_del' : 'goods/into_fav',
+        msg = this.data.isCollectioned ? '取消成功' : '收藏成功',
+        flag = this.data.isCollectioned ? false : true;
+      wx.request({
+        url: `${api}${interfaceUrl}`,
+        data: {
+          userid: app.globalData.userID,
+          goodsid: this.data.goodsid
+        },
+        success: res => {
+          if (res.data * 1 == 1) {
+            this.setData({
+              isCollectioned: flag
+            });
+            wx.showToast({
+              title: msg,
+              icon: 'success',
+              duration: 2000
+            });
+            allowCollection = true;
+          }
+        }
+      });
+    }
+
+  }
 })

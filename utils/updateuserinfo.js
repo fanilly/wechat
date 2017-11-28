@@ -12,8 +12,9 @@
 
 module.exports = (userInfo, api, userID) => {
   const update = (userInfo, api, userID) => {
-    console.log('UPDATE');
+    console.log('-----------------')
     console.log(userID)
+    console.log('-----------------')
     wx.request({
       method: 'POST',
       url: `${api}user/modify_info`,

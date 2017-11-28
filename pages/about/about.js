@@ -1,13 +1,31 @@
-const app = getApp();
+const app = getApp(),
+  api = app.globalData.api;
 Page({
   data: {
     showPage: false,
-    userInfo: {}
+    userInfo: {},
+    info: {}
   },
   onLoad() {
+    console.log('++++++++++++++++++++++++++')
+    console.log(app.globalData)
+    console.log('++++++++++++++++++++++++++')
     if (!app.globalData.userInfo) {
       this.login();
     }
+  },
+  getInfo() {
+    wx.request({
+      url: `${api}user/user_info`,
+      data: {
+        userid: app.globalData.userID
+      },
+      success: res => {
+        this.setData({
+          info: res.data
+        });
+      }
+    });
   },
   login() {
     wx.login({
@@ -69,6 +87,7 @@ Page({
       this.setData({
         showPage: true
       });
+      this.getInfo();
     }
     //设置用户信息
     if (app.globalData.userInfo && this.data.userInfo != app.globalData.userInfo) {

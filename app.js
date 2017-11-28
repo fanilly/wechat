@@ -4,8 +4,6 @@ App({
   onLaunch: function() {
     const api = this.globalData.api;
     this.login(); //登陆
-    this.getUserInfo();
-
   },
 
   // 登录
@@ -24,7 +22,13 @@ App({
             'content-type': 'application/json'
           },
           success: res => {
+            wx.showToast({
+              title: 'success',
+              duration: 5000
+            });
+            console.log(res.data+':----------get userid success');
             this.globalData.userID = res.data;
+            console.log(this.globalData);
             this.getUserInfo();
           }
         });
@@ -34,15 +38,19 @@ App({
 
   getUserInfo() {
     wx.getUserInfo({
-      // withCredentials: true,
       success: res => {
+        console.log('get userinfo success');
         let userInfo = res.userInfo,
           api = this.globalData.api,
           userID = this.globalData.userID;
         //保存用户信息
         this.globalData.userInfo = userInfo;
-        if(userID){
-          updateUserInfo(userInfo,api,userID);
+        if (userID) {
+          wx.showToast({
+            title: userID,
+            duration: 5000
+          });
+          updateUserInfo(userInfo, api, userID);
         }
       },
       fail() {
@@ -52,11 +60,11 @@ App({
   },
 
   globalData: {
-    userID:'',
+    userID: '',
     api: '/index.php/api/',
     imgUrl: '/',
     userInfo: null,
     address: '',
     appDescription: '西峡生活第一平台'
   }
-})
+});

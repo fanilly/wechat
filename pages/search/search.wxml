@@ -6,7 +6,7 @@
     <view class="header">
       <view class="search-box">
         <icon type="search" size="12" color="#a6a6a6" />
-        <input bindinput="recordSearchKeyword" placeholder="拉面" placeholder-style="height:56rpx;" focus="true" />
+        <input bindinput="recordSearchKeyword" bindconfirm="handleSearch" confirm-type="search" placeholder="拉面" placeholder-style="height:56rpx;" focus="true" />
       </view>
       <view class="search-btn" bindtap="handleSearch">
         <text>搜索</text>
@@ -16,22 +16,24 @@
     <view class="shops" style="padding-top: {{tagNavFixed ? '80rpx':0}}">
       <!-- 标签的导航 -->
       <view class="tag-nav" style="position:{{tagNavFixed ? 'fixed' : 'static'}};background-color: {{tagNavFixed ? '#f7f7fa' : '#fff'}};">
-        <text>综合排序</text>
-        <text>销量最高</text>
-        <text>距离最近</text>
-        <text>价格最低</text>
+        <text catchtap="handleComprehensiveSort">综合排序</text>
+        <text catchtap="handleSalesSort">销量最高</text>
+        <text catchtap="handleDistanceSort">距离最近</text>
+        <text catchtap="handlePriceSort">价格最低</text>
       </view>
       <!-- 商品列表 -->
       <view class="pro-list">
         <block wx:for="{{listData}}" wx:key="key">
           <navigator url="/">
-            <template is="pro-list" data="{{item}}"></template>
+            <template is="pro-list" data="{{item,index}}"></template>
           </navigator>
         </block>
       </view>
     </view>
-    <view class="load-more-pro">
-      <text>{{isLastPage?'已经没有等多内容了':'正在加载更多...'}}</text>
-    </view>
+    <block wx:if="{{isSearched}}">
+      <view class="load-more-pro">
+        <text>{{isLastPage?'已经没有等多内容了':'加载中...'}}</text>
+      </view>
+    </block>
   </scroll-view>
 </view>

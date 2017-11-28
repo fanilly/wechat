@@ -1,5 +1,4 @@
 // pages/components/shopdetail/shopdetails.js
-import ListDatas from './listData';
 import { formatDate } from '../../utils/util';
 
 const app = getApp(),

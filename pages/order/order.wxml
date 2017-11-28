@@ -1,69 +1,73 @@
 <!--order.wxml-->
-<view class="container">
-  <view class="header">
-    <text class="{{showUsed ? '' : 'active'}}" bindtap="checkoutToUse">待使用订单</text>
-    <text class="{{showUsed ? 'active' : ''}}" bindtap="checkoutToUsed">已使用订单</text>
-  </view>
-  <!-- 订单项 -->
-  <view class="order-list">
-    <block wx:for="{{listData}}" wx:key="key">
-      <view class="order-list-item">
-        <view class="item-header">
-          <text>{{item.shopname}}</text>
-          <text style="color:{{showUsed ? '#888888' : '#ff5400'}};">{{showUsed ? '交易完成' : '待使用'}}</text>
-        </view>
-        <view class="item-main">
-          <view class="lside">
-            <image src="{{item.thumbnail}}"></image>
+<block wx:if="{{showPage}}">
+  <view class="container">
+    <view class="header">
+      <text class="{{showUsed ? '' : 'active'}}" bindtap="checkoutToUse">待使用订单</text>
+      <text class="{{showUsed ? 'active' : ''}}" bindtap="checkoutToUsed">已使用订单</text>
+    </view>
+    <!-- 订单项 -->
+    <view class="order-list">
+      <block wx:for="{{listData}}" wx:key="key">
+        <view class="order-list-item">
+          <view class="item-header">
+            <text>{{item.shopname}}</text>
+            <text style="color:{{showUsed ? '#888888' : '#ff5400'}};">{{showUsed ? '交易完成' : '待使用'}}</text>
           </view>
-          <view class="rside">
-            <view class="pro-title">
-              <text>{{item.goodsname}}</text>
-              <text>￥ {{item.shopprice}}</text>
-            </view>
-            <view class="address-box">
-              <view class="address">
-                <text>{{item.shopaddress}}</text>
+          <navigator url="../prodetails/prodetails?goodsid={{item.goodsid}}&shopid={{item.shopid}}">
+            <view class="item-main">
+              <view class="lside">
+                <image src="https://www.91tuoguan.cn/{{item.goodsimg}}"></image>
               </view>
-              <view class="amound">
-                <text>x{{item.goodsnums}}</text>
-                <text>合计：￥{{item.shopprice*1*item.goodsnums}}</text>
+              <view class="rside">
+                <view class="pro-title">
+                  <text>{{item.goodsname}}</text>
+                  <text>￥ {{item.shopprice}}</text>
+                </view>
+                <view class="address-box">
+                  <view class="address">
+                    <text>{{item.shopaddress}}</text>
+                  </view>
+                  <view class="amound">
+                    <text>x{{item.goodsnums}}</text>
+                    <text>合计：￥{{item.shopprice*1*item.goodsnums}}</text>
+                  </view>
+                </view>
               </view>
             </view>
+          </navigator>
+          <view class="item-footer">
+            <text catchtap="evaluateOrUse" id="{{index}}">{{showUsed ? '立即评价' : '立即使用'}}</text>
+            <text catchtap="handleDeleteOrder" id="{{index}}" style="display: {{showUsed?'block':'none'}}">{{showUsed ? '删除' : '申请退款'}}</text>
           </view>
         </view>
-        <view class="item-footer">
-          <text catchtap="evaluateOrUse" id="{{index}}">{{showUsed ? '立即评价' : '立即使用'}}</text>
-          <text style="display: {{showUsed?'block':'none'}}">{{showUsed ? '删除' : '申请退款'}}</text>
+      </block>
+    </view>
+    <view class="useStatus" wx:if="{{showUsed&&usedOrderStatus!=3}}">
+      {{usedOrderStatus == 2 ? '暂无已使用订单!' : '正在加载中...'}}
+    </view>
+    <view class="useStatus" wx:if="{{!showUsed&&useOrderStatus!=3}}">
+      {{useOrderStatus == 2 ? '暂无待使用订单!' : '正在加载中...'}}
+    </view>
+    <!-- 选择使用数量 -->
+    <block wx:if="{{isShowChoose}}">
+      <view class="pop" catchtap="handleClosePop">
+        <view class="content" catchtap="isStopPropergation">
+          <view class="choose-num">
+            <view>
+              <text>使用数量</text>
+            </view>
+            <view>
+              <text catchtap="handleReduceProductNumber">-</text>
+              <text>{{productNumber}}</text>
+              <text catchtap="handleAddProductNumber">+</text>
+            </view>
+          </view>
+          <view class="pop-footer">
+            <text catchtap="handleClosePop">取消</text>
+            <text catchtap="handleUseOrder">确定</text>
+          </view>
         </view>
       </view>
     </block>
   </view>
-  <view class="useStatus" wx:if="{{showUsed&&usedOrderStatus!=3}}">
-    {{usedOrderStatus == 2 ? '暂无已使用订单!' : '正在加载中...'}}
-  </view>
-  <view class="useStatus" wx:if="{{!showUsed&&useOrderStatus!=3}}">
-    {{useOrderStatus == 2 ? '暂无待使用订单!' : '正在加载中...'}}
-  </view>
-  <!-- 选择使用数量 -->
-  <block wx:if="{{isShowChoose}}">
-    <view class="pop" catchtap="handleClosePop">
-      <view class="content" catchtap="isStopPropergation">
-        <view class="choose-num">
-          <view>
-            <text>使用数量</text>
-          </view>
-          <view>
-            <text catchtap="handleReduceProductNumber">-</text>
-            <text>{{productNumber}}</text>
-            <text catchtap="handleAddProductNumber">+</text>
-          </view>
-        </view>
-        <view class="pop-footer">
-          <text catchtap="handleClosePop">取消</text>
-          <text catchtap="handleUseOrder">确定</text>
-        </view>
-      </view>
-    </view>
-  </block>
-</view>
+</block>

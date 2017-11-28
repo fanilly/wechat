@@ -78,9 +78,9 @@
         <image src="../../images/icon08.png"></image>
         <text>店铺</text>
       </view>
-      <view>
-        <image src="../../images/icon09.png"></image>
-        <text>收藏</text>
+      <view catchtap="handleCollection">
+        <image src="{{isCollectioned?'../../images/icon09-active.png':'../../images/icon09.png'}}"></image>
+        <text style="color:{{isCollectioned?'#02c1c9':'#666'}};">{{isCollectioned?'已收藏':'收藏'}}</text>
       </view>
       <view catchtap="handlePopBuyLayer">
         <text>立即购买</text>

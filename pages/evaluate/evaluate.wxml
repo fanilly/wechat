@@ -114,6 +114,6 @@
     </view>
   </view>
   <view class="footer">
-    <text>提交</text>
+    <text bindtap="handleSubmitEvaluate">提交</text>
   </view>
 </view>

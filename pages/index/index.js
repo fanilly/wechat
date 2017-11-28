@@ -28,12 +28,13 @@ Page({
       imagesUrl: ['../../images/banner-1.png', '../../images/banner-2.png'],
       indicatorDots: true, //是否显示焦点
       indicatorColor: '#eeeeee', //焦点颜色
-      indicatorActiveColor: '#333333', //当前活动块焦点颜色
+      indicatorActiveColor: 'rgba(0,0,0,.5)', //当前活动块焦点颜色
       autoplay: true, //自动播放
       interval: 4000, //自动播放间隔市场
       circular: true //无缝衔接
     }
   },
+
 
   //获取热门推荐数据
   getGoodsList() {
@@ -79,7 +80,7 @@ Page({
   },
 
   onLoad(options) {
-
+    console.log(options);
     if (options.scene) {
       console.log(options.scene)
     }
@@ -139,17 +140,22 @@ Page({
 
   //地址选取事件
   handleChooseAddress() {
-    let self = this;
     // 点击选择按钮之后打开地图选择地址
     wx.getLocation({
       type: 'wgs84',
       // 如果成功 直接选择地址
       success: res => {
-        self.chooseAddress();
+        this.chooseAddress();
       },
       // 如果选择失败 打开设置 重新授权
       fail: res => {
-        wx.openSetting();
+        wx.openSetting({
+          success: res => {
+            if (res.authSetting['scope.userLocation']) {
+              this.chooseAddress();
+            }
+          }
+        });
       }
     })
   },
@@ -262,6 +268,7 @@ Page({
       success: res => {
         Distances = res.data;
         this.addDistancesToGoodslist();
+        if (this.data.isDistanceSort) this.distanceSort();
         //获取位置成功 保存入本地存储
         wx.setStorage({
           key: 'distances',
@@ -296,8 +303,9 @@ Page({
   //商品列表排序排序
   sortGoodsList(num) {
     this.setData({
-      listData: []
-    })
+      listData: [],
+      isDistanceSort: false
+    });
     allLoadMore = true;
     listtype = num;
     currentPageNum = 1;
@@ -316,21 +324,23 @@ Page({
 
   //距离排序时每次加载执行
   getDistanceList() {
-
     let tempList = this.data.listData;
-    for (let i = (currentPageNum - 1) * 8; i < currentPageNum * 8; i++) tempList.push(listDatas[i]);
+    for (let i = (currentPageNum - 1) * 8; i < currentPageNum * 8; i++) {
+      tempList.push(listDatas[i]);
+    }
 
     //更改列表信息
     this.setData({
       listData: tempList
     });
+
     setTimeout(() => {
       allLoadMore = true; //修改加载状态
     }, 350);
   },
 
-  // 距离排序
-  handleDistanceSort() {
+  //距离排序
+  distanceSort() {
     allLoadMore = true;
     currentPageNum = 1;
     listtype = 3;
@@ -369,11 +379,34 @@ Page({
           //保存列表信息
           listDatas = data;
           countPageNum = Math.ceil(data.length / 8);
-          console.log(countPageNum);
           this.getDistanceList();
         }
       }
     });
+  },
+
+  // 距离排序
+  handleDistanceSort() {
+    this.setData({
+      isDistanceSort: true,
+      listData:[]
+    });
+    if (!this.data.address) {
+      //显示模态框
+      wx.showModal({
+        title: '温馨提示',
+        content: '必须选取位置之后才能进行位置排序！',
+        cancelText: '忽略',
+        confirmText: '选择',
+        success: res => {
+          if (res.confirm) { //如果点击确定
+            this.handleChooseAddress();
+          }
+        }
+      });
+    } else {
+      this.distanceSort();
+    }
   },
 
   //价格排序

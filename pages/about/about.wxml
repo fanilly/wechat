@@ -10,7 +10,7 @@
         </view>
         <view class="center">
           <text>{{userInfo.nickName?userInfo.nickName:'请登录'}}</text>
-          <text>LV: 4</text>
+          <text>LV: {{info.level}}</text>
         </view>
         <view class="rside">
           <image src="../../images/code.png"></image>
@@ -24,13 +24,13 @@
               <text>我的团长：</text>
               <text>我的团员：</text>
               <text>我的排名：</text>
-              <text class="commission">￥ 99.99</text>
+              <text class="commission">￥ {{info.commission}}</text>
               <text>当前佣金</text>
             </view>
             <view class="rside">
-              <text>大简木·羽衣</text>
-              <text>999</text>
-              <text>999</text>
+              <text>{{info.parent_name}}</text>
+              <text>{{info.childnum}}</text>
+              <text>{{info.paiming}}</text>
               <navigator url="../commission/commission?title='测试'">
                 <text class="commission-withdrawals">佣金提现</text>
               </navigator>
