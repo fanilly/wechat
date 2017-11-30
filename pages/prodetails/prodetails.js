@@ -10,6 +10,9 @@ let slideInDown, //动画实例
   Distances,
   allowCollection = true;
 
+  // 购买接口
+  // https://www.91tuoguan.cn/index.php/api/buy/buy?goodsid=*&userid=*&goodsnum=*
+
 Page({
 
   /**

@@ -117,7 +117,6 @@ Page({
 
   //列表图片发生错误
   listImgError(e) {
-    console.log(e.currentTarget.id)
     let tempList = this.data.listData;
     tempList[e.currentTarget.id].shopimg = 'Upload/goods/2017-11/5a17b5f3d2f69.jpg';
     this.setData({

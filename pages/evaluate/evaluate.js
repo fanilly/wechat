@@ -34,6 +34,11 @@ Page({
         score: this.data.score
       },
       success: res => {
+        if (res.data) {
+          wx.navigateBack({
+            delta: 1
+          });
+        }
         console.log(res)
       }
     });

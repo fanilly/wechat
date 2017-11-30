@@ -12,7 +12,7 @@
       </view>
       <view>
         <text>可提现佣金</text>
-        <text>99.99</text>
+        <text>{{nowmoney}}</text>
       </view>
       <view>
         <text>今日排名</text>
@@ -25,14 +25,14 @@
           <text>温馨提示：</text>
         </view>
         <view class="content">
-          <text>您的当前佣金为{{commission}}元，可提现佣金为99.99元，只需再消费0元即可全部提现。</text>
+          <text>您的当前佣金为{{commission}}元，可提现佣金为{{nowmoney}}元，只需再消费{{dismoney}}元即可全部提现。</text>
           <text>佣金提现规则的计算方式为：当您的消费金额不低于您所有团员的平均消费金额时，您可以提现当前佣金总额，否则只能提现同等比例的佣金。</text>
           <text>例如：您有10个团员，一共消费了1000元，平均消费为每人100元，他们一共为您贡献了120元佣金，如果您想把这120元佣金全部提现，您需消费至少100元（您的10个团员的人均消费金额），假如您只消费了50元，那么您只能提现50%（120X50%=60元）.如果您想全部提现，需再消费50元。</text>
         </view>
       </view>
     </view>
     <view class="footer">
-      <input type="number" bindinput="recordCommissionMoney" placeholder="请输入提现金额" />
+      <input type="number" bindinput="recordCommissionMoney" placeholder="{{nowmoney}}" />
       <view bindtap="handleCommission">
         <text>立即提现</text>
       </view>

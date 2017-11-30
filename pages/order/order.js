@@ -50,10 +50,10 @@ Page({
     wx.request({
       url: `${api}order/orderlist`,
       data: {
-        user_id: 16
+        userid: app.globalData.userID
       },
       success: res => {
-        console.log(res);
+        console.log(res)
         if (!res.data) {
           this.setData({
             useOrderStatus: 2
@@ -78,7 +78,7 @@ Page({
     wx.request({
       url: `${api}order/orderlist_old`,
       data: {
-        user_id: 16
+        user_id: app.globalData.userID
       },
       success: res => {
         console.log(res);
@@ -125,18 +125,21 @@ Page({
     });
   },
 
-  userOrder(num, userid) {
-    // wx.request({
-    //   url: `${api}buy/use_order`,
-    //   data: {
-    //     goodsnum: num,
-    //     userid: app.globalData.userID,
-    //     orderid: orderid
-    //   },
-    //   success: res => {
-    //     console.log(res);
-    //   }
-    // });
+  userOrder(num, orderid) {
+    wx.request({
+      url: `${api}buy/use_order`,
+      data: {
+        goodsnum: num,
+        userid: app.globalData.userID,
+        orderid: orderid
+      },
+      success: res => {
+        console.log(res);
+        wx.navigateTo({
+          url: '../usesuccess/usesuccess?uniquekey=' + 1111 + '&num=' + num
+        });
+      }
+    });
   },
 
   //使用订单
@@ -146,16 +149,12 @@ Page({
      */
     let curOrder = this.data.listData[index],
       num = this.data.productNumber;
-    // this.userOrder(num,curOrder.userid);
+      console.log(curOrder)
+    this.userOrder(num, curOrder.orderid);
     // https://www.91tuoguan.cn/index.php/api/buy/use_order?goodsnum=*&userid=*&orderid=*
 
     // 关闭弹窗
-    this.handleClosePop();
-    // 页面跳转
-    wx.navigateTo({
-      url: '../usesuccess/usesuccess?uniquekey=' + curOrder.uniquekey + '&num=' + num
-    });
-    console.log(curOrder);
+    // this.handleClosePop();
   },
 
   //点击评价或立即使用

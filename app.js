@@ -61,8 +61,8 @@ App({
 
   globalData: {
     userID: '',
-    api: '/index.php/api/',
-    imgUrl: '/',
+    api: 'https://www.91tuoguan.cn/index.php/api/',
+    imgUrl: 'https://www.91tuoguan.cn/',
     userInfo: null,
     address: '',
     appDescription: '西峡生活第一平台'

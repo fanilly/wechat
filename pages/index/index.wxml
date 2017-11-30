@@ -41,7 +41,7 @@
           </navigator>
         </view>
         <view class="nav-item">
-          <navigator url="../shoplist/shoplist?title=拼车出行&navid=4" hover-class="none">
+          <navigator url="../shoplist/shoplist?title=行&navid=4" hover-class="none">
             <image src="../../images/inav04.png"></image>
           </navigator>
         </view>

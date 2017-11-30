@@ -97,8 +97,7 @@ Page({
       });
     }
   },
-  // childnum=0&commission=0.00&paiming=1&totalcommission=0.00
-
+  
   handleGoToQRCode(){
     wx.navigateTo({
       url: `../qrcode/qrcode?qrcodeurl=${this.data.info.rqcode}&avatarurl=${this.data.userInfo.avatarUrl}`
