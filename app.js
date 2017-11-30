@@ -1,7 +1,12 @@
 //app.js
 import updateUserInfo from './utils/updateuserinfo';
 App({
-  onLaunch: function() {
+  onLaunch: function(options) {
+    console.log(options)
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    });
     const api = this.globalData.api;
     this.login(); //登陆
   },
@@ -22,13 +27,8 @@ App({
             'content-type': 'application/json'
           },
           success: res => {
-            wx.showToast({
-              title: 'success',
-              duration: 5000
-            });
-            console.log(res.data+':----------get userid success');
             this.globalData.userID = res.data;
-            console.log(this.globalData);
+            wx.hideLoading();
             this.getUserInfo();
           }
         });
@@ -39,17 +39,17 @@ App({
   getUserInfo() {
     wx.getUserInfo({
       success: res => {
-        console.log('get userinfo success');
+        console.log(res);
         let userInfo = res.userInfo,
           api = this.globalData.api,
           userID = this.globalData.userID;
         //保存用户信息
         this.globalData.userInfo = userInfo;
+        console.log('-----------------------------')
+        console.log(userID)
+        console.log('-----------------------------')
         if (userID) {
-          wx.showToast({
-            title: userID,
-            duration: 5000
-          });
+          console.log('987654321*********************')
           updateUserInfo(userInfo, api, userID);
         }
       },
@@ -61,8 +61,8 @@ App({
 
   globalData: {
     userID: '',
-    api: '/index.php/api/',
-    imgUrl: '/',
+    api: 'https://www.91tuoguan.cn/index.php/api/',
+    imgUrl: 'https://www.91tuoguan.cn/',
     userInfo: null,
     address: '',
     appDescription: '西峡生活第一平台'

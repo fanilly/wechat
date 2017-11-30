@@ -1,19 +1,19 @@
 <template name="shop-list">
   <view class="list-item">
     <view class="lside">
-      <image src="{{item.thumbnail}}"></image>
+      <image id="{{index}}" src="https://www.91tuoguan.cn/{{item.shopimg}}" binderror="listImgError"></image>
     </view>
     <view class="rside">
       <view class="shop-title">
-        <text>{{item.shopName}}</text>
+        <text>{{item.shopname}}</text>
       </view>
       <view class="shop-address">
-        <text>{{item.shopAddress}}</text>
+        <text>{{item.shopaddress}}</text>
       </view>
       <view class="shop-info">
-        <text>月销 {{item.sale}} </text>
+        <text>月销 {{item.month_sum}} </text>
         <text> 综合评分 {{item.score}}</text>
-        <text>250 m</text>
+        <text>{{item.distances}}</text>
       </view>
       <view class="shop-desc">
         <text>{{item.shopDesc}}</text>

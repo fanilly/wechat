@@ -1,10 +1,17 @@
 <import src="../../template/view/coupon.wxml" />
-<view class="container">
-  <view class="coupon-warp">
-    <block wx:for="{{listData}}" wx:key="key">
-      <navigator url="/">
-        <template is="coupon" data="{{item}}"></template>
-      </navigator>
-    </block>
+<block wx:if="{{hasCoupon}}">
+  <view class="container">
+    <view class="coupon-warp">
+      <block wx:for="{{listData}}" wx:key="key">
+        <navigator url="/">
+          <template is="coupon" data="{{item}}"></template>
+        </navigator>
+      </block>
+    </view>
   </view>
-</view>
+</block>
+<block wx:else>
+	<view class="page-on-load">
+		暂无优惠券！
+	</view>
+</block>

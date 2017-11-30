@@ -4,12 +4,10 @@ Page({
   data: {
     showPage: false,
     userInfo: {},
-    info: {}
+    info: {},
+    loaded: false
   },
   onLoad() {
-    console.log('++++++++++++++++++++++++++')
-    console.log(app.globalData)
-    console.log('++++++++++++++++++++++++++')
     if (!app.globalData.userInfo) {
       this.login();
     }
@@ -22,7 +20,8 @@ Page({
       },
       success: res => {
         this.setData({
-          info: res.data
+          info: res.data,
+          loaded: true
         });
       }
     });
@@ -45,7 +44,8 @@ Page({
         self.setData({
           userInfo: app.globalData.userInfo,
           showPage: true
-        })
+        });
+        this.getInfo();
       },
       fail() {
         //显示模态框
@@ -79,6 +79,7 @@ Page({
       }
     });
   },
+
   //当页面显示
   onShow() {
     if (!app.globalData.userInfo) {
@@ -95,5 +96,12 @@ Page({
         userInfo: app.globalData.userInfo
       });
     }
+  },
+  // childnum=0&commission=0.00&paiming=1&totalcommission=0.00
+
+  handleGoToQRCode(){
+    wx.navigateTo({
+      url: `../qrcode/qrcode?qrcodeurl=${this.data.info.rqcode}&avatarurl=${this.data.userInfo.avatarUrl}`
+    });
   }
 })

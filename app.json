@@ -13,6 +13,7 @@
     "pages/bindphone/bindphone",
     "pages/coupon/coupon",
     "pages/commission/commission",
+    "pages/qrcode/qrcode",
 
     "pages/search/search",
     "pages/shoplist/shoplist",

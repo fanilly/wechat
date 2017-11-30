@@ -1,11 +1,19 @@
 <import src="../../template/view/pro-list.wxml" />
-<view class="container">
-  <!-- 商品列表 -->
-  <view class="pro-list">
-    <block wx:for="{{listData}}" wx:key="key">
-      <navigator url="../prodetails/prodetails?goodsid={{item.goodsid}}&shopid={{item.shopid}}">
-        <template is="pro-list" data="{{item,index}}"></template>
-      </navigator>
-    </block>
+<block wx:if="{{collectionStatus==3}}">
+  <view class="container">
+    <!-- 商品列表 -->
+    <view class="pro-list">
+      <block wx:for="{{listData}}" wx:key="key">
+        <navigator url="../prodetails/prodetails?goodsid={{item.goodsid}}&shopid={{item.shopid}}">
+          <template is="pro-list" data="{{item,index}}"></template>
+        </navigator>
+      </block>
+    </view>
   </view>
-</view>
+</block>
+<block wx:elif="{{collectionStatus==2}}">
+  <view class="page-on-load">暂无收藏商品</view>
+</block>
+<block wx:else>
+  <view class="page-on-load">页面加载中...</view>
+</block>

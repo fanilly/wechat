@@ -6,22 +6,22 @@
     <view class="shops" style="padding-top:80rpx">
       <!-- 标签的导航 -->
       <view class="tag-nav">
-        <text>综合排序</text>
-        <text>销量最高</text>
-        <text>距离最近</text>
-        <text>人均消费</text>
+        <text catchtap="handleComprehensiveSort">综合排序</text>
+        <text catchtap="handleSalesSort">销量最高</text>
+        <text catchtap="handleDistanceSort">距离最近</text>
+        <text catchtap="handlePriceSort">价格最低</text>
       </view>
       <!-- 商铺列表 -->
       <view class="shop-list">
         <block wx:for="{{listData}}" wx:key="key">
-          <navigator url="../shopdetails/shopdetails?shopuniquekey={{item.shopuniquekey}}">
-            <template is="shop-list" data="{{item}}"></template>
+          <navigator url="../shopdetails/shopdetails?shopid={{item.shopid}}">
+            <template is="shop-list" data="{{item,index}}"></template>
           </navigator>
         </block>
       </view>
     </view>
     <view class="load-more-pro">
-      <text>{{isLastPage?'已经没有更多内容了':'正在加载更多...'}}</text>
+      <text>{{isLastPage?'已经没有更多内容了':'加载中...'}}</text>
     </view>
   </scroll-view>
 </view>

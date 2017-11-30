@@ -30,22 +30,17 @@ module.exports = (userInfo, api, userID) => {
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'
-      },
-      success: res => {
-        console.log(res)
-      },
-      fail() {
-        console.log('updateuserinfo fail')
       }
     });
   };
   wx.getStorage({
     key: 'userInfo',
     success: res => {
+      console.log('123456789----------------------')
       //如果本次获取的信息与storage中的信息不匹配
       //将信息传输的后台
       let data = res.data;
-      if (data.avatarUrl != userInfo.avatarUrl || data.gender != userInfo.gender || data.nickName != userInfo.nickName || data.language != userInfo.language || data.country != userInfo.country || data.province != userInfo.province || data.city != userInfo.city) {
+      // if (data.avatarUrl != userInfo.avatarUrl || data.gender != userInfo.gender || data.nickName != userInfo.nickName || data.language != userInfo.language || data.country != userInfo.country || data.province != userInfo.province || data.city != userInfo.city) {
         wx.setStorage({
           key: 'userInfo',
           data: {
@@ -59,7 +54,7 @@ module.exports = (userInfo, api, userID) => {
           }
         });
         update(userInfo, api, userID);
-      }
+      // }
     },
     fail() {
       //将头像昵称保存入storage

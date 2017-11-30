@@ -33,3 +33,18 @@ page {
   height: 62rpx;
   line-height: 62rpx;
 }
+
+.page-on-load {
+  color: #666;
+  font-size: 26rpx;
+  width: 200rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  text-align: center;
+}

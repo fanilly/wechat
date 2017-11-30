@@ -24,6 +24,7 @@ Page({
     startDate: '', //开始时间
     endDate: '',
     isCollectioned: false, //是否已经被收藏
+    hasCoupon:false, //是否已有优惠券 该功能暂未开发
 
     shopid: 1,
     goodsid: 1,
@@ -35,6 +36,7 @@ Page({
     price: '', //价格
     monthSum: '', //月销
     score: '', //评分
+    loaded: false,
 
     slideInDown: {},
     isShowGetCoupon: false, //显示领取优惠券层
@@ -51,8 +53,8 @@ Page({
     }]
   },
 
+  //检查是否已收藏
   checkIsCollection(goodsid) {
-    // https://www.91tuoguan.cn/index.php/api/user/check_fav?userid=8&goodsid=175
     wx.request({
       url: `${api}user/check_fav`,
       data: {
@@ -124,8 +126,9 @@ Page({
           goodsName: res.data.goodsname,
           price: res.data.shopprice,
           monthSum: res.data.month_sum,
-          score: res.data.score
-        })
+          score: res.data.score,
+          loaded: true
+        });
       }
     });
     //获取店铺坐标、地址、联系方式
@@ -135,9 +138,10 @@ Page({
         shopid: options.shopid
       },
       success: res => {
+        console.log(res)
         this.setData({
           address: res.data.shopaddress,
-          phone: res.data.shoptel
+          phone: res.data.shopTel
         });
         latitude = parseFloat(res.data.latitude);
         longitude = parseFloat(res.data.longitude);
@@ -308,8 +312,9 @@ Page({
 
   //拨打电话
   handleMakePhone() {
+    console.log(this)
     wx.makePhoneCall({
-      phoneNumber: this.data.phone //仅为示例，并非真实的电话号码
+      phoneNumber: this.data.phone
     })
   },
 
@@ -333,11 +338,24 @@ Page({
             });
             wx.showToast({
               title: msg,
-              icon: 'success',
+              image: '../../images/success.png',
               duration: 2000
             });
             allowCollection = true;
+          } else {
+            wx.showToast({
+              title: '网络繁忙',
+              image: '../../images/warning.png',
+              duration: 2000
+            });
           }
+        },
+        fail: res => {
+          wx.showToast({
+            title: '网络繁忙',
+            image: '../../images/warning.png',
+            duration: 2000
+          });
         }
       });
     }

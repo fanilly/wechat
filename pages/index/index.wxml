@@ -31,17 +31,17 @@
           </navigator>
         </view>
         <view class="nav-item">
-          <navigator url="../shoplist/shoplist?title=餐饮美食" hover-class="none">
+          <navigator url="../shoplist/shoplist?title=餐饮美食&navid=2" hover-class="none">
             <image src="../../images/inav02.png"></image>
           </navigator>
         </view>
         <view class="nav-item">
-          <navigator url="../shoplist/shoplist?title=酒店住宿" hover-class="none">
+          <navigator url="../shoplist/shoplist?title=酒店住宿&navid=3" hover-class="none">
             <image src="../../images/inav03.png"></image>
           </navigator>
         </view>
         <view class="nav-item">
-          <navigator url="../shoplist/shoplist?title=拼车出行" hover-class="none">
+          <navigator url="../shoplist/shoplist?title=拼车出行&navid=4" hover-class="none">
             <image src="../../images/inav04.png"></image>
           </navigator>
         </view>
@@ -104,7 +104,7 @@
       </view>
     </view>
     <view class="load-more-pro">
-      <text>{{isLastPage?'已经没有更多内容了':'正在加载更多...'}}</text>
+      <text>{{isLastPage?'已经没有更多内容了':'加载中...'}}</text>
     </view>
   </scroll-view>
 </view>

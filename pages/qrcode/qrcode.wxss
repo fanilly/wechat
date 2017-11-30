@@ -1,0 +1,56 @@
+/* pages/qrcode/qrcode.wxss */
+
+.qrcodebg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.qrcode {
+  position: absolute;
+  z-index: 10;
+  /* width: 42.9333333333%;
+  height: 27.1959459459%; */
+  width: 325rpx;
+  height: 325rpx;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: 9rpx solid #d44c68;
+}
+
+.userphoto {
+  /*width: 18.6666666667%;
+  height: 11.2947526236%;*/
+  width: 140rpx;
+  height: 140rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 15;
+  border-radius: 100%;
+}
+
+
+/**
+ * 750
+ *
+ * 1184
+ *
+ * 322
+ *
+ * 42.9333333333%
+ * 27.1959459459%
+ *
+ *
+ *
+ *
+ *
+ * 
+ */

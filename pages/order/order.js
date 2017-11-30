@@ -25,6 +25,12 @@ Page({
   },
 
   onShow() {
+    if (this.data.showUsed) {
+      this.checkoutToUsed();
+    }
+    if (!this.data.showUsed) {
+      this.checkoutToUse();
+    }
     if (!app.globalData.userInfo) {
       this.login();
     } else {
@@ -119,21 +125,37 @@ Page({
     });
   },
 
+  userOrder(num, userid) {
+    // wx.request({
+    //   url: `${api}buy/use_order`,
+    //   data: {
+    //     goodsnum: num,
+    //     userid: app.globalData.userID,
+    //     orderid: orderid
+    //   },
+    //   success: res => {
+    //     console.log(res);
+    //   }
+    // });
+  },
+
   //使用订单
   handleUseOrder() {
     /**
      * 这里向后台发送数据 并等待后台返回成功标识
      */
-
-    //记录数据
     let curOrder = this.data.listData[index],
       num = this.data.productNumber;
-    //关闭弹窗
+    // this.userOrder(num,curOrder.userid);
+    // https://www.91tuoguan.cn/index.php/api/buy/use_order?goodsnum=*&userid=*&orderid=*
+
+    // 关闭弹窗
     this.handleClosePop();
-    //页面跳转
+    // 页面跳转
     wx.navigateTo({
       url: '../usesuccess/usesuccess?uniquekey=' + curOrder.uniquekey + '&num=' + num
-    })
+    });
+    console.log(curOrder);
   },
 
   //点击评价或立即使用
@@ -156,7 +178,7 @@ Page({
       } else {
         wx.navigateTo({
           url: '../usesuccess/usesuccess?uniquekey=' + curOrder.uniquekey + '&num=' + 1
-        })
+        });
       }
     }
   },

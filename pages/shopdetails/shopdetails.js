@@ -7,7 +7,8 @@ const app = getApp(),
 let slideInDown,
   latitude, //店铺所在位置的纬度
   longitude, //店铺所在位置的经度
-  Distances;
+  Distances,
+  shopID;
 
 Page({
 
@@ -22,12 +23,16 @@ Page({
     shopImg: '', //海报
     shopName: '', //店铺名称
     distance: '', //距离
-    listData: []
+    phone:'',
+    listData: [],
+    isNull:false,
+    loaded:false
   },
 
 
   // 生命周期函数--监听页面加载
   onLoad: function(options) {
+    shopID = options.shopid;
 
     //获取本地存储中的店铺位置
     wx.getStorage({
@@ -40,8 +45,14 @@ Page({
             shopid: options.shopid
           },
           success: res => {
-            console.log(res)
             let data = res.data;
+            if(!data){
+              this.setData({
+                isNull:true
+              });
+              console.log(123)
+              return;
+            }
             //将距离信息添加至每个商品中
             for (let i = 0; i < data.length; i++) {
               for (let j = 0; j < Distances.length; j++) {
@@ -74,6 +85,20 @@ Page({
       },
       success: res => {
         let data = res.data;
+        wx.getStorage({
+          key: 'distances',
+          success: res=> {
+            console.log(res)
+            for(let i=0;i<res.data.length;i++){
+              let curShop = res.data[i];
+              if(curShop.shopid == shopID){
+                this.setData({
+                  distance: curShop.distance < 1000 ? `${curShop.distance} m` : `${(curShop.distance /1000).toFixed(2)} km`
+                })
+              }
+            }
+          }
+        });
         wx.setNavigationBarTitle({
           title: data.shopname
         });
@@ -83,7 +108,9 @@ Page({
           monthSum: data.month_sum,
           score: data.score,
           shopImg: data.shopImg,
-          shopName: data.shopname
+          shopName: data.shopname,
+          phone:data.shopTel,
+          loaded:true
         });
         latitude = parseFloat(data.latitude);
         longitude = parseFloat(data.longitude);

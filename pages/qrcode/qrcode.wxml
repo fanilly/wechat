@@ -1,0 +1,6 @@
+<!--pages/qrcode/qrcode.wxml-->
+<view class="container">
+	<image class="qrcodebg" src="../../images/qrcodebg.png"></image>
+	<image class="qrcode" src="https://www.91tuoguan.cn/{{url}}"></image>
+	<image class="userphoto" src="{{avatarUrl}}"></image>
+</view>

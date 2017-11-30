@@ -1,5 +1,3 @@
-//index.js
-//获取应用实例
 const app = getApp(),
   api = app.globalData.api,
   imgUrl = app.globalData.imgUrl;
@@ -42,7 +40,7 @@ Page({
       url: `${api}goods/goodslist`,
       data: {
         recom: 1,
-        listtype: 1,
+        listtype: listtype,
         p: currentPageNum
       },
       success: res => {
@@ -411,7 +409,7 @@ Page({
 
   //价格排序
   handlePriceSort() {
-    this.sortGoodsList(3);
+    this.sortGoodsList(4);
   }
 
 });

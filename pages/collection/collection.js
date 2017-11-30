@@ -3,7 +3,8 @@ const app = getApp(),
   api = app.globalData.api;
 Page({
   data: {
-    listData: []
+    listData: [],
+    collectionStatus: 1 //1 加载中 2 暂无收藏 3隐藏
   },
   onLoad: function(options) {
     this.getCollecitonList();
@@ -18,8 +19,15 @@ Page({
         userid: app.globalData.userID
       },
       success: res => {
+        if (!res.data) {
+          this.setData({
+            collectionStatus: 2
+          });
+          return;
+        }
         this.setData({
-          listData: res.data
+          listData: res.data,
+          collectionStatus: 3
         });
         wx.getStorage({
           key: 'distances',
