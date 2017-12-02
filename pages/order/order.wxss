@@ -140,11 +140,22 @@
   border: 1rpx solid #888;
   border-radius: 30rpx;
   margin-left: 24rpx;
+  color: #888;
 }
 
 .order-list-item .item-footer text:first-child {
   color: #ff5400;
   border-color: #ff5400;
+}
+
+.order-list-item .item-footer text.evaluate {
+  color: #ff5400;
+  border-color: #ff5400;
+}
+
+.order-list-item .item-footer text.evaluated {
+  color: #888;
+  border-color: #888;
 }
 
 .pop {

@@ -33,6 +33,25 @@ Page({
     }
   },
 
+  //模板消息测试
+  /*handleFormSubmitTest(e){
+    console.log('++++++++++++++++++++++++++++++++++++++++++');
+    console.log('userID: '+app.globalData.userID);
+    console.log('formID: '+e.detail.formId);
+    console.log('++++++++++++++++++++++++++++++++++++++++++');
+    wx.request({
+      url: `${app.globalData.api}buy/send_wechat`,
+      data:{
+        userId:app.globalData.userID,
+        formId:e.detail.formId,
+        modeId:'L4fwlExbCtMJ7SurUnjiaMns0MxCv0FVKDu6GhJ18OI'
+      },
+      success: function (res) {
+        console.log(res)
+      }
+    });
+  },*/
+
 
   //获取热门推荐数据
   getGoodsList() {

@@ -125,6 +125,7 @@ Page({
     });
   },
 
+  //向后台发送试用订单请求
   userOrder(num, orderid) {
     wx.request({
       url: `${api}buy/use_order`,
@@ -135,6 +136,8 @@ Page({
       },
       success: res => {
         console.log(res);
+        // 关闭弹窗
+        this.handleClosePop();
         wx.navigateTo({
           url: '../usesuccess/usesuccess?uniquekey=' + 1111 + '&num=' + num
         });
@@ -144,17 +147,9 @@ Page({
 
   //使用订单
   handleUseOrder() {
-    /**
-     * 这里向后台发送数据 并等待后台返回成功标识
-     */
     let curOrder = this.data.listData[index],
       num = this.data.productNumber;
-      console.log(curOrder)
     this.userOrder(num, curOrder.orderid);
-    // https://www.91tuoguan.cn/index.php/api/buy/use_order?goodsnum=*&userid=*&orderid=*
-
-    // 关闭弹窗
-    // this.handleClosePop();
   },
 
   //点击评价或立即使用
@@ -162,9 +157,17 @@ Page({
     index = Number(e.currentTarget.id);
     let curOrder = this.data.listData[index];
     if (this.data.showUsed) { //评价
-      wx.navigateTo({
-        url: `../evaluate/evaluate?id=${curOrder.id}`
-      })
+      if (curOrder.appraise_status * 1 == 1) { //已评价
+        wx.showToast({
+          title: '无法重复评价',
+          image: '../../images/warning.png',
+          duration: 1500
+        });
+      } else { //去评价
+        wx.navigateTo({
+          url: `../evaluate/evaluate?id=${curOrder.id}`
+        });
+      }
     } else { //使用
       //如果订单个数大于1 显示选取使用数量的弹窗
       let total = parseInt(curOrder.goodsnums);
@@ -175,9 +178,7 @@ Page({
           isShowChoose: true
         });
       } else {
-        wx.navigateTo({
-          url: '../usesuccess/usesuccess?uniquekey=' + curOrder.uniquekey + '&num=' + 1
-        });
+        this.userOrder(total, curOrder.orderid);
       }
     }
   },
@@ -193,7 +194,14 @@ Page({
         id: curOrder.id
       },
       success: res => {
-        this.checkoutToUsed();
+        if (res.data) {
+          wx.showToast({
+            title: '删除成功',
+            image: '../../images/success.png',
+            duration: 1500
+          });
+          this.checkoutToUsed();
+        }
       }
     })
   },
@@ -217,7 +225,7 @@ Page({
         //设置用户信息
         self.setData({
           showPage: true
-        })
+        });
       },
       fail() {
         //显示模态框

@@ -170,7 +170,7 @@
               <view>总计
                 <text>￥ {{price*productNumber}}</text>
               </view>
-              <text>确定</text>
+              <text catchtap="handleBuy">确定</text>
             </view>
           </scroll-view>
         </view>

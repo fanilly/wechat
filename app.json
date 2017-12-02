@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/order/order",
     "pages/about/about",
+    "pages/apitest/apitest",
 
     "pages/building/building",
     "pages/evaluate/evaluate",
@@ -17,7 +18,6 @@
 
     "pages/search/search",
     "pages/shoplist/shoplist",
-    "pages/apitest/apitest",
 
     "pages/prodetails/prodetails",
     "pages/shopdetails/shopdetails"

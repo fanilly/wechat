@@ -19,6 +19,7 @@ Page({
         userid: app.globalData.userID
       },
       success: res => {
+        console.log(res)
         this.setData({
           info: res.data,
           loaded: true
@@ -97,8 +98,8 @@ Page({
       });
     }
   },
-  
-  handleGoToQRCode(){
+
+  handleGoToQRCode() {
     wx.navigateTo({
       url: `../qrcode/qrcode?qrcodeurl=${this.data.info.rqcode}&avatarurl=${this.data.userInfo.avatarUrl}`
     });

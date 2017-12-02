@@ -46,7 +46,7 @@ App({
         //保存用户信息
         this.globalData.userInfo = userInfo;
         console.log('-----------------------------')
-        console.log(userID)
+        
         console.log('-----------------------------')
         if (userID) {
           console.log('987654321*********************')
@@ -61,8 +61,8 @@ App({
 
   globalData: {
     userID: '',
-    api: 'https://www.91tuoguan.cn/index.php/api/',
-    imgUrl: 'https://www.91tuoguan.cn/',
+    api: '/index.php/api/',
+    imgUrl: '/',
     userInfo: null,
     address: '',
     appDescription: '西峡生活第一平台'

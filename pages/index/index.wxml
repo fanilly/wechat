@@ -2,6 +2,10 @@
 <!--index.wxml-->
 <view class="container">
   <scroll-view scroll-y style="height: {{windowHeight}}px;" bindscroll="handleScroll" bindscrolltolower="handleSscrollToLower">
+    <!-- 模板消息测试 -->
+    <!-- <form report-submit="true" bindsubmit="handleFormSubmitTest">
+      <button formType="submit">Submit</button>
+    </form> -->
     <!-- 头部位置信息及搜索框 -->
     <view class="header">
       <view class="address" bindtap="handleChooseAddress">

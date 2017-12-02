@@ -1,3 +1,6 @@
+const app = getApp(),
+  api = app.globalData.api;
+
 let timer, //定时器
   timediff = 5, //每次获取验证码的时间间隔
   phoneNumber; //当前输入的手机号
@@ -5,15 +8,17 @@ let timer, //定时器
 Page({
   data: {
     being: false, //记录获取验证码的状态 如果为真 代表正在获取
-    time: 5, //倒计时
+    time: 90, //倒计时
     isFocus: false
   },
 
-  onLoad(){
-    // 更改标题
-    // wx.setNavigationBarTitle({
-    //   title: title
-    // })
+  onLoad(options) {
+    this.setData({
+      phone:options.phone
+    })
+    wx.setNavigationBarTitle({
+      title: options.phone ? '修改手机号' : '绑定手机号'
+    })
   },
 
   //记录手机号
@@ -25,6 +30,18 @@ Page({
   formSubmit(e) {
     let self = this,
       data = e.detail.value;
+    //绑定手机号
+    wx.request({
+      url: `${api}user/mobile`,
+      data: {
+        userid: app.globalData.userID,
+        mobile: data.phonenumber,
+        passcode: data.verfcode
+      },
+      success: res => {
+        console.log(res);
+      }
+    });
   },
 
   //绑定倒计时事件
@@ -32,11 +49,11 @@ Page({
     let self = this;
     if (!this.data.being) {
       //验证手机号码是否正确
-      if (!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(phoneNumber))) {
+      if (!(/^1[3|4|5|7|8|9][0-9]\d{4,8}$/.test(phoneNumber))) {
         wx.showModal({
-          title: '请输入正确的手机号',
+          title: '温馨提示！',
           showCancel: false,
-          content: ' ',
+          content: '请输入正确的手机号',
           success: function(res) {
             if (res.confirm) {
               self.setData({
@@ -52,6 +69,20 @@ Page({
         });
 
         //获取验证码应该放在这里
+        //大抵是就算低到尘埃里，也会在尘埃里开出花
+        //https://www.91tuoguan.cn/index.php/api/user/get_yzm?mobile=*
+
+        // 发送获取验证码请求
+        wx.request({
+          url: `${api}user/get_yzm`,
+          data: {
+            mobile: phoneNumber
+          },
+          success: res => {
+            console.log(res);
+          }
+        });
+
 
         //开始倒计时
         timer = setInterval(function() {
@@ -69,7 +100,7 @@ Page({
             time: tempTime - 1
           });
         }, 1000);
-      }
+      };
     }
   }
 })

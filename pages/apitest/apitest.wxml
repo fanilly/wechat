@@ -1,2 +1,5 @@
 <!--pages/apitest/apitest.wxml-->
 <text>pages/apitest/apitest.wxml</text>
+<form report-submit="true" bindsubmit="handleFormSubmit">
+  <button formType="submit">Submit</button>
+</form>

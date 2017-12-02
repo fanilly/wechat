@@ -10,8 +10,7 @@ let slideInDown, //动画实例
   Distances,
   allowCollection = true;
 
-  // 购买接口
-  // https://www.91tuoguan.cn/index.php/api/buy/buy?goodsid=*&userid=*&goodsnum=*
+// 购买接口
 
 Page({
 
@@ -27,7 +26,7 @@ Page({
     startDate: '', //开始时间
     endDate: '',
     isCollectioned: false, //是否已经被收藏
-    hasCoupon:false, //是否已有优惠券 该功能暂未开发
+    hasCoupon: false, //是否已有优惠券 该功能暂未开发
 
     shopid: 1,
     goodsid: 1,
@@ -56,6 +55,38 @@ Page({
     }]
   },
 
+  //购买
+  handleBuy() {
+    wx.request({
+      url: `${api}buy/buy`,
+      data: {
+        userid: app.globalData.userID,
+        goodsid: this.data.goodsid,
+        goodsnum: this.data.productNumber
+      },
+      success: res => {
+        if (res.data * 1 == 1) {
+          wx.showToast({
+            title: '购买成功',
+            image: '../../images/success.png',
+            duration: 1500
+          });
+          this.handleHideBuyLayer();
+          wx.switchTab({
+            url: '/pages/order/order'
+          });
+        } else {
+          wx.showToast({
+            title: '购买失败',
+            image: '../../images/warning.png',
+            duration: 1500
+          });
+          this.handleHideBuyLayer();
+        }
+      }
+    });
+  },
+
   //检查是否已收藏
   checkIsCollection(goodsid) {
     wx.request({
@@ -80,6 +111,11 @@ Page({
 
   // 生命周期函数--监听页面加载
   onLoad: function(options) {
+    //保存商铺id
+    this.setData({
+      shopid: options.shopid,
+      goodsid: options.goodsid
+    });
     this.checkIsCollection(options.goodsid);
     //获取本地存储中的店铺位置
     wx.getStorage({
@@ -149,13 +185,6 @@ Page({
         latitude = parseFloat(res.data.latitude);
         longitude = parseFloat(res.data.longitude);
       }
-    });
-
-
-    //保存商铺id
-    this.setData({
-      shopid: options.shopid,
-      goodsid: options.goodsid
     });
 
     //获取当前时间 设置日期范围
@@ -315,7 +344,6 @@ Page({
 
   //拨打电话
   handleMakePhone() {
-    console.log(this)
     wx.makePhoneCall({
       phoneNumber: this.data.phone
     })

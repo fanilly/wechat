@@ -15,6 +15,7 @@
           </view>
           <view class="rside">
             <image bindtap="handleGoToQRCode" src="../../images/code.png"></image>
+            <text>分享二维码</text>
           </view>
         </view>
         <!-- card -->
@@ -68,13 +69,13 @@
             </view>
           </view>
         </navigator>
-        <navigator url="../bindphone/bindphone">
+        <navigator url="../bindphone/bindphone?phone={{info.phone}}">
           <view class="about-list-item">
             <view>
               <image src="../../images/icon03.png"></image>
             </view>
             <view>
-              <text>绑定手机号</text>
+              <text>{{info.phone?'修改手机号':'绑定手机号'}}</text>
             </view>
             <view>
               <image src="../../images/icons01.png"></image>

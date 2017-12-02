@@ -36,7 +36,7 @@
             </view>
           </navigator>
           <view class="item-footer">
-            <text catchtap="evaluateOrUse" id="{{index}}">{{showUsed ? '立即评价' : '立即使用'}}</text>
+            <text catchtap="evaluateOrUse" class="{{showUsed&&item.appraise_status*1==1?'evaluated':'evaluate'}}" id="{{index}}">{{showUsed ? '立即评价' : '立即使用'}}</text>
             <text catchtap="handleDeleteOrder" id="{{index}}" style="display: {{showUsed?'block':'none'}}">{{showUsed ? '删除' : '申请退款'}}</text>
           </view>
         </view>
