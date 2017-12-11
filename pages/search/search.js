@@ -19,7 +19,8 @@ Page({
     tagNavFixed: false, //标签导航是否吸顶
     isLastPage: false, //是否加载完所有的次数
     listData: [],
-    isSearched:false //是否显示加载中
+    loadingOrNoData: '加载中...',
+    isSearched: false //是否显示加载中
   },
 
   onShow() {
@@ -89,7 +90,7 @@ Page({
     } else {
       this.setData({
         isLastPage: true
-      })
+      });
     }
   },
 
@@ -100,20 +101,31 @@ Page({
   //点击搜索
   handleSearch() {
     this.setData({
-      isSearched:true
-    })
+      isSearched: true
+    });
     this.search();
   },
 
   //搜索
   search() {
+    this.setData({
+      loadingOrNoData: `加载中...`
+    });
     wx.request({
       url: `${api}goods/goodslist`,
       data: {
         goodsname: searchKeyword
       },
       success: res => {
-        console.log(res);
+        if (res.data.page_sum == 0) {
+          this.setData({
+            loadingOrNoData: `暂无"${searchKeyword}"数据`
+          });
+        } else {
+          this.setData({
+            loadingOrNoData: `加载中...`
+          });
+        }
         //保存最大加载次数
         countPageNum = res.data.page_sum;
 

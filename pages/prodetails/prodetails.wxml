@@ -120,7 +120,7 @@
               <!-- 头部 -->
               <view class="buy-layer-header">
                 <view>
-                  <image src="../../images/pro01.png"></image>
+                  <image src="https://www.91tuoguan.cn/{{goodsimg}}"></image>
                 </view>
                 <view>
                   <text>{{goodsName}}</text>

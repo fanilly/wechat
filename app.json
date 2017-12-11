@@ -1,9 +1,9 @@
 {
   "pages":[
+    "pages/apitest/apitest",
     "pages/index/index",
     "pages/order/order",
     "pages/about/about",
-    "pages/apitest/apitest",
 
     "pages/building/building",
     "pages/evaluate/evaluate",

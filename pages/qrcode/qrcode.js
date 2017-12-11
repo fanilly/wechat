@@ -18,4 +18,4 @@ Page({
       avatarUrl:options.avatarurl
     });
   }
-})
+});

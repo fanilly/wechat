@@ -20,7 +20,7 @@ Page({
     } else {
       this.setData({
         showPage: true
-      })
+      });
     }
   },
 
@@ -36,7 +36,7 @@ Page({
     } else {
       this.setData({
         showPage: true
-      })
+      });
     }
   },
 
@@ -53,7 +53,7 @@ Page({
         userid: app.globalData.userID
       },
       success: res => {
-        console.log(res)
+        console.log(res);
         if (!res.data) {
           this.setData({
             useOrderStatus: 2
@@ -62,7 +62,7 @@ Page({
           this.setData({
             listData: res.data,
             useOrderStatus: 3
-          })
+          });
         }
       }
     });
@@ -90,7 +90,7 @@ Page({
           this.setData({
             listData: res.data,
             usedOrderStatus: 3
-          })
+          });
         }
       }
     });
@@ -101,7 +101,7 @@ Page({
     let curProductNumber = this.data.productNumber;
     this.setData({
       productNumber: curProductNumber + 1 <= maxProductNumber ? curProductNumber + 1 : maxProductNumber
-    })
+    });
   },
 
   // 减少商品件数
@@ -109,7 +109,7 @@ Page({
     let curProductNumber = this.data.productNumber;
     this.setData({
       productNumber: (curProductNumber - 1) > 0 ? (curProductNumber - 1) : 1
-    })
+    });
   },
 
   // 阻挡默认事件
@@ -125,8 +125,9 @@ Page({
     });
   },
 
-  //向后台发送试用订单请求
-  userOrder(num, orderid) {
+  //向后台发送使用订单请求
+  userOrder(num, orderid, goodsname, shopname) {
+    wx.showLoading();
     wx.request({
       url: `${api}buy/use_order`,
       data: {
@@ -135,11 +136,14 @@ Page({
         orderid: orderid
       },
       success: res => {
+        wx.hideLoading();
+        console.log('++++++++++++');
         console.log(res);
+        console.log('++++++++++++');
         // 关闭弹窗
         this.handleClosePop();
         wx.navigateTo({
-          url: '../usesuccess/usesuccess?uniquekey=' + 1111 + '&num=' + num
+          url: `../usesuccess/usesuccess?orderid=${res.data.orderid}&time=${res.data.time}&num=${num}&id=${res.data.id}&goodsname=${goodsname}&shopname=${shopname}`
         });
       }
     });
@@ -149,7 +153,7 @@ Page({
   handleUseOrder() {
     let curOrder = this.data.listData[index],
       num = this.data.productNumber;
-    this.userOrder(num, curOrder.orderid);
+    this.userOrder(num, curOrder.orderid, curOrder.goodsname, curOrder.shopname);
   },
 
   //点击评价或立即使用
@@ -178,7 +182,7 @@ Page({
           isShowChoose: true
         });
       } else {
-        this.userOrder(total, curOrder.orderid);
+        this.userOrder(total, curOrder.orderid, curOrder.goodsname, curOrder.shopname);
       }
     }
   },
@@ -187,6 +191,7 @@ Page({
   handleDeleteOrder(e) {
     index = Number(e.currentTarget.id);
     let curOrder = this.data.listData[index];
+    wx.showLoading();
     wx.request({
       //必需
       url: `${api}order/order_del`,
@@ -194,6 +199,7 @@ Page({
         id: curOrder.id
       },
       success: res => {
+        wx.hideLoading();
         if (res.data) {
           wx.showToast({
             title: '删除成功',
@@ -203,7 +209,7 @@ Page({
           this.checkoutToUsed();
         }
       }
-    })
+    });
   },
 
   //登陆
@@ -259,4 +265,4 @@ Page({
       }
     });
   },
-})
+});

@@ -1,43 +1,43 @@
 <!--pages/usesuccess/usesuccess.wxml-->
 <view class="container">
   <view class="header">
-    <text>一乐拉面一乐拉面一乐拉面一乐拉面一乐拉面一乐拉面</text>
+    <text>{{datas.goodsname}}</text>
     <icon type="success" size="80" />
     <text>使用成功</text>
   </view>
   <view class="main">
     <view class="message-list">
       <view>商品名称</view>
-      <view>一乐拉面</view>
+      <view>{{datas.goodsname}}</view>
       <view>
         <image src="../../images/icons01.png"></image>
       </view>
     </view>
     <view class="message-list">
       <view>使用数量</view>
-      <view>{{num}}</view>
+      <view>{{datas.num}}</view>
       <view></view>
     </view>
     <view class="message-list">
       <view>店铺名称</view>
-      <view>一乐拉面</view>
+      <view>{{datas.shopname}}</view>
       <view>
         <image src="../../images/icons01.png"></image>
       </view>
     </view>
     <view class="message-list">
       <view>使用时间</view>
-      <view>2017-11-12 12:00:45</view>
+      <view>{{datas.time}}</view>
       <view></view>
     </view>
     <view class="message-list">
       <view>订单号</view>
-      <view>20171112120045</view>
+      <view>{{datas.orderid}}</view>
       <view></view>
     </view>
   </view>
   <view class="footer">
-    <navigator url="../evaluate/evaluate?test=test">
+    <navigator url="../evaluate/evaluate?id={{datas.id}}">
       <text>立即评价</text>
     </navigator>
   </view>

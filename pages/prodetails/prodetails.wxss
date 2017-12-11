@@ -342,6 +342,9 @@
 .buy-layer .buy-layer-header view:last-child text:first-child {
   font-size: 30rpx;
   color: #353535;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .buy-layer .buy-layer-header view:last-child text:last-child {

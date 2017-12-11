@@ -38,6 +38,7 @@ Page({
     price: '', //价格
     monthSum: '', //月销
     score: '', //评分
+    goodsimg:'',
     loaded: false,
 
     slideInDown: {},
@@ -65,6 +66,7 @@ Page({
         goodsnum: this.data.productNumber
       },
       success: res => {
+        console.log(res);
         if (res.data * 1 == 1) {
           wx.showToast({
             title: '购买成功',
@@ -160,12 +162,14 @@ Page({
         goodsid: options.goodsid
       },
       success: res => {
+        console.log(res);
         this.setData({
           shopName: res.data.shopname,
           goodsName: res.data.goodsname,
           price: res.data.shopprice,
           monthSum: res.data.month_sum,
           score: res.data.score,
+          goodsimg:res.data.goodsimg,
           loaded: true
         });
       }

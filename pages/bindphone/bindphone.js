@@ -14,11 +14,11 @@ Page({
 
   onLoad(options) {
     this.setData({
-      phone:options.phone
-    })
+      phone: options.phone
+    });
     wx.setNavigationBarTitle({
       title: options.phone ? '修改手机号' : '绑定手机号'
-    })
+    });
   },
 
   //记录手机号
@@ -30,6 +30,9 @@ Page({
   formSubmit(e) {
     let self = this,
       data = e.detail.value;
+    wx.showLoading({
+      title: '提交中'
+    });
     //绑定手机号
     wx.request({
       url: `${api}user/mobile`,
@@ -39,7 +42,24 @@ Page({
         passcode: data.verfcode
       },
       success: res => {
-        console.log(res);
+        wx.hideLoading();
+        if (res.data * 1 == 1) {
+          //绑定成功
+          wx.showToast({
+            title: '绑定成功',
+            image: '../../images/success.png',
+            duration: 1500
+          });
+          wx.navigateBack({
+            delta: 1
+          });
+        } else {
+          wx.showToast({
+            title: '验证码不正确',
+            image: '../../images/warning.png',
+            duration: 1500
+          });
+        }
       }
     });
   },
@@ -58,7 +78,7 @@ Page({
             if (res.confirm) {
               self.setData({
                 isFocus: true
-              })
+              });
             }
           }
         });
@@ -100,7 +120,7 @@ Page({
             time: tempTime - 1
           });
         }, 1000);
-      };
+      }
     }
   }
-})
+});

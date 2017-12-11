@@ -54,6 +54,9 @@
   color: #666;
   text-align: right;
   padding-right: 16rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .message-list view:nth-child(3) {

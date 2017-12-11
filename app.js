@@ -2,7 +2,7 @@
 import updateUserInfo from './utils/updateuserinfo';
 App({
   onLaunch: function(options) {
-    console.log(options)
+    console.log(options);
     wx.showLoading({
       mask: true,
       title: '加载中'
@@ -45,11 +45,11 @@ App({
           userID = this.globalData.userID;
         //保存用户信息
         this.globalData.userInfo = userInfo;
-        console.log('-----------------------------')
+        console.log('-----------------------------');
         
-        console.log('-----------------------------')
+        console.log('-----------------------------');
         if (userID) {
-          console.log('987654321*********************')
+          console.log('987654321*********************');
           updateUserInfo(userInfo, api, userID);
         }
       },
