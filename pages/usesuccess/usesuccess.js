@@ -10,10 +10,9 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面加载
+   * 生命周期函数--监听页面加载 
    */
   onLoad: function(options) {
-    console.log(options.time)
     let tempDatas = {
       goodsname:options.goodsname,
       shopname:options.shopname,
@@ -22,7 +21,6 @@ Page({
       num:options.num,
       time:formatTime(new Date(options.time*1000))
     };
-    console.log(options);
     this.setData({
       datas: tempDatas
     });

@@ -8,13 +8,8 @@
  * @param  {[String]} userID      [用户唯一值]
  */
 
-
-
 module.exports = (userInfo, api, userID) => {
   const update = (userInfo, api, userID) => {
-    console.log('-----------------')
-    console.log(userID)
-    console.log('-----------------')
     wx.request({
       method: 'POST',
       url: `${api}user/modify_info`,
@@ -36,7 +31,6 @@ module.exports = (userInfo, api, userID) => {
   wx.getStorage({
     key: 'userInfo',
     success: res => {
-      console.log('123456789----------------------')
       //如果本次获取的信息与storage中的信息不匹配
       //将信息传输的后台
       let data = res.data;

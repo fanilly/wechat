@@ -57,11 +57,11 @@ Page({
     if (e.detail.scrollTop > tagNavTop) {
       this.setData({
         tagNavFixed: true
-      })
+      });
     } else {
       this.setData({
         tagNavFixed: false
-      })
+      });
     }
   },
 
@@ -155,7 +155,7 @@ Page({
         //修改加载状态
         allLoadMore = true;
       }
-    })
+    });
   },
 
   //商品列表排序排序
@@ -216,7 +216,7 @@ Page({
           for (let i = 0; i < data.length; i++) {
             for (let j = 0; j < Distances.length; j++) {
               if (Distances[j].shopid == data[i].shopid) {
-                data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`
+                data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
                 data[i].sortFlag = Distances[j].distance;
                 break;
               } else {
@@ -292,7 +292,7 @@ Page({
           }
         });
       }
-    })
+    });
   },
   //选取地址
   chooseAddress() {
@@ -308,7 +308,7 @@ Page({
         });
         this.saveDistance(res.latitude, res.longitude);
       }
-    })
+    });
   },
 
   //获取定位
@@ -327,12 +327,12 @@ Page({
             app.globalData.address = res.data;
             this.setData({
               address: res.data
-            })
+            });
           },
           fail: () => {
             this.chooseAddress();
           }
-        })
+        });
       }
     });
   },
@@ -351,7 +351,7 @@ Page({
           data: res.data
         });
       }
-    })
+    });
   },
 
   //给商品列表添加距离属性
@@ -362,7 +362,7 @@ Page({
       for (let i = 0; i < tempList.length; i++) {
         for (let j = 0; j < Distances.length; j++) {
           if (Distances[j].shopid == tempList[i].shopid) {
-            tempList[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`
+            tempList[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
             break;
           } else {
             tempList[i].distances = '...';
@@ -375,4 +375,4 @@ Page({
       listData: tempList
     });
   }
-})
+});

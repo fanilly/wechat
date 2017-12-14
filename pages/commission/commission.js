@@ -59,6 +59,7 @@ Page({
         duration: 2000
       });
     } else { //请求提现
+      wx.showLoading();
       wx.request({
         url: `${api}buy/tixian`,
         data: {
@@ -66,21 +67,29 @@ Page({
           money: commissionMoney
         },
         success: res => {
-          console.log(res)
+          wx.hideLoading();
           if (res.data * 1 == 1) {
-            wx.request({
-              url: `${api}user/user_info`,
-              data: {
-                userid: app.globalData.userID
-              },
+            wx.showModal({
+              title: '温馨提示',
+              content: '提现成功，工作人员将在48小时之内联系您并为您发放金额',
               success: res => {
-                this.setData({
-                  childnum: res.data.childnum,
-                  commission: res.data.commission,
-                  paiming: res.data.paiming,
-                  totalcommission: res.data.totalcommission
+                wx.showLoading();
+                wx.request({
+                  url: `${api}user/user_info`,
+                  data: {
+                    userid: app.globalData.userID
+                  },
+                  success: res => {
+                    wx.hideLoading();
+                    this.setData({
+                      childnum: res.data.childnum,
+                      commission: res.data.commission,
+                      paiming: res.data.paiming,
+                      totalcommission: res.data.totalcommission
+                    });
+                    this.getNowMoney();
+                  }
                 });
-                this.getNowMoney();
               }
             });
           }

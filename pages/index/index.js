@@ -93,13 +93,25 @@ Page({
         //修改加载状态
         allLoadMore = true;
       }
-    })
+    });
   },
 
   onLoad(options) {
+    console.log('test-----------end');
     console.log(options);
     if (options.scene) {
-      console.log(options.scene)
+      let getedScene = decodeURIComponent(options.scene);
+      console.log(getedScene);
+      if (app.globalData.userID) {
+        wx.request({
+          url: `${api}user/modify_parentid?userId=${app.globalData.userID}&parentId=${getedScene}`,
+          success: res => {
+            console.log(res);
+          }
+        });
+      } else {
+        app.globalData.parentID = getedScene;
+      }
     }
 
     //获取缓存中的距离
@@ -111,7 +123,7 @@ Page({
       fail: function() {
         Distances = [];
       }
-    })
+    });
 
     this.getAddress(); //获取地址
     this.initTagNavTop(); //初始化标签导航
@@ -132,7 +144,7 @@ Page({
   goToSearch() {
     wx.navigateTo({
       url: '../search/search'
-    })
+    });
   },
 
   //banner图片加载
@@ -143,7 +155,7 @@ Page({
       swiperHeight = this.data.windowWidth / imgwidth * imgheight;
     this.setData({
       swiperHeight: swiperHeight
-    })
+    });
   },
 
   //列表图片发生错误
@@ -152,7 +164,7 @@ Page({
     tempList[e.currentTarget.id].goodsimg = 'Upload/goods/2017-11/5a17b5f3d2f69.jpg';
     this.setData({
       listData: tempList
-    })
+    });
   },
 
   //地址选取事件
@@ -174,7 +186,7 @@ Page({
           }
         });
       }
-    })
+    });
   },
 
   //页面滚动事件
@@ -182,11 +194,11 @@ Page({
     if (e.detail.scrollTop > tagNavTop) {
       this.setData({
         tagNavFixed: true
-      })
+      });
     } else {
       this.setData({
         tagNavFixed: false
-      })
+      });
     }
   },
 
@@ -217,14 +229,14 @@ Page({
     } else {
       this.setData({
         isLastPage: true
-      })
+      });
     }
   },
 
   //分享
   onShareAppMessage(res) {
     return {
-      title: '西峡派 -- ' + app.globalData.appDescription,
+      title: '武陟派 -- ' + app.globalData.appDescription,
       path: '/pages/index/index',
       success() {
         console.log('success');
@@ -232,7 +244,7 @@ Page({
       fail() {
         console.log('fail');
       }
-    }
+    };
   },
 
   //选取地址
@@ -249,7 +261,7 @@ Page({
         });
         this.saveDistance(res.latitude, res.longitude);
       }
-    })
+    });
   },
 
   //获取定位
@@ -268,12 +280,12 @@ Page({
             app.globalData.address = res.data;
             this.setData({
               address: res.data
-            })
+            });
           },
           fail: () => {
             this.chooseAddress();
           }
-        })
+        });
       }
     });
   },
@@ -292,7 +304,7 @@ Page({
           data: res.data
         });
       }
-    })
+    });
   },
 
   //给商品列表添加距离属性
@@ -303,7 +315,7 @@ Page({
       for (let i = 0; i < tempList.length; i++) {
         for (let j = 0; j < Distances.length; j++) {
           if (Distances[j].shopid == tempList[i].shopid) {
-            tempList[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`
+            tempList[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
             break;
           } else {
             tempList[i].distances = '...';
@@ -374,7 +386,7 @@ Page({
           for (let i = 0; i < data.length; i++) {
             for (let j = 0; j < Distances.length; j++) {
               if (Distances[j].shopid == data[i].shopid) {
-                data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`
+                data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
                 data[i].sortFlag = Distances[j].distance;
                 break;
               } else {
@@ -406,7 +418,7 @@ Page({
   handleDistanceSort() {
     this.setData({
       isDistanceSort: true,
-      listData:[]
+      listData: []
     });
     if (!this.data.address) {
       //显示模态框

@@ -23,10 +23,10 @@ Page({
     shopImg: '', //海报
     shopName: '', //店铺名称
     distance: '', //距离
-    phone:'',
+    phone: '',
     listData: [],
-    isNull:false,
-    loaded:false
+    isNull: false,
+    loaded: false
   },
 
 
@@ -46,18 +46,17 @@ Page({
           },
           success: res => {
             let data = res.data;
-            if(!data){
+            if (!data) {
               this.setData({
-                isNull:true
+                isNull: true
               });
-              console.log(123)
               return;
             }
             //将距离信息添加至每个商品中
             for (let i = 0; i < data.length; i++) {
               for (let j = 0; j < Distances.length; j++) {
                 if (Distances[j].shopid == data[i].shopid) {
-                  data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`
+                  data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
                   break;
                 } else {
                   data[i].distances = '...';
@@ -72,8 +71,27 @@ Page({
           }
         });
       },
-      fail: function() {
+      fail: () => {
         Distances = [];
+        wx.request({
+          url: `${api}goods/shop_goods`,
+          data: {
+            shopid: options.shopid
+          },
+          success: res => {
+            let data = res.data;
+            if (!data) {
+              this.setData({
+                isNull: true
+              });
+            }
+            //将商品渲染至页面
+            this.setData({
+              listData: data,
+              distance: data[0].distances
+            });
+          }
+        });
       }
     });
 
@@ -87,14 +105,14 @@ Page({
         let data = res.data;
         wx.getStorage({
           key: 'distances',
-          success: res=> {
-            console.log(res)
-            for(let i=0;i<res.data.length;i++){
+          success: res => {
+            console.log(res);
+            for (let i = 0; i < res.data.length; i++) {
               let curShop = res.data[i];
-              if(curShop.shopid == shopID){
+              if (curShop.shopid == shopID) {
                 this.setData({
                   distance: curShop.distance < 1000 ? `${curShop.distance} m` : `${(curShop.distance /1000).toFixed(2)} km`
-                })
+                });
               }
             }
           }
@@ -109,8 +127,8 @@ Page({
           score: data.score,
           shopImg: data.shopImg,
           shopName: data.shopname,
-          phone:data.shopTel,
-          loaded:true
+          phone: data.shopTel,
+          loaded: true
         });
         latitude = parseFloat(data.latitude);
         longitude = parseFloat(data.longitude);
@@ -125,14 +143,14 @@ Page({
       latitude: latitude,
       longitude: longitude,
       scale: 18
-    })
+    });
   },
 
   //拨打电话
   handleMakePhone() {
     wx.makePhoneCall({
       phoneNumber: this.data.phone //仅为示例，并非真实的电话号码
-    })
+    });
   }
 
-})
+});

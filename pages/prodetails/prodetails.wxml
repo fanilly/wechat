@@ -139,7 +139,7 @@
                 </view>
               </view>
               <!-- 如果是酒店显示选择日期 -->
-              <block wx:if="{{isHotel}}">
+              <block wx:if="{{goodscatid == 47}}">
                 <view class="choose-date">
                   <view>
                     <text>选择日期</text>

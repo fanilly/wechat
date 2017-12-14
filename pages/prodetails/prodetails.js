@@ -21,7 +21,6 @@ Page({
     allowScroll: false, //是否允许页面层滚动
     windowHeight: 750, //视口高度
     productNumber: 1, //商品件数
-    isHotel: true, //是否是酒店
     date: '2016-09-01', //当前选择时间
     startDate: '', //开始时间
     endDate: '',
@@ -38,7 +37,8 @@ Page({
     price: '', //价格
     monthSum: '', //月销
     score: '', //评分
-    goodsimg:'',
+    goodscatid: -1,
+    goodsimg: '',
     loaded: false,
 
     slideInDown: {},
@@ -58,35 +58,63 @@ Page({
 
   //购买
   handleBuy() {
-    wx.request({
-      url: `${api}buy/buy`,
-      data: {
-        userid: app.globalData.userID,
-        goodsid: this.data.goodsid,
-        goodsnum: this.data.productNumber
-      },
-      success: res => {
-        console.log(res);
-        if (res.data * 1 == 1) {
-          wx.showToast({
-            title: '购买成功',
-            image: '../../images/success.png',
-            duration: 1500
-          });
-          this.handleHideBuyLayer();
-          wx.switchTab({
-            url: '/pages/order/order'
-          });
-        } else {
-          wx.showToast({
-            title: '购买失败',
-            image: '../../images/warning.png',
-            duration: 1500
-          });
-          this.handleHideBuyLayer();
+    if (!app.globalData.phone) {
+      wx.showModal({
+        title: '温馨提示',
+        content: '购买商品需要先绑定手机号',
+        success: res => {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: `../bindphone/bindphone?phone=''`
+            });
+          }
         }
-      }
-    });
+      });
+    } else {
+      wx.showLoading();
+      wx.request({
+        url: `${api}buy/buy`,
+        data: {
+          userid: app.globalData.userID,
+          goodsid: this.data.goodsid,
+          goodsnum: this.data.productNumber
+        },
+        success: res => {
+          wx.hideLoading();
+          let data = res.data;
+          wx.requestPayment({
+            timeStamp: data.timeStamp.toString(),
+            nonceStr: data.nonceStr,
+            paySign: data.paySign,
+            package: data.package,
+            signType: 'MD5',
+            success: res => {
+              if (res.errMsg == 'requestPayment:ok') {
+                wx.showToast({
+                  title: '购买成功',
+                  image: '../../images/success.png',
+                  duration: 1500
+                });
+                this.handleHideBuyLayer();
+                wx.switchTab({
+                  url: '/pages/order/order'
+                });
+              }
+            },
+            fail: res => {
+              if (res.errMsg == 'requestPayment:fail cancel') {
+                wx.showToast({
+                  title: '取消支付',
+                  image: '../../images/warning.png',
+                  duration: 1500
+                });
+                this.handleHideBuyLayer();
+              }
+            }
+          });
+        }
+      });
+    }
   },
 
   //检查是否已收藏
@@ -101,11 +129,11 @@ Page({
         if (res.data * 1 == 1) {
           this.setData({
             isCollectioned: true
-          })
+          });
         } else {
           this.setData({
             isCollectioned: false
-          })
+          });
         }
       }
     });
@@ -135,7 +163,7 @@ Page({
             for (let i = 0; i < data.length; i++) {
               for (let j = 0; j < Distances.length; j++) {
                 if (Distances[j].shopid == data[i].shopid) {
-                  data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`
+                  data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
                   break;
                 } else {
                   data[i].distances = '...';
@@ -150,8 +178,21 @@ Page({
           }
         });
       },
-      fail: function() {
-        Distances = [];
+      fail: () => {
+        wx.request({
+          url: `${api}goods/shop_goods`,
+          data: {
+            shopid: options.shopid
+          },
+          success: res => {
+            let data = res.data;
+            //将商品渲染至页面
+            this.setData({
+              listData: data,
+              distance: '...'
+            });
+          }
+        });
       }
     });
 
@@ -162,14 +203,13 @@ Page({
         goodsid: options.goodsid
       },
       success: res => {
-        console.log(res);
         this.setData({
           shopName: res.data.shopname,
           goodsName: res.data.goodsname,
           price: res.data.shopprice,
           monthSum: res.data.month_sum,
           score: res.data.score,
-          goodsimg:res.data.goodsimg,
+          goodsimg: res.data.goodsimg,
           loaded: true
         });
       }
@@ -181,9 +221,9 @@ Page({
         shopid: options.shopid
       },
       success: res => {
-        console.log(res)
         this.setData({
           address: res.data.shopaddress,
+          goodscatid: res.data.goodscatid1 * 1,
           phone: res.data.shopTel
         });
         latitude = parseFloat(res.data.latitude);
@@ -254,7 +294,7 @@ Page({
     setTimeout(() => {
       this.setData({
         isShowGetCoupon: false
-      })
+      });
     }, 300);
   },
 
@@ -290,7 +330,7 @@ Page({
     setTimeout(() => {
       this.setData({
         isShowBuyLayer: false
-      })
+      });
     }, 300);
   },
 
@@ -299,7 +339,7 @@ Page({
     let curProductNumber = this.data.productNumber;
     this.setData({
       productNumber: curProductNumber + 1
-    })
+    });
   },
 
   // 减少商品件数
@@ -307,25 +347,25 @@ Page({
     let curProductNumber = this.data.productNumber;
     this.setData({
       productNumber: (curProductNumber - 1) > 0 ? (curProductNumber - 1) : 1
-    })
+    });
   },
 
   //选择日期
   bindDateChange(e) {
     this.setData({
       date: e.detail.value
-    })
+    });
   },
 
   test(e) {
-    console.log(e)
+    console.log(e);
   },
 
   //跳转到店铺首页
   handleGoToShop() {
     wx.redirectTo({
       url: `../shopdetails/shopdetails?shopid=${this.data.shopid}`
-    })
+    });
   },
 
   //列表图片发生错误
@@ -334,7 +374,7 @@ Page({
     tempList[e.currentTarget.id].goodsimg = 'Upload/goods/2017-11/5a17b5f3d2f69.jpg';
     this.setData({
       listData: tempList
-    })
+    });
   },
 
   //定位
@@ -343,14 +383,14 @@ Page({
       latitude: latitude,
       longitude: longitude,
       scale: 18
-    })
+    });
   },
 
   //拨打电话
   handleMakePhone() {
     wx.makePhoneCall({
       phoneNumber: this.data.phone
-    })
+    });
   },
 
   //收藏
@@ -396,4 +436,4 @@ Page({
     }
 
   }
-})
+});

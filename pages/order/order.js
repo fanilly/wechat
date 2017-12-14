@@ -53,7 +53,6 @@ Page({
         userid: app.globalData.userID
       },
       success: res => {
-        console.log(res);
         if (!res.data) {
           this.setData({
             useOrderStatus: 2
@@ -81,7 +80,6 @@ Page({
         user_id: app.globalData.userID
       },
       success: res => {
-        console.log(res);
         if (!res.data) {
           this.setData({
             usedOrderStatus: 2
@@ -137,9 +135,6 @@ Page({
       },
       success: res => {
         wx.hideLoading();
-        console.log('++++++++++++');
-        console.log(res);
-        console.log('++++++++++++');
         // 关闭弹窗
         this.handleClosePop();
         wx.navigateTo({
@@ -187,29 +182,62 @@ Page({
     }
   },
 
-  //删除订单
-  handleDeleteOrder(e) {
+  //删除订单和退款
+  handleDeleteOrRefundOrder(e) {
     index = Number(e.currentTarget.id);
     let curOrder = this.data.listData[index];
-    wx.showLoading();
-    wx.request({
-      //必需
-      url: `${api}order/order_del`,
-      data: {
-        id: curOrder.id
-      },
-      success: res => {
-        wx.hideLoading();
-        if (res.data) {
-          wx.showToast({
-            title: '删除成功',
-            image: '../../images/success.png',
-            duration: 1500
-          });
-          this.checkoutToUsed();
+    if (this.data.showUsed) { //删除订单
+      wx.showLoading();
+      wx.request({
+        //必需
+        url: `${api}order/order_del`,
+        data: {
+          id: curOrder.id
+        },
+        success: res => {
+          wx.hideLoading();
+          if (res.data) {
+            wx.showToast({
+              title: '删除成功',
+              image: '../../images/success.png',
+              duration: 1500
+            });
+            this.checkoutToUsed();
+          }
         }
-      }
-    });
+      });
+    } else { //退款
+      wx.showModal({
+        title: '温馨提示',
+        content: '如果进行退款，商家将收取10%手续费，您确认要退款吗？',
+        success: res => {
+          if (res.confirm) {
+            wx.showLoading();
+            //向服务器发送退款请求
+            wx.request({
+              url: `${api}buy/tuikuan?orderId=${curOrder.orderid}&userId=${app.globalData.userID}`,
+              success: res => {
+                wx.hideLoading();
+                if (res.data * 1 == 0) {
+                  wx.showModal({
+                    title: '温馨提示',
+                    content: '退款失败'
+                  });
+                }else{
+                  wx.showModal({
+                    title: '温馨提示',
+                    content: '退款成功，退款金额将在24小时之内返还您的账户？',
+                    success:res=>{
+                      this.checkoutToUse();
+                    }
+                  });
+                }
+              }
+            });
+          }
+        }
+      });
+    }
   },
 
   //登陆

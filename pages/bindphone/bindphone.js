@@ -44,6 +44,7 @@ Page({
       success: res => {
         wx.hideLoading();
         if (res.data * 1 == 1) {
+          app.globalData.phone = data.phonenumber;
           //绑定成功
           wx.showToast({
             title: '绑定成功',
@@ -90,7 +91,6 @@ Page({
 
         //获取验证码应该放在这里
         //大抵是就算低到尘埃里，也会在尘埃里开出花
-        //https://www.91tuoguan.cn/index.php/api/user/get_yzm?mobile=*
 
         // 发送获取验证码请求
         wx.request({

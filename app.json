@@ -1,7 +1,7 @@
 {
   "pages":[
-    "pages/apitest/apitest",
     "pages/index/index",
+    "pages/apitest/apitest",
     "pages/order/order",
     "pages/about/about",
 
@@ -53,7 +53,7 @@
   "window":{
     "backgroundTextStyle":"dark",
     "navigationBarBackgroundColor": "#02c1c9",
-    "navigationBarTitleText": "西峡派",
+    "navigationBarTitleText": "武陟派",
     "navigationBarTextStyle":"#ffffff"
   }
 }

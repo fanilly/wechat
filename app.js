@@ -28,6 +28,20 @@ App({
           },
           success: res => {
             this.globalData.userID = res.data;
+            if (this.globalData.parentID) {
+              wx.request({
+                url: `${api}user/modify_parentid?userId=${res.data}&parentId=${this.globalData.parentID}`,
+                success: res => {
+                  console.log(res);
+                }
+              });
+            }
+            wx.request({
+              url: `${api}user/user_info?userid=${res.data}`,
+              success: res => {
+                this.globalData.phone = res.data.phone;
+              }
+            });
             wx.hideLoading();
             this.getUserInfo();
           }
@@ -46,7 +60,7 @@ App({
         //保存用户信息
         this.globalData.userInfo = userInfo;
         console.log('-----------------------------');
-        
+
         console.log('-----------------------------');
         if (userID) {
           console.log('987654321*********************');
@@ -61,10 +75,12 @@ App({
 
   globalData: {
     userID: '',
+    parentID: '',
+    phone: '',
     api: '/index.php/api/',
     imgUrl: '/',
     userInfo: null,
     address: '',
-    appDescription: '西峡生活第一平台'
+    appDescription: '武陟生活第一平台'
   }
 });
