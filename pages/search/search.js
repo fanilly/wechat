@@ -129,6 +129,12 @@ Page({
         //保存最大加载次数
         countPageNum = res.data.page_sum;
 
+        if(countPageNum<=currentPageNum){
+          this.setData({
+            isLastPage:true
+          });
+        }
+
         let tempList = this.data.listData,
           goodslist = res.data.goodslist;
 

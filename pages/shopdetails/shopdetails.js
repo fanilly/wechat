@@ -102,6 +102,7 @@ Page({
         shopid: options.shopid
       },
       success: res => {
+        console.log(res)
         let data = res.data;
         wx.getStorage({
           key: 'distances',
@@ -125,7 +126,7 @@ Page({
           phone: data.shoptel,
           monthSum: data.month_sum,
           score: data.score,
-          shopImg: data.shopImg,
+          shopImg: data.shopimg,
           shopName: data.shopname,
           phone: data.shopTel,
           loaded: true

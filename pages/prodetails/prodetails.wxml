@@ -6,7 +6,7 @@
     <scroll-view scroll-y="{{isShowGetCoupon?false:true}}" style="height: {{windowHeight}}px;">
       <!-- 海报图 -->
       <view class="header">
-        <image src="../../images/pro-poster.png" mode="widthFix"></image>
+        <image src="https://www.91tuoguan.cn/{{goodsimg}}" mode="widthFix"></image>
       </view>
       <!-- 列表信息 -->
       <view class="info">
@@ -120,7 +120,7 @@
               <!-- 头部 -->
               <view class="buy-layer-header">
                 <view>
-                  <image src="https://www.91tuoguan.cn/{{goodsimg}}"></image>
+                  <image src="https://www.91tuoguan.cn/{{goodsimg1}}"></image>
                 </view>
                 <view>
                   <text>{{goodsName}}</text>
@@ -139,7 +139,7 @@
                 </view>
               </view>
               <!-- 如果是酒店显示选择日期 -->
-              <block wx:if="{{goodscatid == 47}}">
+              <block wx:if="{{goodscatid == 3}}">
                 <view class="choose-date">
                   <view>
                     <text>选择日期</text>

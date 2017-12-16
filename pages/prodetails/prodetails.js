@@ -21,7 +21,7 @@ Page({
     allowScroll: false, //是否允许页面层滚动
     windowHeight: 750, //视口高度
     productNumber: 1, //商品件数
-    date: '2016-09-01', //当前选择时间
+    date: '0', //当前选择时间
     startDate: '', //开始时间
     endDate: '',
     isCollectioned: false, //是否已经被收藏
@@ -39,6 +39,7 @@ Page({
     score: '', //评分
     goodscatid: -1,
     goodsimg: '',
+    goodsimg1:'',
     loaded: false,
 
     slideInDown: {},
@@ -77,9 +78,11 @@ Page({
         data: {
           userid: app.globalData.userID,
           goodsid: this.data.goodsid,
-          goodsnum: this.data.productNumber
+          goodsnum: this.data.productNumber,
+          useTime: this.data.date
         },
         success: res => {
+          console.log(res);
           wx.hideLoading();
           let data = res.data;
           wx.requestPayment({
@@ -203,6 +206,7 @@ Page({
         goodsid: options.goodsid
       },
       success: res => {
+        console.log(res)
         this.setData({
           shopName: res.data.shopname,
           goodsName: res.data.goodsname,
@@ -210,6 +214,7 @@ Page({
           monthSum: res.data.month_sum,
           score: res.data.score,
           goodsimg: res.data.goodsimg,
+          goodsimg1:res.data.goodsThums,
           loaded: true
         });
       }
@@ -221,6 +226,7 @@ Page({
         shopid: options.shopid
       },
       success: res => {
+        console.log(res)
         this.setData({
           address: res.data.shopaddress,
           goodscatid: res.data.goodscatid1 * 1,
@@ -352,6 +358,7 @@ Page({
 
   //选择日期
   bindDateChange(e) {
+    console.log(e.detail.value)
     this.setData({
       date: e.detail.value
     });

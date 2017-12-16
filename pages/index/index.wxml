@@ -14,73 +14,47 @@
       </view>
       <view class="search-box" bindtap="goToSearch">
         <icon type="search" size="12" color="#a6a6a6" />
-        <text>拉面</text>
-        <!-- <input placeholder="拉面" disabled="true" /> -->
+        <text>情侣房</text>
       </view>
     </view>
     <!-- banner -->
     <swiper class="carousel" style="height:{{swiperHeight}}px" indicator-dots="{{carousel.indicatorDots}}" indicator-color="{{carousel.indicatorColor}}" indicator-active-color="{{carousel.indicatorActiveColor}}" autoplay="carousel.autoplay" interval="{{carousel.interval}}" circular="carousel.circular">
       <block wx:for="{{carousel.imagesUrl}}" wx:key="key">
         <swiper-item>
-          <image src="{{item}}" bindload="imageLoad" mode="widthFix"></image>
+          <image src="https://www.91tuoguan.cn/{{item}}" bindload="imageLoad" mode="widthFix"></image>
         </swiper-item>
       </block>
     </swiper>
     <!-- nav -->
     <view class="nav-box">
       <view class="nav">
-        <view class="nav-item">
-          <navigator url="../building/building?title=服饰专区" hover-class="none">
-            <image src="../../images/inav01.png"></image>
-          </navigator>
-        </view>
-        <view class="nav-item">
-          <navigator url="../shoplist/shoplist?title=餐饮美食&navid=2" hover-class="none">
-            <image src="../../images/inav02.png"></image>
-          </navigator>
-        </view>
-        <view class="nav-item">
-          <navigator url="../shoplist/shoplist?title=酒店住宿&navid=3" hover-class="none">
-            <image src="../../images/inav03.png"></image>
-          </navigator>
-        </view>
-        <view class="nav-item">
-          <navigator url="../shoplist/shoplist?title=行&navid=4" hover-class="none">
-            <image src="../../images/inav04.png"></image>
-          </navigator>
-        </view>
-        <view class="nav-item">
-          <navigator url="../building/building?title=美容美甲" hover-class="none">
-            <image src="../../images/inav05.png"></image>
-          </navigator>
-        </view>
+        <block wx:for="{{navs}}" wx:key="key">
+          <block wx:if="{{item.catId*1 == 1 || item.catId*1==5}}">
+            <view class="nav-item">
+              <navigator url="../building/building?title={{item.title}}" hover-class="none">
+                <image src="https://www.91tuoguan.cn/{{item.catImage}}"></image>
+              </navigator>
+            </view>
+          </block>
+          <block wx:elif="{{item.catId*1 < 5}}">
+            <view class="nav-item">
+              <navigator url="../shoplist/shoplist?title={{item.title}}&navid={{item.catId}}" hover-class="none">
+                <image src="https://www.91tuoguan.cn/{{item.catImage}}"></image>
+              </navigator>
+            </view>
+          </block>
+        </block>
       </view>
       <view class="nav">
-        <view class="nav-item">
-          <navigator url="../building/building?title=安" hover-class="none">
-            <image src="../../images/inav06.png"></image>
-          </navigator>
-        </view>
-        <view class="nav-item">
-          <navigator url="../building/building?title=居" hover-class="none">
-            <image src="../../images/inav07.png"></image>
-          </navigator>
-        </view>
-        <view class="nav-item">
-          <navigator url="../building/building?title=乐" hover-class="none">
-            <image src="../../images/inav08.png"></image>
-          </navigator>
-        </view>
-        <view class="nav-item">
-          <navigator url="../building/building?title=业" hover-class="none">
-            <image src="../../images/inav09.png"></image>
-          </navigator>
-        </view>
-        <view class="nav-item">
-          <navigator url="../building/building?title=特" hover-class="none">
-            <image src="../../images/inav10.png"></image>
-          </navigator>
-        </view>
+        <block wx:for="{{navs}}" wx:key="key">
+          <block wx:if="{{item.catId*1 > 5}}">
+            <view class="nav-item">
+              <navigator url="../building/building?title={{item.title}}" hover-class="none">
+                <image src="https://www.91tuoguan.cn/{{item.catImage}}"></image>
+              </navigator>
+            </view>
+          </block>
+        </block>
       </view>
     </view>
     <!-- 热门推荐 -->
@@ -108,7 +82,8 @@
       </view>
     </view>
     <view class="load-more-pro">
-      <text>{{isLastPage?'已经没有更多内容了':'加载中...'}}</text>
+      <text wx:if="{{!dataNull}}">{{isLastPage?'已经没有更多内容了':'加载中...'}}</text>
+      <text wx:else>暂无数据</text>
     </view>
   </scroll-view>
 </view>

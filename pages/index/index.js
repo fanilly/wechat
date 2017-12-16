@@ -1,3 +1,36 @@
+//                            
+//
+//
+//                                 _oo0oo_
+//                                o8888888o
+//                                88" . "88
+//                                (| -_- |)
+//                                 0\ = /0
+//                             ____/'---'\____
+//                            .  '\\|  |// '  .
+//                           / \\|||  :  |||// \
+//                         / _|||||  -:-  |||||- \
+//                           | | \\\  -  /// | | 
+//                        |  \_| ''\ --- /'' |_/  |
+//                         \ .-\__   '-'   __/-. /
+//                      ___'.  .'  /--.--\  '.  .___
+//                    ." " '< '.___\_<|>_/___.' >'" ".
+//                   | | : '-  \'.:'\ _ /';.'/  -' : | |
+//                     \ \ '-.  \_ __\ /__ _/  .-' / /
+//             ======'-._____'-.___\_____/___.-'_____.-'=====
+//                                 '=---='
+//
+//
+//............................................................................
+//                  佛祖镇楼                     BUG辟易
+//
+//
+//
+//============================================================================
+//============================================================================
+//=================            iallenaugustine               =================
+//============================================================================
+//============================================================================
 const app = getApp(),
   api = app.globalData.api,
   imgUrl = app.globalData.imgUrl;
@@ -21,6 +54,7 @@ Page({
     isLastPage: false, //是否加载完所有的次数
     listData: [],
     isDistanceSort: false, //当前是否是以距离排序
+    dataNull: false,
 
     carousel: {
       imagesUrl: ['../../images/banner-1.png', '../../images/banner-2.png'],
@@ -30,7 +64,8 @@ Page({
       autoplay: true, //自动播放
       interval: 4000, //自动播放间隔市场
       circular: true //无缝衔接
-    }
+    },
+    navs: []
   },
 
   //模板消息测试
@@ -67,11 +102,27 @@ Page({
         //保存最大加载次数
         countPageNum = res.data.page_sum;
 
+        if(countPageNum<=currentPageNum){
+          this.setData({
+            isLastPage:true
+          });
+        }
+
         let tempList = this.data.listData,
           goodslist = res.data.goodslist;
 
+        if (currentPageNum == 1 && !res.data.goodslist) {
+          console.log(123)
+          this.setData({
+            dataNull: true
+          });
+        }
+        console.log(456)
+        console.log(Distances)
+
         //如果已经获取到距离信息 将距离信息添加至每个商品中
         if (Distances.length != 0) {
+          console.log(789)
           for (let i = 0; i < goodslist.length; i++) {
             for (let j = 0; j < Distances.length; j++) {
               if (Distances[j].shopid == goodslist[i].shopid) {
@@ -97,6 +148,29 @@ Page({
   },
 
   onLoad(options) {
+    //加载导航
+    wx.request({
+      url: `${api}/common/getGoodsCate`,
+      success: res => {
+        let tempNavs = this.data.navs;
+        tempNavs.push(...res.data);
+        this.setData({
+          navs: tempNavs
+        });
+      }
+    });
+
+    wx.request({
+      url:`${api}/common/xxpbanner`,
+      success:res=>{
+        let tempCarousel = this.data.carousel;
+        tempCarousel.imagesUrl = res.data;
+        this.setData({
+          carousel:tempCarousel
+        });
+      }
+    });
+
     console.log('test-----------end');
     console.log(options);
     if (options.scene) {

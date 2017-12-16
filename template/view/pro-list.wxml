@@ -1,7 +1,7 @@
 <template name="pro-list">
   <view class="list-item">
     <view class="lside">
-      <image id="{{index}}" src="https://www.91tuoguan.cn/{{item.goodsimg}}" binderror="listImgError"></image>
+      <image id="{{index}}" src="https://www.91tuoguan.cn/{{item.goodsThums}}" binderror="listImgError"></image>
     </view>
     <view class="rside">
       <view class="pro-title">

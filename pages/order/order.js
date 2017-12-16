@@ -217,6 +217,7 @@ Page({
             wx.request({
               url: `${api}buy/tuikuan?orderId=${curOrder.orderid}&userId=${app.globalData.userID}`,
               success: res => {
+                console.log(res);
                 wx.hideLoading();
                 if (res.data * 1 == 0) {
                   wx.showModal({
