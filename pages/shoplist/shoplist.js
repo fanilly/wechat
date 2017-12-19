@@ -19,6 +19,7 @@ Page({
 
     isLastPage: false, //是否加载完所有的次数
     listData: [],
+    dataNull:false,
     isDistanceSort: false //当前是否是以距离排序
   },
 
@@ -37,9 +38,11 @@ Page({
         countPageNum = res.data.page_sum;
 
         if(countPageNum<=currentPageNum){
-          this.setData({
-            isLastPage:true
-          });
+          setTimeout(()=>{
+            this.setData({
+              isLastPage: true
+            });
+          },100);
         }
 
         let tempList = this.data.listData,
@@ -182,9 +185,11 @@ Page({
           this.getGoodsList();
       }
     } else {
-      this.setData({
-        isLastPage: true
-      });
+      setTimeout(()=>{
+        this.setData({
+          isLastPage: true
+        });
+      },100);
     }
   },
 
@@ -282,7 +287,9 @@ Page({
   sortGoodsList(num) {
     this.setData({
       listData: [],
-      isDistanceSort: false
+      isDistanceSort: false,
+      isLastPage:false,
+      dataNull:false
     });
     allLoadMore = true;
     listtype = num;
@@ -367,7 +374,9 @@ Page({
   handleDistanceSort() {
     this.setData({
       isDistanceSort: true,
-      listData:[]
+      listData:[],
+      isLastPage:false,
+      dataNull:false
     });
     if (!app.globalData.address) {
       //显示模态框
@@ -379,6 +388,10 @@ Page({
         success: res => {
           if (res.confirm) { //如果点击确定
             this.handleChooseAddress();
+          }else{
+            this.setData({
+              dataNull:true
+            });
           }
         }
       });

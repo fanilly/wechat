@@ -30,7 +30,7 @@
                 <text>当前佣金</text>
               </view>
               <view class="rside">
-                <text>{{info.parent_name}}</text>
+                <text>{{!info.parent_name?'无':info.parent_name}}</text>
                 <text>{{info.childnum}}</text>
                 <text>{{info.paiming}}</text>
                 <navigator url="../commission/commission?childnum={{info.childnum}}&commission={{info.commission}}&paiming={{info.paiming}}&totalcommission={{info.totalcomm}}">

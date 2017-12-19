@@ -1,3 +1,4 @@
+import updateUserInfo from '../../utils/updateuserinfo';
 const app = getApp(),
   api = app.globalData.api;
 Page({
@@ -19,6 +20,7 @@ Page({
         userid: app.globalData.userID
       },
       success: res => {
+        console.log(res.data);
         this.setData({
           info: res.data,
           loaded: true
@@ -45,6 +47,7 @@ Page({
           userInfo: app.globalData.userInfo,
           showPage: true
         });
+        updateUserInfo(app.globalData.userInfo, api, app.globalData.userID);
         this.getInfo();
       },
       fail() {

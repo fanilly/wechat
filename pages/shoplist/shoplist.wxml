@@ -21,7 +21,8 @@
       </view>
     </view>
     <view class="load-more-pro">
-      <text>{{isLastPage?'已经没有更多内容了':'加载中...'}}</text>
+      <text wx:if="{{!dataNull}}">{{isLastPage?'已经没有更多内容了':'加载中...'}}</text>
+      <text wx:else>暂无数据</text>
     </view>
   </scroll-view>
 </view>

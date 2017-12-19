@@ -48,13 +48,13 @@ Page({
   handleCommission() {
     if (!commissionMoney) { //提现金额不能为空
       wx.showToast({
-        title: '提现金额不能为空！',
+        title: '金额不能为空！',
         image: '../../images/warning.png',
         duration: 2000
       });
     } else if (commissionMoney * 1 > this.data.nowmoney * 1) { //提现金额不能大于可提现佣金
       wx.showToast({
-        title: '金额不能大于可提现佣金！',
+        title: '佣金不足！',
         image: '../../images/warning.png',
         duration: 2000
       });

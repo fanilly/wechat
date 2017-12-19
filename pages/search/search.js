@@ -101,7 +101,9 @@ Page({
   //点击搜索
   handleSearch() {
     this.setData({
-      isSearched: true
+      isSearched: true,
+      isLastPage: false,
+      listData:[]
     });
     this.search();
   },
@@ -117,6 +119,7 @@ Page({
         goodsname: searchKeyword
       },
       success: res => {
+        console.log(res);
         if (res.data.page_sum == 0) {
           this.setData({
             loadingOrNoData: `暂无"${searchKeyword}"数据`
@@ -168,7 +171,9 @@ Page({
   sortGoodsList(num) {
     this.setData({
       listData: [],
-      isDistanceSort: false
+      isDistanceSort: false,
+      isLastPage:false,
+      loadingOrNoData: `加载中...`
     });
     allLoadMore = true;
     listtype = num;
@@ -254,7 +259,9 @@ Page({
   handleDistanceSort() {
     this.setData({
       isDistanceSort: true,
-      listData: []
+      listData: [],
+      isLastPage:false,
+      loadingOrNoData: `加载中...`
     });
     if (!app.globalData.address) {
       //显示模态框
@@ -266,6 +273,10 @@ Page({
         success: res => {
           if (res.confirm) { //如果点击确定
             this.handleChooseAddress();
+          }else{
+            this.setData({
+              loadingOrNoData: `暂无"${searchKeyword}"数据`
+            });
           }
         }
       });

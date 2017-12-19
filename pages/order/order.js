@@ -1,3 +1,4 @@
+import updateUserInfo from '../../utils/updateuserinfo';
 const app = getApp(),
   api = app.globalData.api;
 let maxProductNumber = 1, //最大使用订单个数
@@ -261,6 +262,7 @@ Page({
         self.setData({
           showPage: true
         });
+        updateUserInfo(app.globalData.userInfo, api, app.globalData.userID);
       },
       fail() {
         //显示模态框

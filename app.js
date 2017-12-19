@@ -53,17 +53,12 @@ App({
   getUserInfo() {
     wx.getUserInfo({
       success: res => {
-        console.log(res);
         let userInfo = res.userInfo,
           api = this.globalData.api,
           userID = this.globalData.userID;
         //保存用户信息
         this.globalData.userInfo = userInfo;
-        console.log('-----------------------------');
-
-        console.log('-----------------------------');
         if (userID) {
-          console.log('987654321*********************');
           updateUserInfo(userInfo, api, userID);
         }
       },

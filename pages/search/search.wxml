@@ -24,7 +24,7 @@
       <!-- 商品列表 -->
       <view class="pro-list">
         <block wx:for="{{listData}}" wx:key="key">
-          <navigator url="/">
+          <navigator url="../prodetails/prodetails?goodsid={{item.goodsid}}&shopid={{item.shopid}}">
             <template is="pro-list" data="{{item,index}}"></template>
           </navigator>
         </block>

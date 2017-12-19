@@ -103,26 +103,24 @@ Page({
         countPageNum = res.data.page_sum;
 
         if(countPageNum<=currentPageNum){
-          this.setData({
-            isLastPage:true
-          });
+          setTimeout(()=>{
+            this.setData({
+              isLastPage:true
+            });
+          }, 100);
         }
 
         let tempList = this.data.listData,
           goodslist = res.data.goodslist;
 
         if (currentPageNum == 1 && !res.data.goodslist) {
-          console.log(123)
           this.setData({
             dataNull: true
           });
         }
-        console.log(456)
-        console.log(Distances)
 
         //如果已经获取到距离信息 将距离信息添加至每个商品中
         if (Distances.length != 0) {
-          console.log(789)
           for (let i = 0; i < goodslist.length; i++) {
             for (let j = 0; j < Distances.length; j++) {
               if (Distances[j].shopid == goodslist[i].shopid) {
@@ -171,11 +169,8 @@ Page({
       }
     });
 
-    console.log('test-----------end');
-    console.log(options);
     if (options.scene) {
       let getedScene = decodeURIComponent(options.scene);
-      console.log(getedScene);
       if (app.globalData.userID) {
         wx.request({
           url: `${api}user/modify_parentid?userId=${app.globalData.userID}&parentId=${getedScene}`,
@@ -301,9 +296,11 @@ Page({
           this.getGoodsList();
       }
     } else {
-      this.setData({
-        isLastPage: true
-      });
+      setTimeout(()=>{
+        this.setData({
+          isLastPage:true
+        });
+      }, 100);
     }
   },
 
@@ -407,7 +404,9 @@ Page({
   sortGoodsList(num) {
     this.setData({
       listData: [],
-      isDistanceSort: false
+      isDistanceSort: false,
+      isLastPage:false,
+      dataNull:false
     });
     allLoadMore = true;
     listtype = num;
@@ -492,7 +491,9 @@ Page({
   handleDistanceSort() {
     this.setData({
       isDistanceSort: true,
-      listData: []
+      listData: [],
+      isLastPage:false,
+      dataNull:false
     });
     if (!this.data.address) {
       //显示模态框
@@ -504,6 +505,10 @@ Page({
         success: res => {
           if (res.confirm) { //如果点击确定
             this.handleChooseAddress();
+          }else{
+            this.setData({
+              dataNull:true
+            });
           }
         }
       });
