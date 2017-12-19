@@ -82,17 +82,30 @@
             </view>
           </view>
         </navigator>
-        <view class="about-list-item">
+        <view class="about-list-item" bindtap="handleMakePhone">
           <view>
-            <image src="../../images/icon04.png"></image>
+            <image src="../../images/icon06.png"></image>
           </view>
           <view>
-            <text>关于我们</text>
+            <text>联系客服</text>
           </view>
           <view>
             <image src="../../images/icons01.png"></image>
           </view>
         </view>
+        <navigator url="../aboutme/aboutme">
+          <view class="about-list-item">
+            <view>
+              <image src="../../images/icon04.png"></image>
+            </view>
+            <view>
+              <text>关于我们</text>
+            </view>
+            <view>
+              <image src="../../images/icons01.png"></image>
+            </view>
+          </view>
+        </navigator>
       </view>
     </view>
   </block>

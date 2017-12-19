@@ -1,0 +1,10 @@
+<!--pages/aboutme/aboutme.wxml-->
+<view class="wapper">
+  <view class="container">
+    <image src="../../images/logo.jpg"></image>
+    <text class="name">武陟派——武陟生活第一平台</text>
+    <text class="content">通过消费者互动，分享模式，将良心商家本应该支付给广告媒体、中间商、渠道商的广告费用，通过每一次消费直接给客户、分享者、商家！实现客户多实惠，分享多收益，商家多良知，产品更专注！ </text>
+    <text class="adj">合伙无处不在，武陟自成一派！</text>
+    <text class="version">系统版本:1.0.0</text>
+  </view>
+</view>

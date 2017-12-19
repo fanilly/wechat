@@ -4,7 +4,7 @@
     "pages/apitest/apitest",
     "pages/order/order",
     "pages/about/about",
-
+    
     "pages/building/building",
     "pages/evaluate/evaluate",
     "pages/usesuccess/usesuccess",
@@ -15,6 +15,7 @@
     "pages/coupon/coupon",
     "pages/commission/commission",
     "pages/qrcode/qrcode",
+    "pages/aboutme/aboutme",
 
     "pages/search/search",
     "pages/shoplist/shoplist",

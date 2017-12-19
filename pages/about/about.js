@@ -105,5 +105,27 @@ Page({
     wx.navigateTo({
       url: `../qrcode/qrcode?qrcodeurl=${this.data.info.rqcode}&avatarurl=${this.data.userInfo.avatarUrl}`
     });
+  },
+
+  //拨打电话
+  handleMakePhone() {
+    wx.showLoading();
+    wx.request({
+      url: `${api}common/customer_service`,
+      success: res => {
+        wx.hideLoading();
+        wx.makePhoneCall({
+          phoneNumber: res.data
+        });
+      },
+      fail: res => {
+        wx.hideLoading();
+        wx.showToast({
+          title: '客服繁忙！',
+          image: '../../images/warning.png',
+          duration: 2000
+        });
+      }
+    });
   }
 });
