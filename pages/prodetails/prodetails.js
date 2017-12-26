@@ -39,7 +39,7 @@ Page({
     score: '', //评分
     goodscatid: -1,
     goodsimg: '',
-    goodsimg1:'',
+    goodsimg1: '',
     loaded: false,
 
     slideInDown: {},
@@ -82,7 +82,6 @@ Page({
           useTime: this.data.date
         },
         success: res => {
-          console.log(res);
           wx.hideLoading();
           let data = res.data;
           wx.requestPayment({
@@ -92,6 +91,7 @@ Page({
             package: data.package,
             signType: 'MD5',
             success: res => {
+              console.log(res);
               if (res.errMsg == 'requestPayment:ok') {
                 wx.showToast({
                   title: '购买成功',
@@ -105,6 +105,7 @@ Page({
               }
             },
             fail: res => {
+              console.log(res);
               if (res.errMsg == 'requestPayment:fail cancel') {
                 wx.showToast({
                   title: '取消支付',
@@ -163,16 +164,27 @@ Page({
           success: res => {
             let data = res.data;
             //将距离信息添加至每个商品中
-            for (let i = 0; i < data.length; i++) {
-              for (let j = 0; j < Distances.length; j++) {
-                if (Distances[j].shopid == data[i].shopid) {
-                  data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
-                  break;
-                } else {
-                  data[i].distances = '...';
+            if (Distances) {
+              for (let i = 0; i < data.length; i++) {
+                data[i].score = parseFloat(data[i].score).toFixed(2);
+                data[i].shopprice = parseFloat(data[i].shopprice).toFixed(2);
+                for (let j = 0; j < Distances.length; j++) {
+                  if (Distances[j].shopid == data[i].shopid) {
+                    data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
+                    break;
+                  } else {
+                    data[i].distances = '距离未知';
+                  }
                 }
               }
+            } else {
+              for (let i = 0; i < data.length; i++) {
+                data[i].score = parseFloat(data[i].score).toFixed(2);
+                data[i].shopprice = parseFloat(data[i].shopprice).toFixed(2);
+                data[i].distances = '距离未知';
+              }
             }
+
             //将商品渲染至页面
             this.setData({
               listData: data,
@@ -182,6 +194,7 @@ Page({
         });
       },
       fail: () => {
+        Distances = null;
         wx.request({
           url: `${api}goods/shop_goods`,
           data: {
@@ -189,10 +202,15 @@ Page({
           },
           success: res => {
             let data = res.data;
+            for (let i = 0; i < data.length; i++) {
+              data[i].score = parseFloat(data[i].score).toFixed(2);
+              data[i].shopprice = parseFloat(data[i].shopprice).toFixed(2);
+              data[i].distances = '距离未知';
+            }
             //将商品渲染至页面
             this.setData({
               listData: data,
-              distance: '...'
+              distance: '距离未知'
             });
           }
         });
@@ -206,15 +224,14 @@ Page({
         goodsid: options.goodsid
       },
       success: res => {
-        console.log(res)
         this.setData({
           shopName: res.data.shopname,
           goodsName: res.data.goodsname,
           price: res.data.shopprice,
           monthSum: res.data.month_sum,
-          score: res.data.score,
+          score: parseFloat(res.data.score).toFixed(2),
           goodsimg: res.data.goodsimg,
-          goodsimg1:res.data.goodsThums,
+          goodsimg1: res.data.goodsThums,
           loaded: true
         });
       }
@@ -226,7 +243,6 @@ Page({
         shopid: options.shopid
       },
       success: res => {
-        console.log(res)
         this.setData({
           address: res.data.shopaddress,
           goodscatid: res.data.goodscatid1 * 1,
@@ -358,7 +374,6 @@ Page({
 
   //选择日期
   bindDateChange(e) {
-    console.log(e.detail.value)
     this.setData({
       date: e.detail.value
     });

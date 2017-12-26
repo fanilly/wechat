@@ -26,6 +26,7 @@
                 <view class="address-box">
                   <view class="address">
                     <text>{{item.shopaddress}}</text>
+                    <view wx:if="{{!showUsed && item.goodscatid1*1 == 3}}">到期时间: {{item.orderRemarks}}</view>
                   </view>
                   <view class="amound">
                     <text>x{{item.goodsnums}}</text>

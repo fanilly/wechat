@@ -46,6 +46,7 @@ Page({
 
   //提现
   handleCommission() {
+    console.log(commissionMoney)
     if (!commissionMoney) { //提现金额不能为空
       wx.showToast({
         title: '金额不能为空！',
@@ -60,6 +61,7 @@ Page({
       });
     } else { //请求提现
       wx.showLoading();
+      console.log('userID:' + app.globalData.userID);
       wx.request({
         url: `${api}buy/tixian`,
         data: {
@@ -67,6 +69,7 @@ Page({
           money: commissionMoney
         },
         success: res => {
+          console.log(res)
           wx.hideLoading();
           if (res.data * 1 == 1) {
             wx.showModal({
@@ -91,6 +94,12 @@ Page({
                   }
                 });
               }
+            });
+          } else {
+            wx.showToast({
+              title: '提现失败',
+              image: '../../images/warning.png',
+              duration: 2000
             });
           }
         }

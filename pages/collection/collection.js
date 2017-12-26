@@ -35,19 +35,31 @@ Page({
             let Distances = res.data,
               data = this.data.listData;
             //添加距离属性
-            for (let i = 0; i < data.length; i++) {
-              for (let j = 0; j < Distances.length; j++) {
-                if (Distances[j].shopid == data[i].shopid) {
-                  data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
-                  break;
-                } else {
-                  data[i].distances = '...';
+            if(Distances){
+              for (let i = 0; i < data.length; i++) {
+                data[i].score = parseFloat(data[i].score).toFixed(2);
+                for (let j = 0; j < Distances.length; j++) {
+                  if (Distances[j].shopid == data[i].shopid) {
+                    data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
+                    break;
+                  } else {
+                    data[i].distances = '距离未知';
+                  }
                 }
               }
+              this.setData({
+                listData: data
+              });
+            }else{
+              for (let i = 0; i < data.length; i++) {
+                data[i].score = parseFloat(data[i].score).toFixed(2);
+                data[i].distances = '距离未知';
+              }
+              this.setData({
+                listData: data
+              });
             }
-            this.setData({
-              listData: data
-            });
+            
           }
         });
       }

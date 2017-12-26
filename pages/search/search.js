@@ -10,7 +10,7 @@ let allLoadMore = true, //允许加载更多
   searchKeyword, //输入的关键词
   listtype = 1, //当前显示内容的排序方式
   listDatas = [], //保存距离排序时的列表信息
-  Distances = [];
+  Distances = null;
 
 Page({
   data: {
@@ -35,6 +35,9 @@ Page({
       key: 'distances',
       success: function(res) {
         Distances = res.data;
+      },
+      fail: function() {
+        Distances = null;
       }
     });
 
@@ -103,7 +106,7 @@ Page({
     this.setData({
       isSearched: true,
       isLastPage: false,
-      listData:[]
+      listData: []
     });
     this.search();
   },
@@ -119,11 +122,11 @@ Page({
         goodsname: searchKeyword
       },
       success: res => {
-        console.log(res);
         if (res.data.page_sum == 0) {
           this.setData({
             loadingOrNoData: `暂无"${searchKeyword}"数据`
           });
+          return;
         } else {
           this.setData({
             loadingOrNoData: `加载中...`
@@ -132,9 +135,9 @@ Page({
         //保存最大加载次数
         countPageNum = res.data.page_sum;
 
-        if(countPageNum<=currentPageNum){
+        if (countPageNum <= currentPageNum) {
           this.setData({
-            isLastPage:true
+            isLastPage: true
           });
         }
 
@@ -142,16 +145,24 @@ Page({
           goodslist = res.data.goodslist;
 
         //如果已经获取到距离信息 将距离信息添加至每个商品中
-        if (Distances.length != 0) {
+        if (Distances) {
           for (let i = 0; i < goodslist.length; i++) {
+            goodslist[i].score = parseFloat(goodslist[i].score).toFixed(2);
+            goodslist[i].shopprice = parseFloat(goodslist[i].shopprice).toFixed(2);
             for (let j = 0; j < Distances.length; j++) {
               if (Distances[j].shopid == goodslist[i].shopid) {
                 goodslist[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
                 break;
               } else {
-                goodslist[i].distances = '...';
+                goodslist[i].distances = '距离未知';
               }
             }
+          }
+        } else {
+          for (let i = 0; i < goodslist.length; i++) {
+            goodslist[i].score = parseFloat(goodslist[i].score).toFixed(2);
+            goodslist[i].shopprice = parseFloat(goodslist[i].shopprice).toFixed(2);
+            goodslist[i].distances = '距离未知';
           }
         }
 
@@ -172,7 +183,7 @@ Page({
     this.setData({
       listData: [],
       isDistanceSort: false,
-      isLastPage:false,
+      isLastPage: false,
       loadingOrNoData: `加载中...`
     });
     allLoadMore = true;
@@ -225,6 +236,8 @@ Page({
         if (data.length != 0) {
           //为商品列表的每一个列表项添加距离属性
           for (let i = 0; i < data.length; i++) {
+            data[i].score = parseFloat(data[i].score).toFixed(2);
+            data[i].shopprice = parseFloat(data[i].shopprice).toFixed(2);
             for (let j = 0; j < Distances.length; j++) {
               if (Distances[j].shopid == data[i].shopid) {
                 data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
@@ -238,6 +251,8 @@ Page({
           }
           //查找排序法
           for (let i = 0; i < data.length; i++) {
+            data[i].score = parseFloat(data[i].score).toFixed(2);
+            data[i].shopprice = parseFloat(data[i].shopprice).toFixed(2);
             for (let j = i + 1; j < data.length; j++) {
               if (data[i]['sortFlag'] > data[j]['sortFlag']) {
                 let tempItem = data[i];
@@ -260,7 +275,7 @@ Page({
     this.setData({
       isDistanceSort: true,
       listData: [],
-      isLastPage:false,
+      isLastPage: false,
       loadingOrNoData: `加载中...`
     });
     if (!app.globalData.address) {
@@ -273,12 +288,22 @@ Page({
         success: res => {
           if (res.confirm) { //如果点击确定
             this.handleChooseAddress();
-          }else{
+          } else {
             this.setData({
               loadingOrNoData: `暂无"${searchKeyword}"数据`
             });
           }
         }
+      });
+    } else if (!Distances) {
+      //显示模态框
+      wx.showModal({
+        title: '温馨提示',
+        content: '商家距离未知，无法进行距离排序',
+        cancelText: '忽略'
+      });
+      this.setData({
+        loadingOrNoData: '无法排序'
       });
     } else {
       this.distanceSort();
@@ -375,14 +400,16 @@ Page({
   addDistancesToGoodslist() {
     let tempList = this.data.listData;
     //如果已经获取到距离信息 将距离信息添加至每个商品中
-    if (Distances.length != 0) {
+    if (Distances) {
       for (let i = 0; i < tempList.length; i++) {
+        tempList[i].score = parseFloat(tempList[i].score).toFixed(2);
+        tempList[i].shopprice = parseFloat(tempList[i].shopprice).toFixed(2);
         for (let j = 0; j < Distances.length; j++) {
           if (Distances[j].shopid == tempList[i].shopid) {
             tempList[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
             break;
           } else {
-            tempList[i].distances = '...';
+            tempList[i].distances = '距离未知';
           }
         }
       }

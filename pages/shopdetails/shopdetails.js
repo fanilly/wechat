@@ -53,16 +53,27 @@ Page({
               return;
             }
             //将距离信息添加至每个商品中
-            for (let i = 0; i < data.length; i++) {
-              for (let j = 0; j < Distances.length; j++) {
-                if (Distances[j].shopid == data[i].shopid) {
-                  data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
-                  break;
-                } else {
-                  data[i].distances = '...';
+            if (Distances) {
+              for (let i = 0; i < data.length; i++) {
+                data[i].score = parseFloat(data[i].score).toFixed(2);
+                data[i].shopprice = parseFloat(data[i].shopprice).toFixed(2);
+                for (let j = 0; j < Distances.length; j++) {
+                  if (Distances[j].shopid == data[i].shopid) {
+                    data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
+                    break;
+                  } else {
+                    data[i].distances = '距离未知';
+                  }
                 }
               }
+            } else {
+              for (let i = 0; i < data.length; i++) {
+                data[i].score = parseFloat(data[i].score).toFixed(2);
+                data[i].shopprice = parseFloat(data[i].shopprice).toFixed(2);
+                data[i].distances = '距离未知';
+              }
             }
+
             //将商品渲染至页面
             this.setData({
               listData: data,
@@ -72,7 +83,7 @@ Page({
         });
       },
       fail: () => {
-        Distances = [];
+        Distances = null;
         wx.request({
           url: `${api}goods/shop_goods`,
           data: {
@@ -84,6 +95,11 @@ Page({
               this.setData({
                 isNull: true
               });
+            }
+            for (let i = 0; i < data.length; i++) {
+              data[i].score = parseFloat(data[i].score).toFixed(2);
+              data[i].shopprice = parseFloat(data[i].shopprice).toFixed(2);
+              data[i].distances = '距离未知';
             }
             //将商品渲染至页面
             this.setData({
@@ -102,12 +118,10 @@ Page({
         shopid: options.shopid
       },
       success: res => {
-        console.log(res)
         let data = res.data;
         wx.getStorage({
           key: 'distances',
           success: res => {
-            console.log(res);
             for (let i = 0; i < res.data.length; i++) {
               let curShop = res.data[i];
               if (curShop.shopid == shopID) {
@@ -125,7 +139,7 @@ Page({
           address: data.shopaddress,
           phone: data.shoptel,
           monthSum: data.month_sum,
-          score: data.score,
+          score: parseFloat(data.score).toFixed(2),
           shopImg: data.shopimg,
           shopName: data.shopname,
           phone: data.shopTel,

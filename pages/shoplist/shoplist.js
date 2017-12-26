@@ -2,7 +2,7 @@ const app = getApp(),
   api = app.globalData.api,
   imgUrl = app.globalData.imgUrl;
 
-let Distances = [], //缓存中的距离问题
+let Distances = null, //缓存中的距离问题
   tagNavTop = 0, //标签导航距离顶部的距离
   allLoadMore = true, //允许加载更多
   currentPageNum = 1, //当前加载的次数
@@ -49,16 +49,22 @@ Page({
           shopslist = res.data.shopslist;
 
         //如果已经获取到距离信息 将距离信息添加至每个商品中
-        if (Distances.length != 0) {
+        if (Distances) {
           for (let i = 0; i < shopslist.length; i++) {
+            shopslist[i].score = parseFloat(shopslist[i].score).toFixed(2);
             for (let j = 0; j < Distances.length; j++) {
               if (Distances[j].shopid == shopslist[i].shopid) {
                 shopslist[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
                 break;
               } else {
-                shopslist[i].distances = '...';
+                shopslist[i].distances = '距离未知';
               }
             }
+          }
+        }else{
+          for (let i = 0; i < shopslist.length; i++) {
+            shopslist[i].score = parseFloat(shopslist[i].score).toFixed(2);
+            shopslist[i].distances = '距离未知';
           }
         }
 
@@ -87,7 +93,7 @@ Page({
         Distances = res.data;
       },
       fail: function() {
-        Distances = [];
+        Distances = null;
       }
     });
 
@@ -265,8 +271,9 @@ Page({
   addDistancesToGoodslist() {
     let tempList = this.data.listData;
     //如果已经获取到距离信息 将距离信息添加至每个商品中
-    if (Distances.length != 0) {
+    if (Distances) {
       for (let i = 0; i < tempList.length; i++) {
+        tempList[i].score = parseFloat(tempList[i].score).toFixed(2);
         for (let j = 0; j < Distances.length; j++) {
           if (Distances[j].shopid == tempList[i].shopid) {
             tempList[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
@@ -340,6 +347,7 @@ Page({
         if (data.length != 0) {
           //为商品列表的每一个列表项添加距离属性
           for (let i = 0; i < data.length; i++) {
+            data[i].score = parseFloat(data[i].score).toFixed(2);
             for (let j = 0; j < Distances.length; j++) {
               if (Distances[j].shopid == data[i].shopid) {
                 data[i].distances = Distances[j].distance < 1000 ? `${Distances[j].distance} m` : `${(Distances[j].distance /1000).toFixed(2)} km`;
@@ -353,6 +361,7 @@ Page({
           }
           //查找排序法
           for (let i = 0; i < data.length; i++) {
+            data[i].score = parseFloat(data[i].score).toFixed(2);
             for (let j = i + 1; j < data.length; j++) {
               if (data[i]['sortFlag'] > data[j]['sortFlag']) {
                 let tempItem = data[i];
@@ -394,6 +403,16 @@ Page({
             });
           }
         }
+      });
+    } else if(!Distances){
+      //显示模态框
+      wx.showModal({
+        title: '温馨提示',
+        content: '商家距离未知，无法进行距离排序',
+        cancelText: '忽略'
+      });
+      this.setData({
+        dataNull:true
       });
     } else {
       this.distanceSort();

@@ -47,7 +47,7 @@
       </view>
       <view class="nav">
         <block wx:for="{{navs}}" wx:key="key">
-          <block wx:if="{{item.catId*1 > 5}}">
+          <block wx:if="{{item.catId*1 > 5 && item.catId*1<11}}">
             <view class="nav-item">
               <navigator url="../building/building?title={{item.title}}" hover-class="none">
                 <image src="https://www.91tuoguan.cn/{{item.catImage}}"></image>

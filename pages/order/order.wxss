@@ -112,6 +112,10 @@
   line-height: 40rpx;
 }
 
+.address-box .address view {
+  font-size: 24rpx;
+}
+
 .address-box .amound {
   width: 160rpx;
   text-align: right;

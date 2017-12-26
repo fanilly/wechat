@@ -126,21 +126,43 @@ Page({
 
   //向后台发送使用订单请求
   userOrder(num, orderid, goodsname, shopname) {
-    wx.showLoading();
-    wx.request({
-      url: `${api}buy/use_order`,
-      data: {
-        goodsnum: num,
-        userid: app.globalData.userID,
-        orderid: orderid
-      },
+    wx.showModal({
+      title: '温馨提示',
+      content: '是否确认使用订单？',
       success: res => {
-        wx.hideLoading();
-        // 关闭弹窗
-        this.handleClosePop();
-        wx.navigateTo({
-          url: `../usesuccess/usesuccess?orderid=${res.data.orderid}&time=${res.data.time}&num=${num}&id=${res.data.id}&goodsname=${goodsname}&shopname=${shopname}`
-        });
+        if (res.confirm) {
+          wx.showLoading();
+          console.log(num, app.globalData.userID, orderid);
+          wx.request({
+            url: `${api}buy/use_order`,
+            data: {
+              goodsnum: num,
+              userid: app.globalData.userID,
+              orderid: orderid
+            },
+            success: res => {
+              console.log(res)
+              wx.hideLoading();
+              if (res.data * 1 == 0) {
+                wx.showToast({
+                  title: '使用失败',
+                  image: '../../images/warning.png',
+                  duration: 1500
+                });
+              } else {
+                // 关闭弹窗
+                this.handleClosePop();
+                wx.navigateTo({
+                  url: `../usesuccess/usesuccess?orderid=${res.data.orderid}&time=${res.data.time}&num=${num}&id=${res.data.id}&goodsname=${goodsname}&shopname=${shopname}`
+                });
+              }
+            }
+          });
+        } else {
+          this.setData({
+            productNumber: 1
+          });
+        }
       }
     });
   },
@@ -148,7 +170,7 @@ Page({
   //使用订单
   handleUseOrder() {
     let curOrder = this.data.listData[index],
-      num = this.data.productNumber;
+      num = this.data.productNumber || 1;
     this.userOrder(num, curOrder.orderid, curOrder.goodsname, curOrder.shopname);
   },
 
@@ -225,11 +247,11 @@ Page({
                     title: '温馨提示',
                     content: '退款失败'
                   });
-                }else{
+                } else {
                   wx.showModal({
                     title: '温馨提示',
                     content: '退款成功，退款金额将在24小时之内返还您的账户？',
-                    success:res=>{
+                    success: res => {
                       this.checkoutToUse();
                     }
                   });
