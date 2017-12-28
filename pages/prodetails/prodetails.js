@@ -1,5 +1,6 @@
 // pages/components/prodetail/prodetails.js
 import { formatDate } from '../../utils/util';
+import WxParse from '../../wxParse/wxParse.js';
 
 const app = getApp(),
   api = app.globalData.api;
@@ -37,6 +38,7 @@ Page({
     price: '', //价格
     monthSum: '', //月销
     score: '', //评分
+    goodsDesc: '',
     goodscatid: -1,
     goodsimg: '',
     goodsimg1: '',
@@ -224,6 +226,7 @@ Page({
         goodsid: options.goodsid
       },
       success: res => {
+        console.log(res);
         this.setData({
           shopName: res.data.shopname,
           goodsName: res.data.goodsname,
@@ -234,6 +237,10 @@ Page({
           goodsimg1: res.data.goodsThums,
           loaded: true
         });
+        let str = res.data.goodsDesc;
+        str = str.replace(/&amp;nbsp;/g,'  ');
+        console.log(str)
+        WxParse.wxParse('article', 'html', str, this, 5);   
       }
     });
     //获取店铺坐标、地址、联系方式

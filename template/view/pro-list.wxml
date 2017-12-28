@@ -17,7 +17,7 @@
         <text>￥ {{item.shopprice}}</text>
       </view>
       <view class="shop-desc">
-        <text>{{item.goodsDesc}}</text>
+        <text>{{item.goodsSpec}}</text>
       </view>
     </view>
   </view>

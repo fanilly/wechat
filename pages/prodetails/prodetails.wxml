@@ -1,6 +1,7 @@
 <!--pages/components/prodetail/prodetails.wxml-->
 <import src="../../template/view/pro-list.wxml" />
 <import src="../../template/view/coupon.wxml" />
+<import src="../../wxParse/wxParse.wxml" />
 <block wx:if="{{loaded}}">
   <view class="container">
     <scroll-view scroll-y="{{isShowGetCoupon?false:true}}" style="height: {{windowHeight}}px;">
@@ -53,6 +54,9 @@
           <view>
             <image src="../../images/icons01.png"></image>
           </view>
+        </view>
+        <view class="info-content">
+          <template is="wxParse" data="{{wxParseData:article.nodes}}" />
         </view>
       </view>
       <!-- 本店其它商品 -->
