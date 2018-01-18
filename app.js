@@ -60,6 +60,7 @@ App({
         this.globalData.userInfo = userInfo;
         if (userID) {
           updateUserInfo(userInfo, api, userID);
+          console.log(userID);
         }
       },
       fail() {
@@ -72,10 +73,10 @@ App({
     userID: '',
     parentID: '',
     phone: '',
-    api: 'https://www.91tuoguan.cn/index.php/api/',
-    imgUrl: 'https://www.91tuoguan.cn/',
+    api: 'https://znhsm.hohu.cc/index.php/api/',
+    imgUrl: 'https://znhsm.hohu.cc/',
     userInfo: null,
     address: '',
-    appDescription: '武陟生活第一平台'
+    appDescription: '西峡生活第一平台'
   }
 });
