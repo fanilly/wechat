@@ -29,7 +29,7 @@ Page({
     wx.request({
       url: `${api}shop/shoplist`,
       data: {
-        goodsCatId: 0,
+        goodsCatId: navID,
         listtype: listtype,
         p: currentPageNum
       },
@@ -85,6 +85,7 @@ Page({
       title: options.title
     });
     navID = options.navid;
+    console.log(navID);
 
     //获取缓存中的距离
     wx.getStorage({

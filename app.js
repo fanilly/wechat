@@ -72,8 +72,8 @@ App({
     userID: '',
     parentID: '',
     phone: '',
-    api: '/index.php/api/',
-    imgUrl: '/',
+    api: 'https://www.91tuoguan.cn/index.php/api/',
+    imgUrl: 'https://www.91tuoguan.cn/',
     userInfo: null,
     address: '',
     appDescription: '武陟生活第一平台'
